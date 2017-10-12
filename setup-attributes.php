@@ -31,21 +31,29 @@ else // If our REMOTE_ADDR wasn't a localhost, we must be working remotely.
 	$todoAppMySQLConnection = mysqli_connect($remote_host, $remote_username, $remote_password, $remote_databaseName);
 }
 
-$check ="SELECT * FROM Students";
-$exists= $todoAppMySQLConnection-> prepare ($check);
-$exists->execute (); 
+//sql code (Done by Gordon)
 
+$sql_CreateAttributes = 
+"CREATE TABLE Attributes(AttributeID INT(4) PRIMARY KEY, AttributeName VARCHAR(50))";
 
-    if($exists != FALSE) {
-        print( "Table exists");
-    }
+$sql_InsertAttributes=
+"INSERT INTO Attributes(AttributeID, AttributeName) 
+VALUES (1,'Knowledge Base'),
+(2,'Problem Analysis'),
+(3,'Investigation'),
+(4,'Design'),
+(5,'Use of Engineering Tools'),
+(6,'Individual and Team Work'),
+(7,'Communication Skills'),
+(8,'Professionalism'),
+(9,'Impact On Society'),
+(10,'Ethics and Equity'),
+(11,'Economics and Project Management'),
+(12,'Life Long Learning')";
 
-else {
-    
-$sql_students = "CREATE TABLE Students1(StudentID INT(8) PRIMARY KEY, GradYear INT(4))";
-    
-$stmt= $todoAppMySQLConnection-> prepare ($sql_students);
-$stmt->execute (); 
-}
+$stmt1= $todoAppMySQLConnection-> prepare ($sql_CreateAttributes);
+$stmt1->execute (); 
+$stmt2= $todoAppMySQLConnection-> prepare ($sql_InsertAttributes);
+$stmt2->execute (); 
 
 ?>
