@@ -3,7 +3,7 @@
 $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-$local_databaseName = "sj3kenne_msci342";
+$local_databaseName = "g4lau-msci342-local-db";
 
 
 // Production Database Connection Details:
