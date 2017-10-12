@@ -35,6 +35,11 @@ else // If our REMOTE_ADDR wasn't a localhost, we must be working remotely.
 
 $sql_CreateCourses = "CREATE TABLE Courses(courseID INT(4) PRIMARY KEY, courseName VARCHAR(40), courseTerm VARCHAR(6), courseYear INT(4), courseDept CHAR(4), courseNumber INT(3), courseType VARCHAR(20))";
 
+$sql_InsertInfo = "INSERT INTO Courses(courseName, courseTerm, courseYear, courseDept, courseNumber, courseType) VALUES ('TestCourse', 'Spring', 2016, 'MSCI', 271, 'Optional')";
+
 $stmt1= $todoAppMySQLConnection-> prepare ($sql_CreateCourses);
 $stmt1->execute (); 
-?>
+$stmt2= $todoAppMySQLConnection-> prepare ($sql_InsertInfo);
+$stmt2->execute ();
+ 
+ ?>
