@@ -3,7 +3,7 @@
 $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-$local_databaseName = "j2attieh";
+$local_databaseName = "MOAB_garvita";
 
 
 // Production Database Connection Details:
