@@ -3,7 +3,7 @@
 $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-$local_databaseName = "cjbombin-msci342-local-db";
+$local_databaseName = "MOAB_garvita";
 
 
 // Production Database Connection Details:
@@ -33,7 +33,7 @@ else // If our REMOTE_ADDR wasn't a localhost, we must be working remotely.
 
 //sql code (Done by Chris)
 
-$sql_CreateCourses = "CREATE TABLE Courses(courseID INT(4) PRIMARY KEY, courseName VARCHAR(40), courseTerm VARCHAR(6), courseYear INT(4), courseDept CHAR(4), courseNumber INT(3), courseType VARCHAR(20))";
+$sql_CreateCourses = "CREATE TABLE Courses(courseName VARCHAR(40) PRIMARY KEY, courseTerm VARCHAR(6) PRIMARY KEY, courseYear INT(4) PRIMARY KEY, courseDept CHAR(4), courseNumber INT(3) PRIMARY KEY, courseType VARCHAR(20)), PRIMARY KEY(courseName, courseTerm, courseYear,courseDept,courseNumber)";
 
 $sql_InsertInfo = "INSERT INTO Courses(courseName, courseTerm, courseYear, courseDept, courseNumber, courseType) VALUES ('TestCourse', 'Spring', 2016, 'MSCI', 271, 'Optional')";
 
