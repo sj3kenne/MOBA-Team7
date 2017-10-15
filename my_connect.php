@@ -1,6 +1,8 @@
 <?php
-
-$local_host = "localhost";
+// Function to obtain mysqli connection.
+function get_mysqli_conn()
+{
+    $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
 $local_databaseName = "MOAB_garvita";
@@ -15,7 +17,7 @@ $possibleLocalhosts = array('127.0.0.1', "::1");
 if(in_array($_SERVER['REMOTE_ADDR'], $possibleLocalhosts)) // If our REMOTE_ADDR is a localhost, do this:
 {
 	// Open a connection with our local database
-	$todoAppMySQLConnection = mysqli_connect($local_host, $local_username, $local_password, $local_databaseName);
+	$mysqli = new mysqli($local_host, $local_username, $local_password, $local_databaseName);
 } 
 
 else // If our REMOTE_ADDR wasn't a localhost, we must be working remotely.
@@ -28,18 +30,14 @@ else // If our REMOTE_ADDR wasn't a localhost, we must be working remotely.
 	$remote_databaseName = substr($parsedDatabaseConnectUrl["path"], 1);
 
 	// Open a connection with our remote database
-	$todoAppMySQLConnection = mysqli_connect($remote_host, $remote_username, $remote_password, $remote_databaseName);
+	$mysqli = new mysqli($remote_host, $remote_username, $remote_password, $remote_databaseName);
 }
-
-//sql code (Done by Chris)
-
-$sql_CreateCourses = "CREATE TABLE Courses(courseName VARCHAR(40) PRIMARY KEY, courseTerm VARCHAR(6) PRIMARY KEY, courseYear INT(4) PRIMARY KEY, courseDept CHAR(4), courseNumber INT(3) PRIMARY KEY, courseType VARCHAR(20)), PRIMARY KEY(courseName, courseTerm, courseYear,courseDept,courseNumber)";
-
-$sql_InsertInfo = "INSERT INTO Courses(courseName, courseTerm, courseYear, courseDept, courseNumber, courseType) VALUES ('TestCourse', 'Spring', 2016, 'MSCI', 271, 'Optional')";
-
-$stmt1= $todoAppMySQLConnection-> prepare ($sql_CreateCourses);
-$stmt1->execute (); 
-$stmt2= $todoAppMySQLConnection-> prepare ($sql_InsertInfo);
-$stmt2->execute ();
- 
- ?>
+    
+    
+    if ($mysqli->connect_errno) 
+{
+echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error;
+}
+return $mysqli;
+}
+?>

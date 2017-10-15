@@ -3,7 +3,11 @@
 $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
+<<<<<<< HEAD
 $local_databaseName = "g4lau-msci342-local-db";
+=======
+$local_databaseName = "MOAB_garvita";
+>>>>>>> fb605057d174ce04486871c224e6870d8935c18e
 
 
 // Production Database Connection Details:
