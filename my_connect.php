@@ -6,7 +6,7 @@ function get_mysqli_conn()
     $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-$local_databaseName = "MOAB_garvita";
+$local_databaseName = "g4lau-msci342-local-db";
 
 
 // Production Database Connection Details:
@@ -50,7 +50,7 @@ function get_mysqli_conn()
     $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-$local_databaseName = "smdumlao-msci342-local-db";
+$local_databaseName = "g4lau-msci342-local-db";
 
 
 // Production Database Connection Details:
