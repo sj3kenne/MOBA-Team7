@@ -41,4 +41,3 @@ echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->
 return $mysqli;
 }
 ?>
->>>>>>> feb779b194faed60c6fad562cb5aa27fac694809
