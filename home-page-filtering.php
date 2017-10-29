@@ -9,18 +9,24 @@ error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
 include ('./my_connect.php');
 $mysqli = get_mysqli_conn();
+$mysqli2 = get_mysqli_conn();
     
- $sql = "SELECT DISTINCT c.courseName,c.courseName "
-	. "FROM scoreusedfor c";
+ $sql = "SELECT DISTINCT s.courseName,s.courseName "
+	. "FROM scoreusedfor s";
+ $sql2 = "SELECT DISTINCT s.AttributeName,s.AttributeName "
+	. "FROM scoreusedfor s";
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
+$stmt2 = $mysqli2->prepare($sql2);
 // Prepared statement, stage 2: execute
 $stmt->execute();
+$stmt2->execute();
 // Bind result variables 
 $stmt->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
+$stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
 /* fetch values */ 
     
-echo '<label for="ID">Pick ID: </label>'; 
+echo '<label for="ID">Pick Course: </label>'; 
 echo '<select name="ID">'; 
 printf ('<option value="0"> </option>');
 while ($stmt->fetch()) 
@@ -28,9 +34,21 @@ while ($stmt->fetch())
 printf ('<option value="%s">%s</option>',$scoreusedfor_courseName, $scoreusedfor_courseName); 
 }
 echo '</select><br>';  
+//-------
+echo '<label for="ID">Pick Attribute: </label>'; 
+echo '<select name="ID">'; 
+printf ('<option value="0"> </option>');
+while ($stmt2->fetch()) 
+{
+printf ('<option value="%s">%s</option>',$scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
+}
+echo '</select><br>'; 
 
 $stmt->close(); 
+$stmt2->close(); 
 $mysqli->close();
+$mysqli2->close();
+
 
 ?>
     
