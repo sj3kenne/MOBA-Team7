@@ -27,22 +27,24 @@ $stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName);
 /* fetch values */ 
     
 echo '<label for="ID">Pick Course: </label>'; 
-echo '<select name="ID">'; 
-printf ('<option value="0"> </option>');
+echo '<br>'; 
+echo '<form action="">'; 
 while ($stmt->fetch()) 
 {
-printf ('<option value="%s">%s</option>',$scoreusedfor_courseName, $scoreusedfor_courseName); 
+printf ('<input type="checkbox">%s</option>',$scoreusedfor_courseName, $scoreusedfor_courseName); 
+printf ('<br>');
 }
-echo '</select><br>';  
+echo '</form>';  
 //-------
 echo '<label for="ID">Pick Attribute: </label>'; 
-echo '<select name="ID">'; 
-printf ('<option value="0"> </option>');
+echo '<br>'; 
+echo '<form action="">'; 
 while ($stmt2->fetch()) 
 {
-printf ('<option value="%s">%s</option>',$scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
+printf ('<input type="checkbox">%s</option>',$scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
+printf ('<br>');
 }
-echo '</select><br>'; 
+echo '</form>';  
 
 $stmt->close(); 
 $stmt2->close(); 
