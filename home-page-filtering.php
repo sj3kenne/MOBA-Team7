@@ -1,7 +1,7 @@
 <html>
 <body>
 <form action="raw-data.php" method="get">
-<h3> Pick Course: </h3>
+<h3> Welcome to M-OBA! </h3>
 <?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -50,8 +50,6 @@ $stmt->close();
 $stmt2->close(); 
 $mysqli->close();
 $mysqli2->close();
-
-
 ?>
     
 <br>

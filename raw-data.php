@@ -11,7 +11,7 @@ $mysqli = get_mysqli_conn();
 $ID = $_GET['ID'];
 
 
-$sql1 = "SELECT s.StudentID, s.AttributeID, s.IndicatorID, s.score FROM ScoreUsedFor s WHERE s.courseName = ? ";
+$sql1 = "SELECT s.courseNumber, s.score FROM scoreusedfor s WHERE s.courseName = ?, s.AttributeName = ? ";
 
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
@@ -22,7 +22,7 @@ $stmt1= $mysqli-> prepare ($sql1);
 $stmt1->execute (); 
 
 // $stmt->execute() function returns boolean indicating success 
-$stmt1->bind_result($ScoreUsedFor_StudentID, $ScoreUsedFor_AttributeID, $ScoreUsedFor_IndicatorID, $ScoreUsedFor_score);
+$stmt1->bind_result($scoreusedfor_courseNumber, $scoreusedfor_score);
 
 echo '<style>';
 echo 'table, th, td {
@@ -30,10 +30,8 @@ echo 'table, th, td {
 }';
 echo '</style>';  
 echo '<table>';
-echo ' <th>Student ID </th>';
-echo ' <th>Attribute ID </th>';
-echo ' <th>Indicator ID </th>';
-    echo ' <th>Score </th>';
+echo ' <th>Course Number </th>';
+echo ' <th>Score </th>';
 
 
 while ($stmt1->fetch()) 
@@ -42,10 +40,8 @@ while ($stmt1->fetch())
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
 
 echo '<tr>';
-echo ' <td>'.$ScoreUsedFor_StudentID.'</td>';
-echo ' <td>'.$ScoreUsedFor_AttributeID.'</td>';
-echo ' <td>'.$ScoreUsedFor_IndicatorID.'</td>';
-echo ' <td>'.$ScoreUsedFor_score.'</td>';
+echo ' <td>'.$scoreusedfor_courseNumber.'</td>';
+echo ' <td>'.$scoreusedfor_score.'</td>';
 echo ' </tr>';
 
 
