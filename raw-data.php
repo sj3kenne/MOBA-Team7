@@ -15,13 +15,11 @@ $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
-print($inlist);
 //populated courses array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
-print($inlist2);
 //populated attributes array 
 if(count($ID)==0){
 	//if no courses selected

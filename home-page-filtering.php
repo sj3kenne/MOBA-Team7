@@ -1,7 +1,7 @@
 <html>
 <body>
 <form action="raw-data.php" method="get">
-<h3> Pick Course: </h3>
+<h2> Welcome to M-OBA! </h2>
 <?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -25,12 +25,14 @@ $stmt2->execute();
 $stmt->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
 $stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
 /* fetch values */ 
+echo '<h3> Pick a Course: </h3>';
 while ($stmt->fetch()) 
 {
     echo '<input type="checkbox" name="selectedcourses[]" value="'. $scoreusedfor_courseName .'"/>';
     echo'<label for="selectedcourses[]">' . $scoreusedfor_courseName . '</label>';
 	echo '<br>'; 
 }
+echo '<h3> Pick an Attribute: </h3>';
 while ($stmt2->fetch()) 
 {
     echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_AttributeName .'"/>';
