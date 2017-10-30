@@ -28,24 +28,20 @@ $stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName);
     
 echo '<label for="ID">Pick Course: </label>'; 
 echo '<br>'; 
-echo '<form action="">'; 
 while ($stmt->fetch()) 
 {
 printf ('<input type="checkbox">%s</option>',$scoreusedfor_courseName, $scoreusedfor_courseName); 
 printf ('<br>');
 }
-echo '</form>';  
+printf ('<br>');
 //-------
-echo '<label for="ID">Pick Attribute: </label>'; 
+echo '<label for="ID2">Pick Attribute: </label>'; 
 echo '<br>'; 
-echo '<form action="">'; 
 while ($stmt2->fetch()) 
 {
 printf ('<input type="checkbox">%s</option>',$scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
 printf ('<br>');
-}
-echo '</form>';  
-
+}  
 $stmt->close(); 
 $stmt2->close(); 
 $mysqli->close();

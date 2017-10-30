@@ -10,8 +10,10 @@ include('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $ID = $_GET['ID'];
 
-
+//INSERT FOR LOOP HERE???
 $sql1 = "SELECT s.courseNumber, s.score FROM scoreusedfor s WHERE s.courseName = ?, s.AttributeName = ? ";
+//question mark indicates a dynamic parameters
+//ie. you must specify values for the parameters before the statement is executed
 
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
