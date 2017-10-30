@@ -1,7 +1,7 @@
 <html>
 <body>
 <form action="raw-data.php" method="get">
-<h3> Welcome to M-OBA! </h3>
+<h3> Pick Course: </h3>
 <?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -10,7 +10,7 @@ error_reporting(E_ALL ^ E_NOTICE);
 include ('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $mysqli2 = get_mysqli_conn();
-    
+
  $sql = "SELECT DISTINCT s.courseName,s.courseName "
 	. "FROM scoreusedfor s";
  $sql2 = "SELECT DISTINCT s.AttributeName,s.AttributeName "
@@ -25,27 +25,23 @@ $stmt2->execute();
 $stmt->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
 $stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
 /* fetch values */ 
-    
-echo '<label for="ID">Pick Course: </label>'; 
-echo '<br>'; 
 while ($stmt->fetch()) 
 {
-printf ('<input type="checkbox">%s</option>',$scoreusedfor_courseName, $scoreusedfor_courseName); 
-printf ('<br>');
+    echo '<input type="checkbox" name="selectedcourses[]" value="'. $scoreusedfor_courseName .'"/>';
+    echo'<label for="selectedcourses[]">' . $scoreusedfor_courseName . '</label>';
+	echo '<br>'; 
 }
-printf ('<br>');
-//-------
-echo '<label for="ID2">Pick Attribute: </label>'; 
-echo '<br>'; 
 while ($stmt2->fetch()) 
 {
-printf ('<input type="checkbox">%s</option>',$scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
-printf ('<br>');
-}  
+    echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_AttributeName .'"/>';
+    echo'<label for="selectedattributes[]">' . $scoreusedfor_AttributeName . '</label>';
+	echo '<br>'; 
+}
+    echo "</table><br>";
+echo '</select><br>';  
+    
 $stmt->close(); 
-$stmt2->close(); 
 $mysqli->close();
-$mysqli2->close();
 ?>
     
 <br>
