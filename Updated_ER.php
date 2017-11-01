@@ -8,7 +8,7 @@ include('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $ID = $_GET['ID'];
     
-$sql_students = "CREATE TABLE Students(StudentID INT(8) PRIMARY KEY, GradYear VARCHAR(2))";
+$sql_students = "CREATE TABLE Students(StudentID INT(8) PRIMARY KEY, GradYear VARCHAR(4))";
 $sql_InsertStudents= "INSERT INTO Students(StudentID, GradYear) VALUES (598829620, 2019), (684014860, 2019), (843228181, 2019), (820549378, 2019), (533572169, 2019), (975325712, 2019), (310082419, 2019), (242132470, 2019), (208248363, 2019), (277055951, 2019), (902907559, 2019), (528297980, 2019), (444882790, 2019), (112085131, 2019), (588642518, 2019),
 (414520736, 2019),
 (356558346, 2019),
