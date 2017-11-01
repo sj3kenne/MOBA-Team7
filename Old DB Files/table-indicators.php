@@ -1,7 +1,22 @@
 <?php
 
+<<<<<<< HEAD:Indicator_Table.php
+$local_host = "localhost";
+$local_username = "root";
+$local_password = "root";
+<<<<<<< HEAD
+$local_databaseName = "g4lau-msci342-local-db";
+=======
+$local_databaseName = "MOAB_garvita";
+>>>>>>> fb605057d174ce04486871c224e6870d8935c18e
+=======
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
+<<<<<<< HEAD
+=======
+>>>>>>> feb779b194faed60c6fad562cb5aa27fac694809:table-indicators.php
+
+>>>>>>> 8185c7181d580985f62aad65bd866b33efe3f0c8
 // mysqli connection via user-defined function
 include('./my_connect.php');
 $mysqli = get_mysqli_conn();
