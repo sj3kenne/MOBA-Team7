@@ -5,7 +5,7 @@ function get_mysqli_conn()
     $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-$local_databaseName = "J2attieh";
+$local_databaseName = "samk";
 
 
 // Production Database Connection Details:
