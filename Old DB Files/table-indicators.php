@@ -12,8 +12,11 @@ $local_databaseName = "MOAB_garvita";
 =======
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
+<<<<<<< HEAD
+=======
 >>>>>>> feb779b194faed60c6fad562cb5aa27fac694809:table-indicators.php
 
+>>>>>>> 8185c7181d580985f62aad65bd866b33efe3f0c8
 // mysqli connection via user-defined function
 include('./my_connect.php');
 $mysqli = get_mysqli_conn();
