@@ -1,4 +1,7 @@
 <html>
+    <head>
+       <title>Selected Tables</title>
+    </head>
 <body>
 <form action="graphs.php" method="get">
 <h3> Search results are as follows: </h3>
