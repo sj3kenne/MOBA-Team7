@@ -1,4 +1,7 @@
 <html>
+    <head>
+       <title>Table Filters</title>
+    </head>
 <body>
 <form action="raw-data.php" method="get">
 <h2> Welcome to M-OBA! </h2>
