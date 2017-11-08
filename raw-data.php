@@ -1,6 +1,6 @@
 <html>
 <body>
-<form action="stats.php" method="get">
+<form action="graphs.php" method="get">
 <h3> Search results are as follows: </h3>
 
 <?php
