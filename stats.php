@@ -1,4 +1,7 @@
 <html>
+    <head>
+       <title>Stats Page</title>
+    </head>
 <body>
 <h3> Stats are as follows: </h3>
     <P> Standard deviation for attribute 8 is:</P>
