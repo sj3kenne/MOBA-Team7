@@ -27,34 +27,16 @@ if ($uploadOk == 0) {
     
 // if everything is ok, update db
 } else {
-    $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
-    echo($contents);
-    $grad = preg_split('/\s+/', $contents);
-    print_r($grad);
-    echo(count($grad));
-    if(count($grad) == 0){
-        echo('No students in file');
+    $file = fopen($_FILES["fileToUpload"]["tmp_name"] . '.csv', 'r');
+while (($line = fgetcsv($file)) !== FALSE) {
+   //$line[0] = '1004000018' in first iteration
+   print_r( "newline" . $line);
+}
+fclose($file);
     }
     elseif(count($grad) > 0){
         
-    //check if students already in students table --> print error if not        
-     $sql = "SELECT s.StudentID FROM Students s";
-
-    // Prepared statement, stage 1: prepare
-    $stmt = $mysqli->prepare($sql);
-
-    // Prepared statement, stage 2: execute
-    $stmt->execute();
-
-    // Bind result variables 
-    $stmt->bind_result($Students_StudentID); 
-
-    /* fetch values */ 
-    while ($stmt->fetch()) 
-    {
-      $studentlist = $studentlist . "," . $Students_StudentID;
-}
-     $studentlist = $studentlist . "";   
+   
   for ($i = 0; $i < count($grad); ++$i) { 
     if (strpos($studentlist,'"' . $grad[$i] . '"') !== false) {
     $sql1 = "UPDATE Students SET GradYear = (SELECT EXTRACT(YEAR FROM CURRENT_DATE)) WHERE StudentID = " . $grad[$i];
