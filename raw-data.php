@@ -1,3 +1,8 @@
+<?php
+// Start the session
+//used to pass variables to graphs.php
+session_start();
+?>
 <html>
     <head>
        <title>Selected Tables</title>
@@ -71,6 +76,11 @@ echo ' </tr>';
 }
 echo '</table>';
 echo '';
+
+$_SESSION['courses'] = $ID;
+$_SESSION['attributes'] = $ID2;
+//sessions used to pass variables to graphs.php
+
 $stmt1->close();
 $mysqli->close();
 ?>

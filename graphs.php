@@ -1,3 +1,8 @@
+<?php
+// Start the session
+//used to pass variables from raw-data.php
+session_start();
+?>
 <html>
     <head>
        <title>Graph Page</title>
@@ -25,11 +30,26 @@ error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
 include('./my_connect.php');
 $mysqli = get_mysqli_conn();
-$ID= $_GET['selectedcourse'];
-$ID2 = $_GET['selectedattributes'];
+$ID = $_SESSION['courses'];
+$ID2 = $_SESSION['attributes'];
 
-//THIS IS THE STANDARD DEVIATION
-$sql1 = "select STDDEV(s.score) FROM ScoreUsedFor s";
+//$ID= $_GET['selectedcourse'];
+//$ID2 = $_GET['selectedattributes'];
+
+//populated courses array 
+$inlist =  "'" . $ID[0] . "'";
+    for ($i = 1; $i < count($ID); ++$i) {
+        $inlist =  $inlist . ", '" . $ID[$i] . "'";
+    }
+//populated attributes array 
+$inlist2 =  "'" . $ID2[0] . "'";
+    for ($i = 1; $i < count($ID2); ++$i) {
+        $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
+    }
+//THIS IS AVERAGE SCORE        
+$sql1 = "SELECT AVG(s.score) 
+		 FROM scoreusedfor s
+		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
@@ -42,18 +62,19 @@ $stmt1->execute ();
 // $stmt->execute() function returns boolean indicating success 
 $stmt1->bind_result($ScoreUsedFor_score);
 echo '<p>'.'Stats are as follows:'.'</p>';
-echo '<p>'.'Standard deviation for attribute 8 is:'.'</p>';
+echo '<p>'.'Mean is:'.'</p>';    
 while ($stmt1->fetch()) 
 {
 // printf is print format, <li> is list item
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <p>'.$ScoreUsedFor_score.'</p>';
-
+echo ' <td>'.$ScoreUsedFor_score.'</td>';
 }
-$stmt1->close();        
+$stmt1->close();    
 
-//THIS IS AVERAGE SCORE        
-$sql2 = "select AVG(s.score) FROM ScoreUsedFor s";
+//THIS IS THE STANDARD DEVIATION
+$sql2 = "SELECT STDDEV(s.score) 
+		 FROM scoreusedfor s
+		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
@@ -65,19 +86,20 @@ $stmt2->execute ();
 
 // $stmt->execute() function returns boolean indicating success 
 $stmt2->bind_result($ScoreUsedFor_score);
-
-echo '<p>'.'Mean for attribute 8 is:'.'</p>';    
+echo '<p>'.'Standard deviation is:'.'</p>';
 while ($stmt2->fetch()) 
 {
 // printf is print format, <li> is list item
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
 echo ' <p>'.$ScoreUsedFor_score.'</p>';
-
 }
-$stmt2->close();      
+$stmt2->close();        
+  
         
 //THIS IS THE GRAPHING DATA        
-$sql3 = "SELECT s.score FROM scoreUsedFor s WHERE s.AttributeName  = 1";
+$sql3 = "SELECT s.score 
+		 FROM scoreUsedFor s 
+		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
