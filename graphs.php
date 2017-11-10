@@ -3,27 +3,7 @@
 //used to pass variables from raw-data.php
 session_start();
 ?>
-<html>
-    <head>
-       <title>Graph Page</title>
-    </head>
-    <body>
-        
-        <p>Before Graph</p>
-        <div class="chart"></div>
-        <p>After Graph</p>
-        
-        <style>
-            .chart div {
-                font: 10px sans-serif;
-                background-color: steelblue;
-                text-align: right;
-                padding: 3px;
-                margin: 1px;
-                color: white;
-            }
-        </style>
-        
+
 <?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -151,49 +131,155 @@ $stmt3->bind_result($ScoreUsedFor_score);
 $stmt3->close();
 $mysqli->close();
 ?>         
+
+<html>
+    <p>Before Graph</p>
+
+    <head>
+       <title>Graph Page</title>
+    </head>
+
         
-        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-        <script>
+            <meta charset="utf-8">
+            <style>    
+            .bar {
+              fill: steelblue;
+            }
+            .axis text {
+              font: 10px sans-serif;
+            }
+            .axis path,
+            .axis line {
+              fill: none;
+              stroke: #000;
+              shape-rendering: crispEdges;
+            }
+            .x.axis path {
+              display: none;
+            }     
+            .chart rect {
+              fill: steelblue;
+            }
+/*
+            .chart text {
+              fill: white;
+              font: 10px sans-serif;
+              text-anchor: middle;
+            }
+*/
+            </style>
+            <svg class="chart"></svg>
+            <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+            <script>
+            
             //alert("script!");
             function runs(){
                 //alert("function begins");
 
                 
-                var stringtosplit = "<?php echo $printstring?>"; 
-                
-                //var stringtosplit = "1 2 3 4 5 " 
-                //alert((stringtosplit));
-                var data1 = stringtosplit.split(" ");
-                for(var i=0;i<data1.length;i++){data1[i]= parseInt(data1[i],10);}
-                data1.pop();
-                
-                //alert(data1[2]);
-            
-                var data = data1;
+
                     
-                //var data = [4,6,78,6,4];
+                var data = [4, 8, 15, 16, 23];
                 
-                d3.select("body")
-                    .style("color", "black")
-                    .style("background-color", "white");
-                d3.select(".chart")
-                  .selectAll("div")
-                  .data(data)
-                  .enter().append("div")
-                  .style("width", function(d) { return d * 15 + "px"; })
-                  .text(function(d) { return d; });
+                
+                
+                
+                var svg = d3.select("svg"),
+                    margin = {top: 20, right: 30, bottom: 30, left: 40},
+                    width = 700 - margin.left - margin.right,
+                    height = 500 - margin.top - margin.bottom;
+                
+                var barHeight = 700;
+                
+                
+                var x = d3.scale.ordinal()
+                    .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
+                    .rangeBands([0, width]);
+                
+                var y = d3.scale.linear()
+                    .domain([0, d3.max(data)])
+                    .range([height, 0]);
+
+                var xAxis = d3.svg.axis()
+                    .scale(x)
+                    .orient("bottom");
+                
+                var yAxis = d3.svg.axis()
+                    .scale(y)
+                    .orient("left");
+                
+                
+                
+                
+                var chart = d3.select(".chart")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                  .append("g")
+                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//                
+//THIS IS THE AXES                
+                  chart.append("g")
+                      .attr("class", "x axis")
+                      .attr("transform", "translate(0," + height + ")")
+                      .call(xAxis);
+
+                  chart.append("g")
+                      .attr("class", "y axis")
+                      .call(yAxis);
+                    
+                var barWidth = width / data.length;
+
+//THIS IS AN ATTEMPTED MESHING OF THE TWO>>> only creates one column...                
+                  chart.selectAll(".bar")
+                      .data(data)
+                    .enter().append("rect")
+                       // .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+                
+                //chart.append("rect")
+                    .attr("class", "bar")
+                      .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
+                      .attr("y", function(d) { return y(d); })
+                      .attr("height", function(d) { return height - y(d); })
+                      .attr("width", x.rangeBand());
+       
+                
+//THIS IS THE WORKING BAR GRAPH COLUMNS                
+//                var bar = chart.selectAll("g")
+//                    .data(data)
+//                  .enter().append("g")
+//                    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
+//
+//                bar.append("rect")
+//                    .attr("y", (function(d) { return y(d); }))
+//                    .attr("height", (function(d) {return ((height - y(d)));}))
+//                    .attr("width", x.rangeBand());
+
+                
+                
+                
+                
+//THIS IS TEXT IN THE BARS                
+//                bar.append("text")
+//                    .attr("x", x.rangeBand() / 2)
+//                    .attr("y", function(d) { return y(d) + 3; })
+//                    .attr("dy", ".75em")
+//                    .text(function (d) { return d; });
+                               
+
+                                                                
+
                 
                 //did it work?
-                //alert("function is working!");
+                alert("function is working!");
 
             }
             runs();
         </script>
-
-
-    </body>
+    
+    
+    <p>After Graph</p>    
 </html>
-
 
            
 
