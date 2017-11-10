@@ -1,3 +1,4 @@
+<html>
 <?php
 // Start the session
 //used to pass variables from raw-data.php
@@ -132,7 +133,7 @@ $stmt3->close();
 $mysqli->close();
 ?>         
 
-<html>
+
     <p>Before Graph</p>
 
     <head>
