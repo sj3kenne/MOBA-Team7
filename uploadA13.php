@@ -27,26 +27,30 @@ if ($uploadOk == 0) {
     
 // if everything is ok, update db
 } else {
+    
     $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
-    echo($contents);
-    $grad = explode(";", $contents)
-    print_r($grad);
-    echo(count($grad));
-    if(count($grad) == 0){
-        echo('No entries in file');
+    
+    $grad = explode(";", $contents);
+    //print_r($grad);
+    //echo(count($grad));
+    if(count($grad) == 1){
+        echo('No students in file');
     }
-
-fclose($file);
+    elseif(count($grad) > 1){
+        
+  for ($i = 1; $i < count($grad); ++$i) { 
+    $toInsert = explode(",", $contents);
+      if($i == 1){
+          // add instructor in instructor table
+          //add course info in course info table
+      }
+    for(j = 0; j < count($toInsert), ++$j){
+        // and '' around strings
     }
-         
-  for ($i = 0; $i < count($grad); ++$i) { 
-    if (strpos($studentlist,'"' . $grad[$i] . '"') !== false) {
-    $sql1 = "UPDATE Students SET GradYear = (SELECT EXTRACT(YEAR FROM CURRENT_DATE)) WHERE StudentID = " . $grad[$i];
-    $stmt1= $mysqli-> prepare ($sql1);
-    $stmt1->execute (); 
-   } else {
-            echo('</br> Student ID ' . $grad[$i] . ' is not in current list of students.</br>');
-    } 
+//inset in db 
     }
+        echo(' </br> Graduation year for other students in list updated successfully to this year </br>' );
+}
+}
 
 ?>
