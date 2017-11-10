@@ -27,16 +27,18 @@ if ($uploadOk == 0) {
     
 // if everything is ok, update db
 } else {
-    $file = fopen($_FILES["fileToUpload"]["tmp_name"] . '.csv', 'r');
-while (($line = fgetcsv($file)) !== FALSE) {
-   //$line[0] = '1004000018' in first iteration
-   print_r( "newline" . $line);
-}
+    $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
+    echo($contents);
+    $grad = explode(";", $contents)
+    print_r($grad);
+    echo(count($grad));
+    if(count($grad) == 0){
+        echo('No entries in file');
+    }
+
 fclose($file);
     }
-    elseif(count($grad) > 0){
-        
-   
+         
   for ($i = 0; $i < count($grad); ++$i) { 
     if (strpos($studentlist,'"' . $grad[$i] . '"') !== false) {
     $sql1 = "UPDATE Students SET GradYear = (SELECT EXTRACT(YEAR FROM CURRENT_DATE)) WHERE StudentID = " . $grad[$i];
@@ -46,7 +48,5 @@ fclose($file);
             echo('</br> Student ID ' . $grad[$i] . ' is not in current list of students.</br>');
     } 
     }
-        echo(' </br> Graduation year for other students in list updated successfully to this year </br>' );
-}
-}
+
 ?>
