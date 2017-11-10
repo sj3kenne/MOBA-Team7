@@ -7,16 +7,16 @@
 
 <body>
 
-<div id="sidebar">
-	
-		<ul>
-			<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-			<li><a href="graphs.php" class="active">Analytics</a></li>
-			<li><a href="rawdata.html">Raw Data</a></li>
-			<li><a href="uploading.html">Import</a></li>
-		</ul>
-	</div>
-</body>
+	<div id="sidebar">
+		
+			<ul>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="graphs.php" class="active">Analytics</a></li>
+				<li><a href="raw-data.php">Raw Data</a></li>
+				<li><a href="uploading.html">Import</a></li>
+			</ul>
+		</div>
+	</body>
 
 <?php
 // Start the session
