@@ -25,9 +25,23 @@ $inlist2 =  "'" . $ID2[0] . "'";
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
 //THIS IS AVERAGE SCORE        
-$sql1 = "SELECT AVG(s.score) 
-		 FROM scoreusedfor s
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+if(count($ID)==0){
+	//if no courses selected
+	$sql1 = "SELECT AVG(s.score)
+	FROM ScoreUsedFor s 
+	WHERE s.AttributeName IN ($inlist2)";
+}else{
+if(count($ID2)==0){
+	//if no attributes selected
+	$sql1 = "SELECT AVG(s.score)
+	FROM ScoreUsedFor s 
+	WHERE s.courseName IN ($inlist)";
+} else {
+	$sql1 = "SELECT AVG(s.score)
+	FROM ScoreUsedFor s 
+	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+}
+}
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -46,9 +60,23 @@ echo ' <td>'.$ScoreUsedFor_score.'</td>';
 }
 $stmt1->close();    
 //THIS IS THE STANDARD DEVIATION
-$sql2 = "SELECT STDDEV(s.score) 
-		 FROM scoreusedfor s
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+if(count($ID)==0){
+	//if no courses selected
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s 
+	WHERE s.AttributeName IN ($inlist2)";
+}else{
+if(count($ID2)==0){
+	//if no attributes selected
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s 
+	WHERE s.courseName IN ($inlist)";
+} else {
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s 
+	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+}
+}
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -68,9 +96,23 @@ $stmt2->close();
   
         
 //THIS IS THE GRAPHING DATA        
-$sql3 = "SELECT s.score 
-		 FROM scoreUsedFor s 
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+if(count($ID)==0){
+	//if no courses selected
+	$sql3 = "SELECT s.score
+	FROM ScoreUsedFor s 
+	WHERE s.AttributeName IN ($inlist2)";
+}else{
+if(count($ID2)==0){
+	//if no attributes selected
+	$sql3 = "SELECT s.score
+	FROM ScoreUsedFor s 
+	WHERE s.courseName IN ($inlist)";
+} else {
+	$sql3 = "SELECT s.score
+	FROM ScoreUsedFor s 
+	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+}
+}
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
