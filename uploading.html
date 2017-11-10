@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html>
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <body>
+
+<div id="sidebar">
+	
+		<ul>
+			<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+			<li><a href="graphs.php">Analytics</a></li>
+			<li><a href="raw-data.php">Raw Data</a></li>
+			<li><a href="uploading.html" class="active">Import</a></li>
+		</ul>
+	</div>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
     Select file with list of student graduting this year:

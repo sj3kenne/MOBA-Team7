@@ -1,4 +1,23 @@
 <html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+	<div id="sidebar">
+		
+			<ul>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="graphs.php" class="active">Analytics</a></li>
+				<li><a href="raw-data.php">Raw Data</a></li>
+				<li><a href="uploading.html">Import</a></li>
+			</ul>
+		</div>
+	</body>
+
 <?php
 // Start the session
 //used to pass variables from raw-data.php
@@ -26,23 +45,9 @@ $inlist2 =  "'" . $ID2[0] . "'";
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
 //THIS IS AVERAGE SCORE        
-if(count($ID)==0){
-	//if no courses selected
-	$sql1 = "SELECT AVG(s.score)
-	FROM ScoreUsedFor s 
-	WHERE s.AttributeName IN ($inlist2)";
-}else{
-if(count($ID2)==0){
-	//if no attributes selected
-	$sql1 = "SELECT AVG(s.score)
-	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist)";
-} else {
-	$sql1 = "SELECT AVG(s.score)
-	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
-}
-}
+$sql1 = "SELECT AVG(s.score) 
+		 FROM scoreusedfor s
+		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -61,23 +66,9 @@ echo ' <td>'.$ScoreUsedFor_score.'</td>';
 }
 $stmt1->close();    
 //THIS IS THE STANDARD DEVIATION
-if(count($ID)==0){
-	//if no courses selected
-	$sql2 = "SELECT STDDEV(s.score) 
-	FROM ScoreUsedFor s 
-	WHERE s.AttributeName IN ($inlist2)";
-}else{
-if(count($ID2)==0){
-	//if no attributes selected
-	$sql2 = "SELECT STDDEV(s.score) 
-	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist)";
-} else {
-	$sql2 = "SELECT STDDEV(s.score) 
-	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
-}
-}
+$sql2 = "SELECT STDDEV(s.score) 
+		 FROM scoreusedfor s
+		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -97,23 +88,9 @@ $stmt2->close();
   
         
 //THIS IS THE GRAPHING DATA        
-if(count($ID)==0){
-	//if no courses selected
-	$sql3 = "SELECT s.score
-	FROM ScoreUsedFor s 
-	WHERE s.AttributeName IN ($inlist2)";
-}else{
-if(count($ID2)==0){
-	//if no attributes selected
-	$sql3 = "SELECT s.score
-	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist)";
-} else {
-	$sql3 = "SELECT s.score
-	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
-}
-}
+$sql3 = "SELECT s.score 
+		 FROM scoreUsedFor s 
+		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -157,11 +134,7 @@ $stmt3->close();
 $mysqli->close();
 ?>         
 
-<<<<<<< HEAD
-<html>
-=======
 
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
     <p>Before Graph</p>
 
     <head>
@@ -205,10 +178,6 @@ $mysqli->close();
             function runs(){
                 //alert("function begins");
                 
-<<<<<<< HEAD
-=======
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                     
                 var data = [4, 8, 15, 16, 23];
                 
@@ -230,10 +199,6 @@ $mysqli->close();
                 var y = d3.scale.linear()
                     .domain([0, d3.max(data)])
                     .range([height, 0]);
-<<<<<<< HEAD
-=======
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                 var xAxis = d3.svg.axis()
                     .scale(x)
                     .orient("bottom");
@@ -250,29 +215,17 @@ $mysqli->close();
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-<<<<<<< HEAD
-=======
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
 //                
 //THIS IS THE AXES                
                   chart.append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
                       .call(xAxis);
-<<<<<<< HEAD
-=======
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                   chart.append("g")
                       .attr("class", "y axis")
                       .call(yAxis);
                     
                 var barWidth = width / data.length;
-<<<<<<< HEAD
-=======
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
 //THIS IS AN ATTEMPTED MESHING OF THE TWO>>> only creates one column...                
                   chart.selectAll(".bar")
                       .data(data)
@@ -297,10 +250,6 @@ $mysqli->close();
 //                    .attr("y", (function(d) { return y(d); }))
 //                    .attr("height", (function(d) {return ((height - y(d)));}))
 //                    .attr("width", x.rangeBand());
-<<<<<<< HEAD
-=======
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                 
                 
                 
@@ -312,20 +261,10 @@ $mysqli->close();
 //                    .attr("dy", ".75em")
 //                    .text(function (d) { return d; });
                                
-<<<<<<< HEAD
                                                                 
                 
                 //did it work?
                 alert("function is working!");
-=======
-
-                                                                
-
-                
-                //did it work?
-                alert("function is working!");
-
->>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
             }
             runs();
         </script>
@@ -333,6 +272,3 @@ $mysqli->close();
     
     <p>After Graph</p>    
 </html>
-
-           
-

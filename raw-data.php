@@ -6,10 +6,22 @@ session_start();
 <html>
     <head>
        <title>Selected Tables</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <body>
 <form action="graphs.php" method="get">
 <h3> Search results are as follows: </h3>
+
+		<div id="sidebar">
+		
+			<ul>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="graphs.php">Analytics</a></li>
+				<li><a href="raw-data.php" class="active">Raw Data</a></li>
+				<li><a href="uploading.html">Import</a></li>
+			</ul>
+		</div>
 
 <?php
 // Enable error logging: 
@@ -46,7 +58,6 @@ if(count($ID2)==0){
 	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 }
 }
-
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -76,11 +87,9 @@ echo ' </tr>';
 }
 echo '</table>';
 echo '';
-
 $_SESSION['courses'] = $ID;
 $_SESSION['attributes'] = $ID2;
 //sessions used to pass variables to graphs.php
-
 $stmt1->close();
 $mysqli->close();
 ?>
