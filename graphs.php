@@ -1,4 +1,23 @@
 <html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+<div id="sidebar">
+	
+		<ul>
+			<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+			<li><a href="graphs.php" class="active">Analytics</a></li>
+			<li><a href="rawdata.html">Raw Data</a></li>
+			<li><a href="uploading.html">Import</a></li>
+		</ul>
+	</div>
+</body>
+
 <?php
 // Start the session
 //used to pass variables from raw-data.php
