@@ -1,10 +1,23 @@
 <html>
     <head>
        <title>Table Filters</title>
+	   <link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <body>
 <form action="raw-data.php" method="get">
 <h2> Welcome to M-OBA! </h2>
+
+	<div id="sidebar">
+		
+			<ul>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="filter-for-graphs.php">Analytics</a></li>
+				<li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
+				<li><a href="uploading.html">Import</a></li>
+			</ul>
+		</div>
+
 <?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
