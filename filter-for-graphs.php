@@ -67,7 +67,6 @@ while ($stmt->fetch())
     echo'<label for="selectedcourses[]">' . $scoreusedfor_courseName . '</label>';
     echo '<br>'; 
 }
-    
 $stmt->close(); 
 $mysqli->close();
 ?>
