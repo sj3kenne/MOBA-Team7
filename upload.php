@@ -25,13 +25,13 @@ if($csvFileType != "csv") {
 if ($uploadOk == 0) {
     echo "<br> Upload Incomplete </br>";
     
-// if everything is ok, update grad year in db
+// if everything is ok, update db
 } else {
     $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
-    //echo($contents);
+    echo($contents);
     $grad = preg_split('/\s+/', $contents);
-    //print_r($grad);
-    //echo(count($grad));
+    print_r($grad);
+    echo(count($grad));
     if(count($grad) == 0){
         echo('No students in file');
     }
@@ -54,9 +54,9 @@ if ($uploadOk == 0) {
     {
       $studentlist = $studentlist . "," . $Students_StudentID;
 }
-     $studentlist = $studentlist . ",";   
+     $studentlist = $studentlist . "";   
   for ($i = 0; $i < count($grad); ++$i) { 
-    if (strpos($studentlist,',' . $grad[$i] . ',') !== false) {
+    if (strpos($studentlist,'"' . $grad[$i] . '"') !== false) {
     $sql1 = "UPDATE Students SET GradYear = (SELECT EXTRACT(YEAR FROM CURRENT_DATE)) WHERE StudentID = " . $grad[$i];
     $stmt1= $mysqli-> prepare ($sql1);
     $stmt1->execute (); 
