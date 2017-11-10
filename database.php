@@ -20,7 +20,7 @@ $stmt2->execute ();
 $stmtx= $mysqli-> prepare ($sql_Insert_Not_Grad);
 $stmtx->execute (); 
 
-$sql_CreateCourses = "CREATE TABLE Courses(courseName VARCHAR(40), courseTerm VARCHAR(6), courseYear INT(4), DeptCode CHAR(5), courseNumber INT(3), courseType VARCHAR(20), PRIMARY KEY(courseName,courseTerm,courseYear,courseNumber))";
+$sql_CreateCourses = "CREATE TABLE Courses(DeptCode CHAR(5),  courseNumber INT(3), courseName VARCHAR(40), courseTerm VARCHAR(6), courseYear INT(4), courseType VARCHAR(20), PRIMARY KEY(courseName,courseTerm,courseYear,courseNumber))";
 
 $sql_InsertInfo = "INSERT INTO Courses(courseName, courseTerm, courseYear, DeptCode, courseNumber, courseType) VALUES ('Calculus', 'Spring', 2016, 'MSCI', 271, 'Optional'), ('Intro To Software Engineering', 'Fall', 2016, 'MSCI', 342, 'Mandatory'),('Data Mining', 'Winter', 2017, 'MSCI', 446, 'Optional'), ('Algorithms and Data Structures', 'Summer', 2015, 'MSCI', 240, 'Mandatory')";
 
@@ -31,7 +31,7 @@ $stmt3->execute ();
 
 //create instructor table
 $sql_CreateInstructor = 
-"CREATE TABLE Instructors(FirstName VARCHAR(50), LastName VARCHAR(50), PRIMARY KEY(FirstName, LastName))";
+"CREATE TABLE Instructors(LastName VARCHAR(50),FirstName VARCHAR(50), PRIMARY KEY(FirstName, LastName))";
 
 //insert instructors into table
 $sql_InsertInstructors=

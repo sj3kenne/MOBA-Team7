@@ -29,37 +29,39 @@ if ($uploadOk == 0) {
 } else {
     
     $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
-<<<<<<< HEAD
-    echo($contents);
-    $grad = explode(";", $contents);
-    print_r($grad);
-    echo(count($grad));
-    if(count($grad) == 0){
-        echo('No entries in file');
-=======
     
     $grad = explode(";", $contents);
     //print_r($grad);
     //echo(count($grad));
     if(count($grad) == 1){
         echo('No students in file');
->>>>>>> daf5bab00ca7a39eac51e1ad975b7987057e9f14
     }
     elseif(count($grad) > 1){
         
-  for ($i = 1; $i < count($grad); ++$i) { 
-    $toInsert = explode(",", $contents);
+  for ($i = 1; $i < count($grad)-1; ++$i) { 
+    $toInsert = explode(",", $grad[$i]);
+    //print_r($toInsert);
       if($i == 1){
-          // add instructor in instructor table
-          //add course info in course info table
-      }
-    for(j = 0; j < count($toInsert), ++$j){
-        // and '' around strings
-    }
-//inset in db 
-    }
-        echo(' </br> Graduation year for other students in list updated successfully to this year </br>' );
-}
-}
+        $sql1= "INSERT INTO Instructors (LastName, FirstName) Values ('" . $toInsert[8] . "','" . $toInsert[9] . "')";
+        echo(' </br> Instructor ' . $toInsert[9] . ' ' . $toInsert[8] . ' has been added to Instructors table </br>' );
+         //echo($sql1);
+        $sql2= "INSERT INTO Courses (Deptcode, CourseNumber, CourseName, CourseTerm, CourseYear, CourseType) Values ('" . $toInsert[5] . "','" . $toInsert[6] . "','" . $toInsert[7] . "','" . $toInsert[10] . "','" . $toInsert[11] . "','" . $toInsert[13] . "')";
+        echo(' </br> '. $toInsert[7] . ' has been added to Courses table </br>' );
+        //echo($sql2);
+         $stmt1= $mysqli-> prepare ($sql1);
+         $stmt1->execute (); 
 
+         $stmt2= $mysqli-> prepare ($sql2);
+         $stmt2->execute (); 
+      }
+
+      $sql3= "INSERT INTO ScoreUsedFor (CourseName, StudentID, Attribute, Indicator, ProgIndicator, score, DeptCode, CourseNumber, LastName, FirstName, CourseTerm, CourseYear, Cohort, CourseType) VALUES ('" . $toInsert[7] . "'," . $toInsert[0] . ",'" . $toInsert[1] . "','" . $toInsert[2] . "','" . $toInsert[3] . "'," . $toInsert[4] . ",'" . $toInsert[5] . "','" . $toInsert[6] . "','" . $toInsert[8] . "','" . $toInsert[9] . "','" . $toInsert[10] . "','" . $toInsert[11] . "','" . $toInsert[12] . "','" . $toInsert[13] . "')";
+      //echo('</br> '. $sql3 . '</br>');
+      $stmt3= $mysqli-> prepare ($sql3);
+      $stmt3->execute (); 
+     
+    }
+          echo(' </br> Scores for all students in file are successfully updated </br>' );
+}
+}
 ?>
