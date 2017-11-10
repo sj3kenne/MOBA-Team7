@@ -1,0 +1,82 @@
+/*style.css */
+
+/*body styling*/
+body{
+	left:200px;
+	margin:0px;
+	padding:0px;
+	padding-left:150px;
+	font-family:"Helvetica Neue", Helvetica, Arial;
+	background:#ccc;
+}
+/*sidebar positioning, colour & visibility*/
+#sidebar{
+	background:#151718;
+	width:150px;
+	height:100%;
+	display:block;
+	position:absolute;
+	left:0px;
+	top:0px;
+	transition:left 0.3s linear;
+}
+
+#sidebar.visible{
+	left:0px;
+	transition:left 0.3s linear;
+}
+
+/*sidebar unordered list*/
+ul{
+	margin:0px;
+	padding:0px;
+}
+
+ul li{
+	list-style:none;
+}
+
+ul li a{
+	background:#1C1E1F;
+	color:#ccc;
+	border-bottom:1px solid #111;
+	display: block;
+	width:130px;
+	padding:10px;
+	text-decoration:none;	
+}
+
+.active {
+	background:#444;
+}
+
+h1{
+	padding:10px;
+}
+/*hamburger button
+#sidebar-button{
+	display:inline-block;
+	vertical-align: middle;
+	width:20px;
+	height:20px;
+	cursor:pointer;
+	margin:20px;
+	position:absolute;
+	top:0px;
+	right:-60px;
+	
+}
+
+#sidebar-button span{
+	height:1px;
+	background: #111;
+	margin-bottom:5px;
+	display:block;
+}
+
+#sidebar-button span:nth-child(2){
+	width:75%;
+}
+
+#sidebar-button span:nth-child(3){
+	width:50%;
