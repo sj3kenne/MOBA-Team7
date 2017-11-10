@@ -29,7 +29,7 @@ if ($uploadOk == 0) {
 } else {
     $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
     echo($contents);
-    $grad = explode(";", $contents)
+    $grad = explode(";", $contents);
     print_r($grad);
     echo(count($grad));
     if(count($grad) == 0){
