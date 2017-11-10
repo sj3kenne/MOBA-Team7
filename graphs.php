@@ -1,3 +1,4 @@
+<html>
 <?php
 // Start the session
 //used to pass variables from raw-data.php
@@ -156,7 +157,11 @@ $stmt3->close();
 $mysqli->close();
 ?>         
 
+<<<<<<< HEAD
 <html>
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
     <p>Before Graph</p>
 
     <head>
@@ -200,6 +205,10 @@ $mysqli->close();
             function runs(){
                 //alert("function begins");
                 
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                     
                 var data = [4, 8, 15, 16, 23];
                 
@@ -221,6 +230,10 @@ $mysqli->close();
                 var y = d3.scale.linear()
                     .domain([0, d3.max(data)])
                     .range([height, 0]);
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                 var xAxis = d3.svg.axis()
                     .scale(x)
                     .orient("bottom");
@@ -237,17 +250,29 @@ $mysqli->close();
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
 //                
 //THIS IS THE AXES                
                   chart.append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
                       .call(xAxis);
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                   chart.append("g")
                       .attr("class", "y axis")
                       .call(yAxis);
                     
                 var barWidth = width / data.length;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
 //THIS IS AN ATTEMPTED MESHING OF THE TWO>>> only creates one column...                
                   chart.selectAll(".bar")
                       .data(data)
@@ -272,6 +297,10 @@ $mysqli->close();
 //                    .attr("y", (function(d) { return y(d); }))
 //                    .attr("height", (function(d) {return ((height - y(d)));}))
 //                    .attr("width", x.rangeBand());
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
                 
                 
                 
@@ -283,10 +312,20 @@ $mysqli->close();
 //                    .attr("dy", ".75em")
 //                    .text(function (d) { return d; });
                                
+<<<<<<< HEAD
                                                                 
                 
                 //did it work?
                 alert("function is working!");
+=======
+
+                                                                
+
+                
+                //did it work?
+                alert("function is working!");
+
+>>>>>>> d6af2f74874b72eea2adb7fd8102cb330ff34ec8
             }
             runs();
         </script>
@@ -294,7 +333,6 @@ $mysqli->close();
     
     <p>After Graph</p>    
 </html>
-
 
            
 
