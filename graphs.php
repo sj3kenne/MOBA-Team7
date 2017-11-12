@@ -199,8 +199,18 @@ $mysqli->close();
                 
 
                     
-                var data = [4, 8, 15, 16, 23];
-                
+                //var data = [4, 8, 15, 16, 23];
+                var stringtosplit = "<?php echo $printstring?>";  
+                 
+                //var data = [4, 8, 15, 16, 23];
+                 
+                //var stringtosplit = "1 2 3 4 5 " 
+                //alert((stringtosplit));
+                var data1 = stringtosplit.split(" ");
+                for(var i=0;i<data1.length;i++){data1[i]= parseInt(data1[i],10);}
+                data1.pop();
+                 
+                var data = data1;
                 
                 
                 
