@@ -152,9 +152,6 @@ $stmt3->close();
 $mysqli->close();
 ?>         
 
-
-    <p>Before Graph</p>
-
     <head>
        <title>Graph Page</title>
     </head>
@@ -180,6 +177,16 @@ $mysqli->close();
             .chart rect {
               fill: steelblue;
             }
+            .bartext{
+              fill: red;
+              font: 10px sans-serif;
+              text-anchor: middle;
+              background-color: red;
+              text-align: right;
+              padding: 3px;
+              margin: 1px;
+              color: white;
+            }
 /*
             .chart text {
               fill: white;
@@ -187,6 +194,7 @@ $mysqli->close();
               text-anchor: middle;
             }
 */
+                
             </style>
             <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -246,8 +254,7 @@ $mysqli->close();
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-//                
+               
 //THIS IS THE AXES                
                   chart.append("g")
                       .attr("class", "x axis")
@@ -256,6 +263,7 @@ $mysqli->close();
 
                   chart.append("g")
                       .attr("class", "y axis")
+                      //.attr("transform", "translate(" + width + ",0)")
                       .call(yAxis);
                     
                 var barWidth = width / data.length;
@@ -271,8 +279,21 @@ $mysqli->close();
                       .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
-                      .attr("width", x.rangeBand());
-       
+                      .attr("width", x.rangeBand())
+     
+
+
+                
+                //THIS IS TEXT IN THE BARS  
+                chart.append("bartext")
+                //.attr("class", "bartext")
+                    .attr("x", x.rangeBand() / 2)
+                    .attr("y", function(d) { return y(d) + 3; })
+                    .attr("dy", ".75em")
+                    .text(function (d) { return d; });      
+
+                
+                
                 
 //THIS IS THE WORKING BAR GRAPH COLUMNS                
 //                var bar = chart.selectAll("g")
@@ -283,11 +304,7 @@ $mysqli->close();
 //                bar.append("rect")
 //                    .attr("y", (function(d) { return y(d); }))
 //                    .attr("height", (function(d) {return ((height - y(d)));}))
-//                    .attr("width", x.rangeBand());
-
-                
-                
-                
+//                    .attr("width", x.rangeBand());                
                 
 //THIS IS TEXT IN THE BARS                
 //                bar.append("text")
@@ -305,10 +322,7 @@ $mysqli->close();
 
             }
             runs();
-        </script>
-    
-    
-    <p>After Graph</p>    
+        </script>   
 </html>
 
            
