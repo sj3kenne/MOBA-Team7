@@ -146,7 +146,7 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count4 = count($bin4);
     $count5 = count($bin5);
 
-    $printstring= $count1 . ' ' . $count2 . ' ' . $count3 . ' ' . $count4 . ' ' . $count5 . ' ';
+    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 
 $stmt3->close();
 $mysqli->close();
