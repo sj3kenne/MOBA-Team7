@@ -146,14 +146,11 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count4 = count($bin4);
     $count5 = count($bin5);
 
-    $printstring= $count1 . ' ' . $count2 . ' ' . $count3 . ' ' . $count4 . ' ' . $count5 . ' ';
+    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 
 $stmt3->close();
 $mysqli->close();
 ?>         
-
-
-    <p>Before Graph</p>
 
     <head>
        <title>Graph Page</title>
@@ -180,6 +177,16 @@ $mysqli->close();
             .chart rect {
               fill: steelblue;
             }
+            .bartext{
+              fill: red;
+              font: 10px sans-serif;
+              text-anchor: middle;
+              background-color: red;
+              text-align: right;
+              padding: 3px;
+              margin: 1px;
+              color: white;
+            }
 /*
             .chart text {
               fill: white;
@@ -187,6 +194,7 @@ $mysqli->close();
               text-anchor: middle;
             }
 */
+                
             </style>
             <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -199,8 +207,18 @@ $mysqli->close();
                 
 
                     
-                var data = [4, 8, 15, 16, 23];
-                
+                //var data = [4, 8, 15, 16, 23];
+                var stringtosplit = "<?php echo $printstring?>";  
+                 
+                //var data = [4, 8, 15, 16, 23];
+                 
+                //var stringtosplit = "1 2 3 4 5 " 
+                //alert((stringtosplit));
+                var data1 = stringtosplit.split(" ");
+                for(var i=0;i<data1.length;i++){data1[i]= parseInt(data1[i],10);}
+                data1.pop();
+                 
+                var data = data1;
                 
                 
                 
@@ -236,8 +254,7 @@ $mysqli->close();
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-//                
+               
 //THIS IS THE AXES                
                   chart.append("g")
                       .attr("class", "x axis")
@@ -246,6 +263,7 @@ $mysqli->close();
 
                   chart.append("g")
                       .attr("class", "y axis")
+                      //.attr("transform", "translate(" + width + ",0)")
                       .call(yAxis);
                     
                 var barWidth = width / data.length;
@@ -261,8 +279,21 @@ $mysqli->close();
                       .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
-                      .attr("width", x.rangeBand());
-       
+                      .attr("width", x.rangeBand())
+     
+
+
+                
+                //THIS IS TEXT IN THE BARS  
+                chart.append("bartext")
+                //.attr("class", "bartext")
+                    .attr("x", x.rangeBand() / 2)
+                    .attr("y", function(d) { return y(d) + 3; })
+                    .attr("dy", ".75em")
+                    .text(function (d) { return d; });      
+
+                
+                
                 
 //THIS IS THE WORKING BAR GRAPH COLUMNS                
 //                var bar = chart.selectAll("g")
@@ -273,11 +304,7 @@ $mysqli->close();
 //                bar.append("rect")
 //                    .attr("y", (function(d) { return y(d); }))
 //                    .attr("height", (function(d) {return ((height - y(d)));}))
-//                    .attr("width", x.rangeBand());
-
-                
-                
-                
+//                    .attr("width", x.rangeBand());                
                 
 //THIS IS TEXT IN THE BARS                
 //                bar.append("text")
@@ -291,14 +318,11 @@ $mysqli->close();
 
                 
                 //did it work?
-                alert("function is working!");
+                //alert("function is working!");
 
             }
             runs();
-        </script>
-    
-    
-    <p>After Graph</p>    
+        </script>   
 </html>
 
            
