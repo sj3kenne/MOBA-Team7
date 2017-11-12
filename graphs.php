@@ -291,7 +291,7 @@ $mysqli->close();
 
                 
                 //did it work?
-                alert("function is working!");
+                //alert("function is working!");
 
             }
             runs();
