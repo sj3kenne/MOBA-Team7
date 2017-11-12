@@ -129,7 +129,13 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
+<<<<<<< HEAD
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+=======
+
+    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+
+>>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
 $stmt3->close();
 $mysqli->close();
 ?>         
@@ -258,6 +264,11 @@ $mysqli->close();
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
      
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
                 
                 //THIS IS TEXT IN THE BARS  
                 chart.append("bartext")
@@ -266,6 +277,10 @@ $mysqli->close();
                     .attr("y", function(d) { return y(d) + 3; })
                     .attr("dy", ".75em")
                     .text(function (d) { return d; });      
+<<<<<<< HEAD
+=======
+
+>>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
                 
                 
                 
@@ -291,7 +306,18 @@ $mysqli->close();
                 
                 //did it work?
                 //alert("function is working!");
+<<<<<<< HEAD
             }
             runs();
         </script>   
 </html>
+=======
+
+            }
+            runs();
+        </script>   
+</html>
+
+           
+
+>>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62

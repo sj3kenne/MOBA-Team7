@@ -5,7 +5,12 @@ function get_mysqli_conn()
     $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
+<<<<<<< HEAD
 $local_databaseName = "g4lau-msci342-local-db";
+=======
+
+$local_databaseName = "samk";
+>>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
 
 
 // Production Database Connection Details:
