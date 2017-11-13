@@ -29,9 +29,9 @@ $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
 $mysqli4 = get_mysqli_conn();
 
- $sql2 = "SELECT DISTINCT s.AttributeName,s.AttributeName "
+ $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute "
     . "FROM scoreusedfor s";
- $sql3 = "SELECT DISTINCT s.GradYear,s.GradYear "
+ $sql3 = "SELECT DISTINCT s.Cohort,s.Cohort "
     . "FROM students s";
  $sql = "SELECT DISTINCT s.courseName,s.courseName "
     . "FROM scoreusedfor s";
