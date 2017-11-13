@@ -47,7 +47,7 @@ $inlist2 =  "'" . $ID2[0] . "'";
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
 //THIS IS AVERAGE SCORE        
-$sql1 = "SELECT AVG(s.score) 
+$sql1 = "SELECT ROUND(AVG(s.score), 2) 
 		 FROM scoreusedfor s
 		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 
@@ -61,18 +61,18 @@ $stmt1->execute ();
 
 // $stmt->execute() function returns boolean indicating success 
 $stmt1->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Stats are as follows:'.'</p>';
-echo '<p>'.'Mean is:'.'</p>';    
+echo '<p>'.'Statistics for filtering are as followed:'.'</p>';
+echo '<p><u>'.'The mean score is:'.'</u></p>';    
 while ($stmt1->fetch()) 
 {
 // printf is print format, <li> is list item
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <td>'.$ScoreUsedFor_score.'</td>';
+echo ' <td><b>'.$ScoreUsedFor_score.'</b></td>';
 }
 $stmt1->close();    
 
 //THIS IS THE STANDARD DEVIATION
-$sql2 = "SELECT STDDEV(s.score) 
+$sql2 = "SELECT ROUND(STDDEV(s.score), 2) 
 		 FROM scoreusedfor s
 		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 
@@ -86,12 +86,12 @@ $stmt2->execute ();
 
 // $stmt->execute() function returns boolean indicating success 
 $stmt2->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Standard deviation is:'.'</p>';
+echo '<p><u>'.'The standard deviation of scores is:'.'</u></p>';
 while ($stmt2->fetch()) 
 {
 // printf is print format, <li> is list item
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <p>'.$ScoreUsedFor_score.'</p>';
+echo ' <p><b>'.$ScoreUsedFor_score.'</b></p>';
 }
 $stmt2->close();        
   

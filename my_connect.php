@@ -6,7 +6,7 @@ function get_mysqli_conn()
 $local_username = "root";
 $local_password = "root";
 
-$local_databaseName = "samk";
+$local_databaseName = "smdumlao-msci342-local-db";
 
 
 // Production Database Connection Details:
