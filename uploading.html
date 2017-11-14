@@ -4,8 +4,12 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<header>
+	M-OBA
+	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
+</header>
 <body>
-
+<h2>Import</h2>
 <div id="sidebar">
 	
 		<ul>
@@ -17,15 +21,15 @@
 	</div>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select file with list of student graduting this year:
+    Select file with list of student graduting this year: <br>
     <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload List" name="submit">
+    <input type="submit" class="button" value="Upload List" name="submit">
 </form>
 <form
    	action="uploadA13.php" method="post" enctype="multipart/form-data">
-    Select A13 File:
+    Select A13 File: <br>
     <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload A13" name="submit">
+    <input type="submit" class="button" value="Upload A13" name="submit">
 </form>
 
 </body>

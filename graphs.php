@@ -11,7 +11,7 @@
 		
 			<ul>
 				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-				<li><a href="graphs.php" class="active">Analytics</a></li>
+				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
 				<li><a href="raw-data.php">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
@@ -35,11 +35,16 @@ $ID2 = $_SESSION['attributes'];
 //$ID= $_GET['selectedcourse'];
 //$ID2 = $_GET['selectedattributes'];
 //populated courses array 
+$ID = $_GET['selectedattributes'];
+$ID2 = $_GET['selectedcohorts'];
+$ID3 = $_GET['selectedcourses'];
+//----------------------------------------------------------------------------------------------------
+//populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
-//populated attributes array 
+//populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
@@ -48,6 +53,62 @@ $inlist2 =  "'" . $ID2[0] . "'";
 $sql1 = "SELECT AVG(s.score) 
 		 FROM scoreusedfor s
 		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+//populated courses array 
+$inlist3 =  "'" . $ID3[0] . "'";
+    for ($i = 1; $i < count($ID3); ++$i) {
+        $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
+    }
+//------------------------------------------------------------------------------------------------------
+//CHOOSE AVERAGE SCORE QUERY:
+//if no attributes selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//if no cohorts selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+}
+//if no courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+//if no attributes and cohorts selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.courseName IN ($inlist3)";
+}
+//if no attributes and courses selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2)";
+}
+//if no cohorts and courses selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist)";
+}
+//if no attributes and cohorts and courses selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
+  $message = "Please select a filter option.";
+  echo "<script type='text/javascript'>alert('$message');</script>";
+}
+//if all attributes and cohorts and courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//-----------------------------------------------------------------------------------------------------------
+//PRESENT AVERAGE SCORE
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -69,6 +130,57 @@ $stmt1->close();
 $sql2 = "SELECT STDDEV(s.score) 
 		 FROM scoreusedfor s
 		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+$stmt1->close();   
+//-------------------------------------------------------------------------------------------------------- 
+//CHOOSE AVERAGE SCORE QUERY:
+//if no attributes selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//if no cohorts selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+}
+//if no courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+//if no attributes and cohorts selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.courseName IN ($inlist3)";
+}
+//if no attributes and courses selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2)";
+}
+//if no cohorts and courses selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist)";
+}
+//if no attributes and cohorts and courses selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
+  $message = "Please select a filter option.";
+  echo "<script type='text/javascript'>alert('$message');</script>";
+}
+//if all attributes and cohorts and courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -91,6 +203,56 @@ $stmt2->close();
 $sql3 = "SELECT s.score 
 		 FROM scoreUsedFor s 
 		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+//-------------------------------------------------------------------------------------------------------- 
+//THIS IS THE GRAPHING DATA: 
+//if no attributes selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score  
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//if no cohorts selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+}
+//if no courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+//if no attributes and cohorts selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.courseName IN ($inlist3)";
+}
+//if no attributes and courses selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
+	$sql3 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2)";
+}
+//if no cohorts and courses selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
+	$sql3 = "SELECT s.score  
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist)";
+}
+//if no attributes and cohorts and courses selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
+  $message = "Please select a filter option.";
+  echo "<script type='text/javascript'>alert('$message');</script>";
+}
+//if all attributes and cohorts and courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -129,13 +291,11 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
-<<<<<<< HEAD
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-=======
 
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 
->>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
+   $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 $stmt3->close();
 $mysqli->close();
 ?>         
@@ -264,11 +424,9 @@ $mysqli->close();
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
      
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
+
                 
                 //THIS IS TEXT IN THE BARS  
                 chart.append("bartext")
@@ -277,10 +435,7 @@ $mysqli->close();
                     .attr("y", function(d) { return y(d) + 3; })
                     .attr("dy", ".75em")
                     .text(function (d) { return d; });      
-<<<<<<< HEAD
-=======
 
->>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
                 
                 
                 
@@ -306,12 +461,12 @@ $mysqli->close();
                 
                 //did it work?
                 //alert("function is working!");
-<<<<<<< HEAD
+
             }
             runs();
         </script>   
 </html>
-=======
+
 
             }
             runs();
@@ -320,4 +475,9 @@ $mysqli->close();
 
            
 
->>>>>>> 67ed23e497a10adb0cea1217e63650f7e7190d62
+
+            }
+            runs();
+        </script>   
+</html>
+

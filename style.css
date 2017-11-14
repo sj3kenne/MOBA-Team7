@@ -9,6 +9,22 @@ body{
 	font-family:"Helvetica Neue", Helvetica, Arial;
 	background:#ccc;
 }
+
+header{
+	font-family:"Helvetica Neue", Helvetica, Arial;
+	margin-left:-150px;
+	height:60px;
+	background-color:#151718;
+	color:#ccc;
+	font-size:40px;
+	padding:0 0 0 100px;
+}
+
+h2{
+	padding-left:20px;
+	color:gold;
+}
+
 /*sidebar positioning, colour & visibility*/
 #sidebar{
 	background:#151718;
@@ -17,7 +33,7 @@ body{
 	display:block;
 	position:absolute;
 	left:0px;
-	top:0px;
+	top:60px;
 	transition:left 0.3s linear;
 }
 
@@ -50,9 +66,19 @@ ul li a{
 	background:#444;
 }
 
-h1{
-	padding:10px;
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
+
 /*hamburger button
 #sidebar-button{
 	display:inline-block;

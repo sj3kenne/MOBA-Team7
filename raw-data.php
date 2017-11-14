@@ -18,7 +18,7 @@ session_start();
 			<ul>
 				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
 				<li><a href="graphs.php">Analytics</a></li>
-				<li><a href="raw-data.php" class="active">Raw Data</a></li>
+				<li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
 		</div>
@@ -43,19 +43,19 @@ $inlist2 =  "'" . $ID2[0] . "'";
 //populated attributes array 
 if(count($ID)==0){
 	//if no courses selected
-	$sql1 = "SELECT s.courseName, s.AttributeName, s.IndicatorName, s.score
+	$sql1 = "SELECT s.courseName, s.Attribute, s.Indicator, s.score
 	FROM ScoreUsedFor s 
-	WHERE s.AttributeName IN ($inlist2)";
+	WHERE s.Attribute IN ($inlist2)";
 }else{
 if(count($ID2)==0){
 	//if no attributes selected
-	$sql1 = "SELECT s.courseName, s.AttributeName, s.IndicatorName, s.score
+	$sql1 = "SELECT s.course, s.Attribute, s.Indicator, s.score
 	FROM ScoreUsedFor s 
 	WHERE s.courseName IN ($inlist)";
 } else {
-	$sql1 = "SELECT s.courseName, s.AttributeName, s.IndicatorName, s.score
+	$sql1 = "SELECT s.courseName, s.Attribute, s.Indicator, s.score
 	FROM ScoreUsedFor s 
-	WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
+	WHERE s.courseName IN ($inlist) AND s.Attribute IN ($inlist2)";
 }
 }
 // Prepared statement, stage 1: prepare
