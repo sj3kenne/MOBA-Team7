@@ -33,14 +33,14 @@ $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
 $mysqli4 = get_mysqli_conn();
 
- $sql2 = "SELECT DISTINCT s.AttributeName,s.AttributeName "
+ $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute "
     . "FROM scoreusedfor s";
- $sql3 = "SELECT DISTINCT s.GradYear,s.GradYear "
-    . "FROM students s";
+ $sql3 = "SELECT DISTINCT s.Cohort,s.Cohort "
+    . "FROM scoreusedfor s";
  $sql = "SELECT DISTINCT s.courseName,s.courseName "
     . "FROM scoreusedfor s";
- $sql4 = "SELECT DISTINCT i.FirstName,i.LastName "
-    . "FROM instructors i";
+ $sql4 = "SELECT DISTINCT s.FirstName,s.LastName "
+    . "FROM scoreusedfor s";
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);

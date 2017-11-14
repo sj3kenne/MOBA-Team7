@@ -11,7 +11,7 @@
 		
 			<ul>
 				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-				<li><a href="graphs.php" class="active">Analytics</a></li>
+				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
 				<li><a href="raw-data.php">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
@@ -30,96 +30,224 @@ error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
 include('./my_connect.php');
 $mysqli = get_mysqli_conn();
-$ID = $_SESSION['courses'];
-$ID2 = $_SESSION['attributes'];
-
-//$ID= $_GET['selectedcourse'];
-//$ID2 = $_GET['selectedattributes'];
-
-//populated courses array 
+$ID = $_GET['selectedattributes'];
+$ID2 = $_GET['selectedcohorts'];
+$ID3 = $_GET['selectedcourses'];
+//----------------------------------------------------------------------------------------------------
+//populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
-//populated attributes array 
+//populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
-//THIS IS AVERAGE SCORE        
-$sql1 = "SELECT ROUND(AVG(s.score), 2) 
-		 FROM scoreusedfor s
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
-
+//populated courses array 
+$inlist3 =  "'" . $ID3[0] . "'";
+    for ($i = 1; $i < count($ID3); ++$i) {
+        $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
+    }
+//------------------------------------------------------------------------------------------------------
+//CHOOSE AVERAGE SCORE QUERY:
+//if no attributes selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//if no cohorts selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+}
+//if no courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+//if no attributes and cohorts selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.courseName IN ($inlist3)";
+}
+//if no attributes and courses selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2)";
+}
+//if no cohorts and courses selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist)";
+}
+//if no attributes and cohorts and courses selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
+  $message = "Please select a filter option.";
+  echo "<script type='text/javascript'>alert('$message');</script>";
+}
+//if all attributes and cohorts and courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql1 = "SELECT AVG(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//-----------------------------------------------------------------------------------------------------------
+//PRESENT AVERAGE SCORE
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
-
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
 $stmt1= $mysqli-> prepare ($sql1);
     //$stmt1->bind_param('i', $ID); 
 $stmt1->execute (); 
-
 // $stmt->execute() function returns boolean indicating success 
 $stmt1->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Statistics for filtering are as followed:'.'</p>';
-echo '<p><u>'.'The mean score is:'.'</u></p>';    
+echo '<p>'.'Stats are as follows:'.'</p>';
+echo '<p>'.'Mean is:'.'</p>';    
 while ($stmt1->fetch()) 
 {
 // printf is print format, <li> is list item
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <td><b>'.$ScoreUsedFor_score.'</b></td>';
+echo ' <td>'.$ScoreUsedFor_score.'</td>';
 }
-$stmt1->close();    
-
-//THIS IS THE STANDARD DEVIATION
-$sql2 = "SELECT ROUND(STDDEV(s.score), 2) 
-		 FROM scoreusedfor s
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
-
+$stmt1->close();   
+//-------------------------------------------------------------------------------------------------------- 
+//CHOOSE AVERAGE SCORE QUERY:
+//if no attributes selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//if no cohorts selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+}
+//if no courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+//if no attributes and cohorts selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.courseName IN ($inlist3)";
+}
+//if no attributes and courses selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2)";
+}
+//if no cohorts and courses selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist)";
+}
+//if no attributes and cohorts and courses selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
+  $message = "Please select a filter option.";
+  echo "<script type='text/javascript'>alert('$message');</script>";
+}
+//if all attributes and cohorts and courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql2 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
-
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
 $stmt2= $mysqli-> prepare ($sql2);
     //$stmt1->bind_param('i', $ID); 
 $stmt2->execute (); 
-
 // $stmt->execute() function returns boolean indicating success 
 $stmt2->bind_result($ScoreUsedFor_score);
-echo '<p><u>'.'The standard deviation of scores is:'.'</u></p>';
+echo '<p>'.'Standard deviation is:'.'</p>';
 while ($stmt2->fetch()) 
 {
 // printf is print format, <li> is list item
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <p><b>'.$ScoreUsedFor_score.'</b></p>';
+echo ' <p>'.$ScoreUsedFor_score.'</p>';
 }
 $stmt2->close();        
   
-        
-//THIS IS THE GRAPHING DATA        
-$sql3 = "SELECT s.score 
-		 FROM scoreUsedFor s 
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
-
+//-------------------------------------------------------------------------------------------------------- 
+//THIS IS THE GRAPHING DATA: 
+//if no attributes selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score  
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//if no cohorts selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+}
+//if no courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+//if no attributes and cohorts selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.courseName IN ($inlist3)";
+}
+//if no attributes and courses selected
+if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
+	$sql3 = "SELECT STDDEV(s.score) 
+	FROM ScoreUsedFor s
+	WHERE s.Cohort IN ($inlist2)";
+}
+//if no cohorts and courses selected
+if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
+	$sql3 = "SELECT s.score  
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist)";
+}
+//if no attributes and cohorts and courses selected
+if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
+  $message = "Please select a filter option.";
+  echo "<script type='text/javascript'>alert('$message');</script>";
+}
+//if all attributes and cohorts and courses selected
+if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
+	$sql3 = "SELECT s.score 
+	FROM ScoreUsedFor s
+	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+}
+//-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
-
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
 $stmt3= $mysqli-> prepare ($sql3);
 //$stmt3->bind_param('i', $ID); 
 $stmt3->execute (); 
-
 // $stmt3->execute() function returns boolean indicating success 
 $stmt3->bind_result($ScoreUsedFor_score);
-
     $bin1 = array();
     $bin2 = array();
     $bin3 = array();
     $bin4 = array();
     $bin5 = array();
-
     //echo ' <p>'.$ScoreUsedFor_score.'<br>'.'does this work'.'</p>';
-
     while ($stmt3->fetch())
     {   
         //echo ' <p>'.$ScoreUsedFor_score.'<br>'.'yes'.'</p>';
@@ -139,15 +267,12 @@ $stmt3->bind_result($ScoreUsedFor_score);
             $bin5[] = $float;
         } 
     } 
-
     $count1 = count($bin1);
     $count2 = count($bin2);                   
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
-
-    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-
+   $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 $stmt3->close();
 $mysqli->close();
 ?>         
@@ -203,9 +328,7 @@ $mysqli->close();
             //alert("script!");
             function runs(){
                 //alert("function begins");
-
                 
-
                     
                 //var data = [4, 8, 15, 16, 23];
                 var stringtosplit = "<?php echo $printstring?>";  
@@ -237,7 +360,6 @@ $mysqli->close();
                 var y = d3.scale.linear()
                     .domain([0, d3.max(data)])
                     .range([height, 0]);
-
                 var xAxis = d3.svg.axis()
                     .scale(x)
                     .orient("bottom");
@@ -260,14 +382,12 @@ $mysqli->close();
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
                       .call(xAxis);
-
                   chart.append("g")
                       .attr("class", "y axis")
                       //.attr("transform", "translate(" + width + ",0)")
                       .call(yAxis);
                     
                 var barWidth = width / data.length;
-
 //THIS IS AN ATTEMPTED MESHING OF THE TWO>>> only creates one column...                
                   chart.selectAll(".bar")
                       .data(data)
@@ -281,8 +401,6 @@ $mysqli->close();
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
      
-
-
                 
                 //THIS IS TEXT IN THE BARS  
                 chart.append("bartext")
@@ -291,7 +409,6 @@ $mysqli->close();
                     .attr("y", function(d) { return y(d) + 3; })
                     .attr("dy", ".75em")
                     .text(function (d) { return d; });      
-
                 
                 
                 
@@ -313,17 +430,11 @@ $mysqli->close();
 //                    .attr("dy", ".75em")
 //                    .text(function (d) { return d; });
                                
-
                                                                 
-
                 
                 //did it work?
                 //alert("function is working!");
-
             }
             runs();
         </script>   
 </html>
-
-           
-
