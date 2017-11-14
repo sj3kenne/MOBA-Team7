@@ -30,11 +30,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
 include('./my_connect.php');
 $mysqli = get_mysqli_conn();
-$ID = $_SESSION['courses'];
-$ID2 = $_SESSION['attributes'];
-//$ID= $_GET['selectedcourse'];
-//$ID2 = $_GET['selectedattributes'];
-//populated courses array 
 $ID = $_GET['selectedattributes'];
 $ID2 = $_GET['selectedcohorts'];
 $ID3 = $_GET['selectedcourses'];
@@ -49,10 +44,6 @@ $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
-//THIS IS AVERAGE SCORE        
-$sql1 = "SELECT AVG(s.score) 
-		 FROM scoreusedfor s
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 //populated courses array 
 $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
@@ -125,11 +116,6 @@ while ($stmt1->fetch())
 //printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
 echo ' <td>'.$ScoreUsedFor_score.'</td>';
 }
-$stmt1->close();    
-//THIS IS THE STANDARD DEVIATION
-$sql2 = "SELECT STDDEV(s.score) 
-		 FROM scoreusedfor s
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 $stmt1->close();   
 //-------------------------------------------------------------------------------------------------------- 
 //CHOOSE AVERAGE SCORE QUERY:
@@ -198,11 +184,6 @@ echo ' <p>'.$ScoreUsedFor_score.'</p>';
 }
 $stmt2->close();        
   
-        
-//THIS IS THE GRAPHING DATA        
-$sql3 = "SELECT s.score 
-		 FROM scoreUsedFor s 
-		 WHERE s.courseName IN ($inlist) AND s.AttributeName IN ($inlist2)";
 //-------------------------------------------------------------------------------------------------------- 
 //THIS IS THE GRAPHING DATA: 
 //if no attributes selected
@@ -291,10 +272,6 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
-    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-
-    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-
    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 $stmt3->close();
 $mysqli->close();
@@ -424,9 +401,6 @@ $mysqli->close();
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
      
-
-
-
                 
                 //THIS IS TEXT IN THE BARS  
                 chart.append("bartext")
@@ -435,7 +409,6 @@ $mysqli->close();
                     .attr("y", function(d) { return y(d) + 3; })
                     .attr("dy", ".75em")
                     .text(function (d) { return d; });      
-
                 
                 
                 
@@ -461,23 +434,7 @@ $mysqli->close();
                 
                 //did it work?
                 //alert("function is working!");
-
             }
             runs();
         </script>   
 </html>
-
-
-            }
-            runs();
-        </script>   
-</html>
-
-           
-
-
-            }
-            runs();
-        </script>   
-</html>
-

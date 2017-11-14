@@ -4,10 +4,6 @@
 	   <link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-<header>
-	M-OBA
-	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
-</header>
 <body>
 <form action="raw-data.php" method="get">
 <h2> Welcome to M-OBA! </h2>
@@ -32,7 +28,6 @@ $mysqli = get_mysqli_conn();
 $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
 $mysqli4 = get_mysqli_conn();
-
  $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute "
     . "FROM scoreusedfor s";
  $sql3 = "SELECT DISTINCT s.Cohort,s.Cohort "
@@ -46,21 +41,17 @@ $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);
 $stmt3 = $mysqli3->prepare($sql3);
 $stmt4 = $mysqli4->prepare($sql4);
-
-
 // Prepared statement, stage 2: execute
 $stmt->execute();
 $stmt2->execute();
 $stmt3->execute();
 $stmt4->execute();
-
 // Bind result variables 
 $stmt->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
 $stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
 $stmt3->bind_result($students_GradYear, $students_GradYear); 
 $stmt4->bind_result($instructors_FirstName, $instructors_LastName); 
 /* fetch values */ 
-
 //User selects an Attribute
 echo '<h3>Select Attribute(s): </h3>';
 while ($stmt2->fetch()) 
@@ -71,7 +62,6 @@ while ($stmt2->fetch())
 }
     echo "</table><br>";
 echo '</select><br>';  
-
 //User selects a cohort
 echo '<h3>Select Cohort(s): </h3>';
 while ($stmt3->fetch()) 
@@ -82,7 +72,6 @@ while ($stmt3->fetch())
 }
     echo "</table><br>";
 echo '</select><br>';  
-
 //User selects a Course
 echo '<h3> Pick a Course: </h3>';
 while ($stmt->fetch()) 
@@ -102,7 +91,6 @@ while ($stmt4->fetch())
 }
     echo "</table><br>";
 echo '</select><br>'; 
-
 $stmt->close(); 
 $mysqli->close();
 ?>
