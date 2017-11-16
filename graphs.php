@@ -350,13 +350,13 @@ $mysqli->close();
                  
                 var data = data1;
                 
-                var data2 = [4, 8, 15, 16, 23];
+                var data2 = [4, 8, 15, 16, 23, 15, 4, 12];
                 
                 //For the First Chart
                 var svg = d3.select("svg"),
                     margin = {top: 20, right: 30, bottom: 30, left: 40},
-                    width = 350 - margin.left - margin.right,
-                    height = 250 - margin.top - margin.bottom;
+                    width = 350 - margin.left - margin.right, //280
+                    height = 250 - margin.top - margin.bottom; //200
                 var barHeight = 700;
                 var barWidth = width / data.length;
                 var x = d3.scale.ordinal()
@@ -406,12 +406,12 @@ $mysqli->close();
                 //For the second chart
                 var svg2 = d3.select("svg"),
                     margin2 = {top: 20, right: 30, bottom: 30, left: 340},
-                    width2 = 700 - margin2.left - margin2.right,
-                    height2 = 250 - margin2.top - margin2.bottom;
+                    width2 = 650 - margin2.left - margin2.right, //280
+                    height2 = 250 - margin2.top - margin2.bottom; //200
                 var barHeight2 = 700;
                 var barWidth2 = width2 / data2.length;
                 var x2 = d3.scale.ordinal()
-                    .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
+                    .domain(["1A","1B","2A","2B","3A","3B","4A","4B"])
                     .rangeBands([0, width2]);
                 var y2 = d3.scale.linear()
                     .domain([0, d3.max(data2)])
