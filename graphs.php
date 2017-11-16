@@ -636,7 +636,7 @@ $mysqli->close();
 //                        .text(function (d) { return d; });      
 
                 //For the second chart
-                var svg2 = d3.select("#area2")
+                var svg2 = d3.select("#area"+attr)
                 .append("svg"),
                     margin2 = {top: 25, right: 10, bottom: 40, left: 430},
                     width2 = 770 - margin2.left - margin2.right, //330
