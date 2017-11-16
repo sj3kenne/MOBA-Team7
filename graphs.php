@@ -272,7 +272,13 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
-   $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+    
+    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+    
+    
+    $numofgraphs = 0;
+    
+    
 $stmt3->close();
 $mysqli->close();
 ?>         
@@ -321,97 +327,131 @@ $mysqli->close();
 */
                 
             </style>
+    
             <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
             <script>
             
-            //alert("script!");
-            function runs(){
+                
+                
+            function graphs(){
                 //alert("function begins");
                 
-                    
-                //var data = [4, 8, 15, 16, 23];
+                 
+                //This line moves a string from php to JavaScript
                 var stringtosplit = "<?php echo $printstring?>";  
                  
-                //var data = [4, 8, 15, 16, 23];
-                 
+
+                //This Splits the line into multip
                 //var stringtosplit = "1 2 3 4 5 " 
-                //alert((stringtosplit));
                 var data1 = stringtosplit.split(" ");
                 for(var i=0;i<data1.length;i++){data1[i]= parseInt(data1[i],10);}
                 data1.pop();
                  
                 var data = data1;
                 
+                var data2 = [4, 8, 15, 16, 23];
                 
-                
+                //For the First Chart
                 var svg = d3.select("svg"),
                     margin = {top: 20, right: 30, bottom: 30, left: 40},
-                    width = 700 - margin.left - margin.right,
-                    height = 500 - margin.top - margin.bottom;
-                
+                    width = 350 - margin.left - margin.right,
+                    height = 250 - margin.top - margin.bottom;
                 var barHeight = 700;
-                
-                
+                var barWidth = width / data.length;
                 var x = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
                     .rangeBands([0, width]);
-                
                 var y = d3.scale.linear()
                     .domain([0, d3.max(data)])
                     .range([height, 0]);
                 var xAxis = d3.svg.axis()
                     .scale(x)
                     .orient("bottom");
-                
                 var yAxis = d3.svg.axis()
                     .scale(y)
-                    .orient("left");
-                
-                
-                
-                
+                    .orient("left");                
+                //Declare the first Chart
                 var chart = d3.select(".chart")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-               
-//THIS IS THE AXES                
+                //THIS IS THE AXES                
                   chart.append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
                       .call(xAxis);
                   chart.append("g")
                       .attr("class", "y axis")
-                      //.attr("transform", "translate(" + width + ",0)")
-                      .call(yAxis);
-                    
-                var barWidth = width / data.length;
-//THIS IS AN ATTEMPTED MESHING OF THE TWO>>> only creates one column...                
+                      .call(yAxis);                
                   chart.selectAll(".bar")
                       .data(data)
                     .enter().append("rect")
                        // .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-                
-                //chart.append("rect")
                     .attr("class", "bar")
                       .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
      
-                
-                //THIS IS TEXT IN THE BARS  
+                //THIS IS TEXT IN THE BARS... Doesnt work atm  
                 chart.append("bartext")
                 //.attr("class", "bartext")
                     .attr("x", x.rangeBand() / 2)
                     .attr("y", function(d) { return y(d) + 3; })
                     .attr("dy", ".75em")
                     .text(function (d) { return d; });      
+
+                //For the second chart
+                var svg2 = d3.select("svg"),
+                    margin2 = {top: 20, right: 30, bottom: 30, left: 340},
+                    width2 = 700 - margin2.left - margin2.right,
+                    height2 = 250 - margin2.top - margin2.bottom;
+                var barHeight2 = 700;
+                var barWidth2 = width2 / data2.length;
+                var x2 = d3.scale.ordinal()
+                    .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
+                    .rangeBands([0, width2]);
+                var y2 = d3.scale.linear()
+                    .domain([0, d3.max(data2)])
+                    .range([height2, 0]);
+                var xAxis2 = d3.svg.axis()
+                    .scale(x2)
+                    .orient("bottom");
+                var yAxis2 = d3.svg.axis()
+                    .scale(y2)
+                    .orient("left");                
+                //Declare the second Chart
+                var chart2 = d3.select(".chart")
+                    .attr("width", width2 + margin2.left + margin2.right)
+                    .attr("height", height2 + margin2.top + margin2.bottom)
+                  .append("g")
+                    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+                //THIS IS THE AXES                
+                  chart2.append("g")
+                      .attr("class", "x axis")
+                      .attr("transform", "translate(0," + height2 + ")")
+                      .call(xAxis2);
+                  chart2.append("g")
+                      .attr("class", "y axis")
+                      .call(yAxis2);                
+                  chart2.selectAll(".bar")
+                      .data(data2)
+                    .enter().append("rect") 
+                    .attr("class", "bar")
+                      .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
+                      .attr("y", function(d) { return y2(d); })
+                      .attr("height", function(d) { return height2 - y2(d); })
+                      .attr("width", x2.rangeBand())                
                 
                 
                 
+                
+                
+                
+                
+//Backup                
 //THIS IS THE WORKING BAR GRAPH COLUMNS                
 //                var bar = chart.selectAll("g")
 //                    .data(data)
@@ -428,13 +468,11 @@ $mysqli->close();
 //                    .attr("x", x.rangeBand() / 2)
 //                    .attr("y", function(d) { return y(d) + 3; })
 //                    .attr("dy", ".75em")
-//                    .text(function (d) { return d; });
-                               
-                                                                
+//                    .text(function (d) { return d; }); 
                 
                 //did it work?
                 //alert("function is working!");
             }
-            runs();
+            graphs();
         </script>   
 </html>
