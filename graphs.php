@@ -354,10 +354,9 @@ $mysqli->close();
                 
                 //For the First Chart
                 var svg = d3.select("svg"),
-                    margin = {top: 20, right: 30, bottom: 30, left: 40},
-                    width = 350 - margin.left - margin.right, //280
-                    height = 250 - margin.top - margin.bottom; //200
-                var barHeight = 700;
+                    margin = {top: 25, right: 30, bottom: 40, left: 40},
+                    width = 400 - margin.left - margin.right, //330
+                    height = 250 - margin.top - margin.bottom; //185
                 var barWidth = width / histogramarray.length;
                 var x = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
@@ -394,14 +393,23 @@ $mysqli->close();
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
-                    .append("text2")
+                //Y-axis
+                chart.append("text")
                         .attr("text-anchor", "middle")
-                        .attr("transform", "translate("+ (50) + ","+ (height/2) + ") rotate(-90)")
-                        .text("Value");
-//                    .append("text")
-//                        .attr("text-anchor", "middle")
-//                        .attr("transform", "translate("+ (width) + ","+ (height) + ")")
-//                        .text("Bins");
+                        .attr("transform", "translate("+ (-20) + ","+ (height/2) + ") rotate(-90)")
+                        .text("Number of Students")
+                        .style("font-size", "10px");
+                //X-axis
+                chart.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
+                        .text("Attribute Proficiency")
+                        .style("font-size", "10px");
+                //Title
+                chart.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "translate("+ (width/2) + ","+ (-10) + ")")
+                        .text("Histogram of Students");                
                 
                 //THIS IS TEXT IN THE BARS... Doesnt work atm  
                 chart.append("bartext")
@@ -413,10 +421,9 @@ $mysqli->close();
 
                 //For the second chart
                 var svg2 = d3.select("svg"),
-                    margin2 = {top: 20, right: 30, bottom: 30, left: 370},
-                    width2 = 680 - margin2.left - margin2.right, //280
-                    height2 = 250 - margin2.top - margin2.bottom; //200
-                var barHeight2 = 700;
+                    margin2 = {top: 25, right: 10, bottom: 40, left: 430},
+                    width2 = 770 - margin2.left - margin2.right, //330
+                    height2 = 250 - margin2.top - margin2.bottom; //
                 var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
                     .domain(["1A","1B","2A","2B","3A","3B","4A","4B"])
@@ -451,7 +458,24 @@ $mysqli->close();
                       .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y2(d); })
                       .attr("height", function(d) { return height2 - y2(d); })
-                      .attr("width", x2.rangeBand())                
+                      .attr("width", x2.rangeBand())
+                //Title
+                chart2.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "translate("+ (-25) + ","+ (height2/2) + ") rotate(-90)")
+                        .text("Weighted Average Score")
+                        .style("font-size", "10px");
+                //X-axis
+                chart2.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "translate("+ (width2/2) + ","+ (height2+30) + ")")
+                        .text("Semester")
+                        .style("font-size", "10px");
+                //Title
+                chart2.append("text")
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "translate("+ (width2/2) + ","+ (-10) + ")")
+                        .text("Progression of Cohort");  
                 
                 
                 
