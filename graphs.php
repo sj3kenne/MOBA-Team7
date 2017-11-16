@@ -351,6 +351,7 @@ $mysqli->close();
                 for(var i=0;i<progressionarray.length;i++){progressionarray[i]= parseInt(progressionarray[i],10);}
                 progressionarray.pop();
                 
+                var barPadding = 3;
                 
                 //For the First Chart
                 var svg = d3.select("svg"),
@@ -387,12 +388,28 @@ $mysqli->close();
                   chart.selectAll(".bar")
                       .data(histogramarray)
                     .enter().append("rect")
-                       // .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-                    .attr("class", "bar")
+                      .attr("class", "bar")
                       .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
-                      .attr("width", x.rangeBand())
+                      .attr("width", x.rangeBand() - barPadding)
+                //Bar text
+                chart.selectAll("g")
+                    .data(histogramarray)
+                    //.enter()
+                    .append("text")
+                        .attr("x", //barWidth-(barWidth/2))
+                            function(d, i) {
+                            if(i!=0){
+                                return (barWidth)-barPadding
+                            } else { 
+                                return (barWidth/2)-barPadding
+                            }}) 
+                        .attr("y", function(d) {return y(d) - 200;})
+                        .attr("dy", "1.4em")
+                        .text(function (d, i) { return d; })  
+                        .style("font-size", "10px")
+                        .style("fill", "black");
                 //Y-axis
                 chart.append("text")
                         .attr("text-anchor", "middle")
@@ -408,16 +425,18 @@ $mysqli->close();
                 //Title
                 chart.append("text")
                         .attr("text-anchor", "middle")
-                        .attr("transform", "translate("+ (width/2) + ","+ (-10) + ")")
-                        .text("Histogram of Students");                
+                        .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
+                        .text("Histogram of Students");   
                 
-                //THIS IS TEXT IN THE BARS... Doesnt work atm  
-                chart.append("bartext")
-                //.attr("class", "bartext")
-                    .attr("x", x.rangeBand() / 2)
-                    .attr("y", function(d) {return y(d) - 3})
-                    .attr("dy", ".75em")
-                    .text(function (d) { return d; });      
+                
+//                //THIS IS TEXT IN THE BARS... Doesnt work atm  
+//                chart.append("text")
+//                        .attr("text-anchor", "middle")
+//                        //.attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
+//                        .attr("x", x.rangeBand() / 2)
+//                        .attr("y", function(d) {return y(d) - 3;})
+//                        .attr("dy", ".75em")
+//                        .text(function (d) { return d; });      
 
                 //For the second chart
                 var svg2 = d3.select("svg"),
@@ -458,7 +477,24 @@ $mysqli->close();
                       .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y2(d); })
                       .attr("height", function(d) { return height2 - y2(d); })
-                      .attr("width", x2.rangeBand())
+                      .attr("width", x2.rangeBand() - 1)
+                //bartext
+                chart2.selectAll("g")
+                    .data(progressionarray)
+                    //.enter()
+                    .append("text")
+                        .attr("x", //barWidth-(barWidth/2))
+                            function(d, i) {
+                            if(i!=0){
+                                return (barWidth2)-2*barPadding
+                            } else { 
+                                return (barWidth2/2)-2*barPadding
+                            }}) 
+                        .attr("y", function(d) {return y2(d) - 200;})
+                        .attr("dy", "1.4em")
+                        .text(function (d, i) { return d; })  
+                        .style("font-size", "10px")
+                        .style("fill", "black");
                 //Title
                 chart2.append("text")
                         .attr("text-anchor", "middle")
@@ -474,11 +510,8 @@ $mysqli->close();
                 //Title
                 chart2.append("text")
                         .attr("text-anchor", "middle")
-                        .attr("transform", "translate("+ (width2/2) + ","+ (-10) + ")")
+                        .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text("Progression of Cohort");  
-                
-                
-                
                 
                 
                 
@@ -506,7 +539,7 @@ $mysqli->close();
                 //alert("function is working!");
             }
                 
-            graphs("4 5 5 6 7 ","4 8 15 16 23 15 4 12 ");
+            graphs("6 5 5 6 7 ","4 8 15 16 23 15 4 12 ");
                 
             
             var numofattr =  "<?php echo $numofattr?>"; 
