@@ -276,7 +276,7 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
     
     
-    $numofgraphs = 0;
+    $numofattr = 0;
     
     
 $stmt3->close();
@@ -337,23 +337,20 @@ $mysqli->close();
             
                 
                 
-            function graphs(){
-                //alert("function begins");
-                
-                 
-                //This line moves a string from php to JavaScript
-                var stringtosplit = "<?php echo $printstring?>";  
-                 
+            function graphs(stringtosplitA, stringtosplitB){
+                //alert("function begins");  
 
-                //This Splits the line into multip
-                //var stringtosplit = "1 2 3 4 5 " 
-                var data1 = stringtosplit.split(" ");
-                for(var i=0;i<data1.length;i++){data1[i]= parseInt(data1[i],10);}
-                data1.pop();
-                 
-                var data = data1;
+
+                var histogramarray = stringtosplitA.split(" ");
+                for(var i=0;i<histogramarray.length;i++){histogramarray[i]= parseInt(histogramarray[i],10);}
+                histogramarray.pop();
                 
-                var data2 = [4, 8, 15, 16, 23, 15, 4, 12];
+                
+
+                var progressionarray = stringtosplitB.split(" ");
+                for(var i=0;i<progressionarray.length;i++){progressionarray[i]= parseInt(progressionarray[i],10);}
+                progressionarray.pop();
+                
                 
                 //For the First Chart
                 var svg = d3.select("svg"),
@@ -361,12 +358,12 @@ $mysqli->close();
                     width = 350 - margin.left - margin.right, //280
                     height = 250 - margin.top - margin.bottom; //200
                 var barHeight = 700;
-                var barWidth = width / data.length;
+                var barWidth = width / histogramarray.length;
                 var x = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
                     .rangeBands([0, width]);
                 var y = d3.scale.linear()
-                    .domain([0, d3.max(data)])
+                    .domain([0, d3.max(histogramarray)])
                     .range([height, 0]);
                 var xAxis = d3.svg.axis()
                     .scale(x)
@@ -389,7 +386,7 @@ $mysqli->close();
                       .attr("class", "y axis")
                       .call(yAxis);                
                   chart.selectAll(".bar")
-                      .data(data)
+                      .data(histogramarray)
                     .enter().append("rect")
                        // .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
                     .attr("class", "bar")
@@ -416,16 +413,16 @@ $mysqli->close();
 
                 //For the second chart
                 var svg2 = d3.select("svg"),
-                    margin2 = {top: 20, right: 30, bottom: 30, left: 340},
-                    width2 = 650 - margin2.left - margin2.right, //280
+                    margin2 = {top: 20, right: 30, bottom: 30, left: 370},
+                    width2 = 680 - margin2.left - margin2.right, //280
                     height2 = 250 - margin2.top - margin2.bottom; //200
                 var barHeight2 = 700;
-                var barWidth2 = width2 / data2.length;
+                var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
                     .domain(["1A","1B","2A","2B","3A","3B","4A","4B"])
                     .rangeBands([0, width2]);
                 var y2 = d3.scale.linear()
-                    .domain([0, d3.max(data2)])
+                    .domain([0, d3.max(progressionarray)])
                     .range([height2, 0]);
                 var xAxis2 = d3.svg.axis()
                     .scale(x2)
@@ -448,7 +445,7 @@ $mysqli->close();
                       .attr("class", "y axis")
                       .call(yAxis2);                
                   chart2.selectAll(".bar")
-                      .data(data2)
+                      .data(progressionarray)
                     .enter().append("rect") 
                     .attr("class", "bar")
                       .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
@@ -484,6 +481,17 @@ $mysqli->close();
                 //did it work?
                 //alert("function is working!");
             }
-            graphs();
+                
+            graphs("4 5 5 6 7 ","4 8 15 16 23 15 4 12 ");
+                
+            
+            var numofattr =  "<?php echo $numofattr?>"; 
+            
+            
+            
+            for (i=0; i < numofattr; i++){
+                //graphs(
+            }
+                
         </script>   
 </html>
