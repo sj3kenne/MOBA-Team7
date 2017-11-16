@@ -337,19 +337,24 @@ $mysqli->close();
             
                 
                 
-            function graphs(stringtosplitA, stringtosplitB){
+            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle){
                 //alert("function begins");  
 
-
+                //Split php strings into javascript arrays
                 var histogramarray = stringtosplitA.split(" ");
                 for(var i=0;i<histogramarray.length;i++){histogramarray[i]= parseInt(histogramarray[i],10);}
                 histogramarray.pop();
                 
-                
-
+                //Split php strings into javascript arrays
                 var progressionarray = stringtosplitB.split(" ");
                 for(var i=0;i<progressionarray.length;i++){progressionarray[i]= parseInt(progressionarray[i],10);}
                 progressionarray.pop();
+                
+                //Variable progression axis length
+                var progxaxis = ["1A","1B","2A","2B","3A","3B","4A","4B"];
+                while (progxaxis.length>progressionarray.length){
+                    progxaxis.pop();
+                }
                 
                 var barPadding = 3;
                 
@@ -378,14 +383,15 @@ $mysqli->close();
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
                 //THIS IS THE AXES                
-                  chart.append("g")
+                chart.append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
                       .call(xAxis);
-                  chart.append("g")
+                chart.append("g")
                       .attr("class", "y axis")
-                      .call(yAxis);                
-                  chart.selectAll(".bar")
+                      .call(yAxis);
+                //This is the bars themselves
+                chart.selectAll(".bar")
                       .data(histogramarray)
                     .enter().append("rect")
                       .attr("class", "bar")
@@ -393,7 +399,7 @@ $mysqli->close();
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand() - barPadding)
-                //Bar text
+                //Bar Text
                 chart.selectAll("g")
                     .data(histogramarray)
                     //.enter()
@@ -426,7 +432,7 @@ $mysqli->close();
                 chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
-                        .text("Histogram of Students");   
+                        .text(histotitle + " Histogram of Students");   
                 
                 
 //                //THIS IS TEXT IN THE BARS... Doesnt work atm  
@@ -445,7 +451,7 @@ $mysqli->close();
                     height2 = 250 - margin2.top - margin2.bottom; //
                 var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
-                    .domain(["1A","1B","2A","2B","3A","3B","4A","4B"])
+                    .domain(progxaxis)
                     .rangeBands([0, width2]);
                 var y2 = d3.scale.linear()
                     .domain([0, d3.max(progressionarray)])
@@ -463,21 +469,22 @@ $mysqli->close();
                   .append("g")
                     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
                 //THIS IS THE AXES                
-                  chart2.append("g")
+                chart2.append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height2 + ")")
                       .call(xAxis2);
-                  chart2.append("g")
+                chart2.append("g")
                       .attr("class", "y axis")
-                      .call(yAxis2);                
-                  chart2.selectAll(".bar")
+                      .call(yAxis2);
+                //Split php strings into javascript arrays
+                chart2.selectAll(".bar")
                       .data(progressionarray)
                     .enter().append("rect") 
                     .attr("class", "bar")
                       .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
                       .attr("y", function(d) { return y2(d); })
                       .attr("height", function(d) { return height2 - y2(d); })
-                      .attr("width", x2.rangeBand() - 1)
+                      .attr("width", x2.rangeBand() - barPadding)
                 //bartext
                 chart2.selectAll("g")
                     .data(progressionarray)
@@ -511,7 +518,7 @@ $mysqli->close();
                 chart2.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
-                        .text("Progression of Cohort");  
+                        .text(histotitle + " Progression of " + progtitle + " Cohort");  
                 
                 
                 
@@ -539,7 +546,7 @@ $mysqli->close();
                 //alert("function is working!");
             }
                 
-            graphs("6 5 5 6 7 ","4 8 15 16 23 15 4 12 ");
+            graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A");
                 
             
             var numofattr =  "<?php echo $numofattr?>"; 
