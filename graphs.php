@@ -318,13 +318,16 @@ $mysqli->close();
               margin: 1px;
               color: white;
             }
-/*
-            .chart text {
-              fill: white;
+            .chart text2 {
+              fill: black;
               font: 10px sans-serif;
               text-anchor: middle;
             }
-*/
+            .chart bartext{
+              fill: white;
+              font: 10px sans-serif;
+              text-anchor: middle;
+            }                
                 
             </style>
     
@@ -394,12 +397,20 @@ $mysqli->close();
                       .attr("y", function(d) { return y(d); })
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand())
-     
+                    .append("text2")
+                        .attr("text-anchor", "middle")
+                        .attr("transform", "translate("+ (50) + ","+ (height/2) + ") rotate(-90)")
+                        .text("Value");
+//                    .append("text")
+//                        .attr("text-anchor", "middle")
+//                        .attr("transform", "translate("+ (width) + ","+ (height) + ")")
+//                        .text("Bins");
+                
                 //THIS IS TEXT IN THE BARS... Doesnt work atm  
                 chart.append("bartext")
                 //.attr("class", "bartext")
                     .attr("x", x.rangeBand() / 2)
-                    .attr("y", function(d) { return y(d) + 3; })
+                    .attr("y", function(d) {return y(d) - 3})
                     .attr("dy", ".75em")
                     .text(function (d) { return d; });      
 
