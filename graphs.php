@@ -330,6 +330,156 @@ $mysqli->close();
             }                
                 
             </style>
+            
+            <div id="area1"></div>
+            <div id="area2"></div>
+            <div id="area3"></div>
+            <div id="area4"></div>
+            <div id="area5"></div>
+            <div id="area6"></div>
+            <div id="area7"></div>
+            <div id="area8"></div>
+            <div id="area9"></div>
+            <div id="area10"></div>
+            <div id="area11"></div>
+            <div id="area12"></div>
+            <div id="area13"></div>
+            <div id="area14"></div>
+            <div id="area15"></div>
+            <div id="area16"></div>
+            <div id="area17"></div>
+            <div id="area18"></div>
+            <div id="area19"></div>
+            <div id="area20"></div>
+            <div id="area21"></div>
+            <div id="area22"></div>
+            <div id="area23"></div>
+            <div id="area24"></div>
+            <div id="area25"></div>
+            <div id="area26"></div>
+            <div id="area27"></div>
+            <div id="area28"></div>
+            <div id="area29"></div>
+            <div id="area30"></div>
+            <div id="area31"></div>
+            <div id="area32"></div>
+            <div id="area33"></div>
+            <div id="area34"></div>
+            <div id="area35"></div>
+            <div id="area36"></div>
+            <div id="area37"></div>
+            <div id="area38"></div>
+            <div id="area39"></div>
+            <div id="area40"></div>
+            <div id="area41"></div>
+            <div id="area42"></div>
+            <div id="area43"></div>
+            <div id="area44"></div>
+            <div id="area45"></div>
+            <div id="area46"></div>
+            <div id="area47"></div>
+            <div id="area48"></div>
+            <div id="area49"></div>
+            <div id="area50"></div>
+            <div id="area51"></div>
+            <div id="area52"></div>
+            <div id="area53"></div>
+            <div id="area54"></div>
+            <div id="area55"></div>
+            <div id="area56"></div>
+            <div id="area57"></div>
+            <div id="area58"></div>
+            <div id="area59"></div>
+            <div id="area60"></div>
+            <div id="area61"></div>
+            <div id="area62"></div>
+            <div id="area63"></div>
+            <div id="area64"></div>
+            <div id="area65"></div>
+            <div id="area66"></div>
+            <div id="area67"></div>
+            <div id="area68"></div>
+            <div id="area69"></div>
+            <div id="area70"></div>
+            <div id="area71"></div>
+            <div id="area72"></div>
+            <div id="area73"></div>
+            <div id="area74"></div>
+            <div id="area75"></div>
+            <div id="area76"></div>
+            <div id="area77"></div>
+            <div id="area78"></div>
+            <div id="area79"></div>
+            <div id="area80"></div>
+            <div id="area81"></div>
+            <div id="area82"></div>
+            <div id="area83"></div>
+            <div id="area84"></div>
+            <div id="area85"></div>
+            <div id="area86"></div>
+            <div id="area87"></div>
+            <div id="area88"></div>
+            <div id="area89"></div>
+            <div id="area90"></div>
+            <div id="area91"></div>
+            <div id="area92"></div>
+            <div id="area93"></div>
+            <div id="area94"></div>
+            <div id="area95"></div>
+            <div id="area96"></div>
+            <div id="area97"></div>
+            <div id="area98"></div>
+            <div id="area99"></div>
+            <div id="area100"></div>
+            <div id="area101"></div>
+            <div id="area102"></div>
+            <div id="area103"></div>
+            <div id="area104"></div>
+            <div id="area105"></div>
+            <div id="area106"></div>
+            <div id="area107"></div>
+            <div id="area108"></div>
+            <div id="area109"></div>
+            <div id="area110"></div>
+            <div id="area111"></div>
+            <div id="area112"></div>
+            <div id="area113"></div>
+            <div id="area114"></div>
+            <div id="area115"></div>
+            <div id="area116"></div>
+            <div id="area117"></div>
+            <div id="area118"></div>
+            <div id="area119"></div>
+            <div id="area120"></div>
+            <div id="area121"></div>
+            <div id="area122"></div>
+            <div id="area123"></div>
+            <div id="area124"></div>
+            <div id="area125"></div>
+            <div id="area126"></div>
+            <div id="area127"></div>
+            <div id="area128"></div>
+            <div id="area129"></div>
+            <div id="area130"></div>
+            <div id="area131"></div>
+            <div id="area132"></div>
+            <div id="area133"></div>
+            <div id="area134"></div>
+            <div id="area135"></div>
+            <div id="area136"></div>
+            <div id="area137"></div>
+            <div id="area138"></div>
+            <div id="area139"></div>
+            <div id="area140"></div>
+            <div id="area141"></div>
+            <div id="area142"></div>
+            <div id="area143"></div>
+            <div id="area144"></div>
+            <div id="area145"></div>
+            <div id="area146"></div>
+            <div id="area147"></div>
+            <div id="area148"></div>
+            <div id="area149"></div>
     
             <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
@@ -373,12 +523,9 @@ $mysqli->close();
               };
             })();
             </script>
-    
-    
-    
-    
+
             <script>    
-            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle){
+            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attributeNum){
                 //alert("function begins");  
 
                 //Split php strings into javascript arrays
@@ -399,8 +546,10 @@ $mysqli->close();
                 
                 var barPadding = 3;
                 
+                var attr = attributeNum.toString();
                 //For the First Chart
-                var svg = d3.select("svg"),
+                var svg = d3.select("#area"+attr)
+                .append("svg"),
                     margin = {top: 25, right: 30, bottom: 40, left: 40},
                     width = 400 - margin.left - margin.right, //330
                     height = 250 - margin.top - margin.bottom; //185
@@ -487,7 +636,8 @@ $mysqli->close();
 //                        .text(function (d) { return d; });      
 
                 //For the second chart
-                var svg2 = d3.select("svg"),
+                var svg2 = d3.select("#area2")
+                .append("svg"),
                     margin2 = {top: 25, right: 10, bottom: 40, left: 430},
                     width2 = 770 - margin2.left - margin2.right, //330
                     height2 = 250 - margin2.top - margin2.bottom; //
@@ -589,7 +739,7 @@ $mysqli->close();
                 //alert("function is working!");
             }
                 
-            graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A");
+            graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
                 
             
             var numofattr =  "<?php echo $numofattr?>"; 
