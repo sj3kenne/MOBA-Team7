@@ -40,8 +40,8 @@ $mysqli4 = get_mysqli_conn();
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);
-$stmt3 = $mysqli2->prepare($sql3);
-$stmt4 = $mysqli2->prepare($sql4);
+$stmt3 = $mysqli3->prepare($sql3);
+$stmt4 = $mysqli4->prepare($sql4);
 // Prepared statement, stage 2: execute
 $stmt->execute();
 $stmt2->execute();
@@ -87,7 +87,6 @@ while ($stmt2->fetch())
 		echo '<br>'; 
 		}
 }
-echo '</select><br>';  
 //-----------------------------------------------------------------------------------------------------------
 //User selects a Course
 echo '<h3> Pick a Course: </h3>';
