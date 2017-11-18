@@ -28,11 +28,11 @@ include ('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
- $sql = "SELECT DISTINCT s.Attribute,s.Attribute "
+ $sql = "SELECT DISTINCT s.Cohort,s.Cohort "
     . "FROM scoreusedfor s";
- $sql2 = "SELECT DISTINCT s.Cohort,s.Cohort "
+ $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute "
     . "FROM scoreusedfor s";
- $sql3 = "SELECT DISTINCT s.courseName,s.courseName "
+ $sql3 = "SELECT DISTINCT s.ProgIndicator,s.ProgIndicator "
     . "FROM scoreusedfor s";
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
@@ -43,38 +43,29 @@ $stmt->execute();
 $stmt2->execute();
 $stmt3->execute();
 // Bind result variables 
-$stmt->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
-$stmt2->bind_result($students_GradYear, $students_GradYear); 
-$stmt3->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName);
+$stmt->bind_result($scoreusedfor_cohort, $scoreusedfor_cohort); 
+$stmt2->bind_result($scoreusedfor_attribute, $scoreusedfor_attribute); 
+$stmt3->bind_result($scoreusedfor_indicator, $scoreusedfor_indicator);
 /* fetch values */ 
-//User selects Attributes
-echo '<h3>Select Attribute(s): </h3>';
-while ($stmt->fetch()) 
-{
-    echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_AttributeName .'"/>';
-    echo'<label for="selectedattributes[]">' . $scoreusedfor_AttributeName . '</label>';
-    echo '<br>'; 
-}
-    echo "</table><br>";
-echo '</select><br>';  
 //User selects Cohorts
 echo '<h3>Select Cohort(s): </h3>';
+echo '<select name="selectedcohort[]">';
+	echo '<option value="selectedcohort[]">All Cohorts</option>';
+	while ($stmt->fetch()) 
+	{
+		echo '<option value="selectedcohort[]">' . $scoreusedfor_cohort . '</option>';
+	}
+echo'</select>';
+//User selects Attributes
+echo '<h3>Select Attribute(s): </h3>';
 while ($stmt2->fetch()) 
 {
-    echo '<input type="checkbox" name="selectedcohorts[]" value="'. $students_GradYear .'"/>';
-    echo'<label for="selectedcohorts[]">' . $students_GradYear . '</label>';
+    echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_attribute .'"/>';
+    echo'<label for="selectedattributes[]">' . $scoreusedfor_attribute . '</label>';
     echo '<br>'; 
 }
     echo "</table><br>";
 echo '</select><br>';  
-//User selects Courses
-echo '<h3> Pick a Course: </h3>';
-while ($stmt3->fetch()) 
-{
-    echo '<input type="checkbox" name="selectedcourses[]" value="'. $scoreusedfor_courseName .'"/>';
-    echo'<label for="selectedcourses[]">' . $scoreusedfor_courseName . '</label>';
-    echo '<br>'; 
-}
 $stmt->close(); 
 $stmt2->close(); 
 $stmt3->close(); 
