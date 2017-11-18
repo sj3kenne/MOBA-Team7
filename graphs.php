@@ -22,12 +22,6 @@
 	</body>
 
 <?php
-// Start the session
-//used to pass variables from raw-data.php
-session_start();
-?>
-
-<?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
@@ -92,7 +86,7 @@ if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
 }
 //if no attributes and cohorts and courses selected
 if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
-  $message = "Please select a filter option.";
+  $message = "Please select attributes/indicators.";
   echo "<script type='text/javascript'>alert('$message');</script>";
 }
 //if all attributes and cohorts and courses selected
