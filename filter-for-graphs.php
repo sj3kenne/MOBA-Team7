@@ -29,6 +29,7 @@ $mysqli = get_mysqli_conn();
 $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
 $mysqli4 = get_mysqli_conn();
+$mysqli5 = get_mysqli_conn();
  $sql = "SELECT DISTINCT s.Cohort,s.Cohort
          FROM scoreusedfor s";
  $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute
@@ -37,31 +38,36 @@ $mysqli4 = get_mysqli_conn();
           FROM scoreusedfor s";
  $sql4 = "SELECT DISTINCT s.FirstName,s.LastName
           FROM scoreusedfor s";
+ $sql5 = "SELECT DISTINCT st.GradYear,st.GradYear
+          FROM students st";
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);
 $stmt3 = $mysqli3->prepare($sql3);
 $stmt4 = $mysqli4->prepare($sql4);
+$stmt5 = $mysqli5->prepare($sql5);
 // Prepared statement, stage 2: execute
 $stmt->execute();
 $stmt2->execute();
 $stmt3->execute();
 $stmt4->execute();
+$stmt5->execute();
 // Bind result variables 
 $stmt->bind_result($scoreusedfor_cohort, $scoreusedfor_cohort); 
 $stmt2->bind_result($scoreusedfor_attribute, $scoreusedfor_attribute);
 $stmt3->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
 $stmt4->bind_result($scoreusedfor_FirstName, $scoreusedfor_LastName); 
+$stmt5->bind_result($students_GradYear, $students_GradYear); 
 /* fetch values */ 
 //------------------------------------------------------------------------------------------------------------
 
 //User selects class
 echo '<h3>Select Class: </h3>';
-echo '<select name="selectedcohort[]">';
-  echo '<option value="selectedcohorts[]">All MGTE students</option>';
+echo '<select name="selectedclass[]">';
+  echo '<option value="selectedclass[]">All MGTE students</option>';
   while ($stmt->fetch()) 
   {
-    echo '<option value="selectedcohorts[]">' . $scoreusedfor_cohort . '</option>';
+    echo '<option value="selectedclass[]">' . $students_GradYear . '</option>';
   }
 echo '</select><br>'; 
 
