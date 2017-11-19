@@ -65,7 +65,7 @@ echo '<select name="selectedcohort[]">';
 echo '</select><br>'; 
 //-----------------------------------------------------------------------------------------------------------
 //User selects Attributes
-echo '<h3>Select Attribute(s)/Indicator(s): </h3>';
+echo '<h3>Select Attribute(s) and/or Program Indicator(s): </h3>';
 while ($stmt2->fetch()) 
 {
     echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_attribute .'"/>';
