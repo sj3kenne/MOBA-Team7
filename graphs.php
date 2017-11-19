@@ -50,37 +50,37 @@ $inlist3 =  "'" . $ID3[0] . "'";
 //CHOOSE AVERAGE SCORE QUERY:
 //if no attributes selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
 }
 //if no cohorts selected
 if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
 }
 //if no courses selected
 if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
 }
 //if no attributes and cohorts selected
 if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.courseName IN ($inlist3)";
 }
 //if no attributes and courses selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Cohort IN ($inlist2)";
 }
 //if no cohorts and courses selected
 if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist)";
 }
@@ -91,7 +91,7 @@ if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
 }
 //if all attributes and cohorts and courses selected
 if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
 }
@@ -172,7 +172,7 @@ $stmt2= $mysqli-> prepare ($sql2);
 $stmt2->execute (); 
 // $stmt->execute() function returns boolean indicating success 
 $stmt2->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Standard deviation is:'.'</p>';
+echo '<p>'.'The standard deviation is:'.'</p>';
 while ($stmt2->fetch()) 
 {
 // printf is print format, <li> is list item

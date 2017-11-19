@@ -54,8 +54,19 @@ $stmt3->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName);
 $stmt4->bind_result($scoreusedfor_FirstName, $scoreusedfor_LastName); 
 /* fetch values */ 
 //------------------------------------------------------------------------------------------------------------
-//User selects Cohorts
-echo '<h3>Select Cohort(s): </h3>';
+
+//User selects class
+echo '<h3>Select Class: </h3>';
+echo '<select name="selectedcohort[]">';
+  echo '<option value="selectedcohorts[]">All MGTE students</option>';
+  while ($stmt->fetch()) 
+  {
+    echo '<option value="selectedcohorts[]">' . $scoreusedfor_cohort . '</option>';
+  }
+echo '</select><br>'; 
+
+//User selects Cohort
+echo '<h3>Select Cohort: </h3>';
 echo '<select name="selectedcohort[]">';
 	echo '<option value="selectedcohorts[]">All Cohorts</option>';
 	while ($stmt->fetch()) 
