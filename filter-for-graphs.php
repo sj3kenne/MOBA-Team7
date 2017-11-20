@@ -1,6 +1,6 @@
 <html>
     <head>
-       <title>Graph Filters</title>
+       <title>Filter for Graphs</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -65,7 +65,7 @@ $stmt5->bind_result($students_GradYear, $students_GradYear);
 echo '<h3>Select Class: </h3>';
 echo '<select name="selectedclass[]">';
   echo '<option value="selectedclass[]">All MGTE students</option>';
-  while ($stmt->fetch()) 
+  while ($stmt5->fetch()) 
   {
     echo '<option value="selectedclass[]">' . $students_GradYear . '</option>';
   }

@@ -30,6 +30,8 @@ $mysqli = get_mysqli_conn();
 $ID = $_GET['selectedattributes'];
 $ID2 = $_GET['selectedcohorts'];
 $ID3 = $_GET['selectedcourses'];
+$ID4 = $_GET['selectedclass'];
+
 //----------------------------------------------------------------------------------------------------
 //populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
@@ -46,6 +48,14 @@ $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
         $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
     }
+
+//populated grad year array 
+$inlist4 =  "'" . $ID4[0] . "'";
+    for ($i = 1; $i < count($ID4); ++$i) {
+        $inlist4 =  $inlist4 . ", '" . $ID4[$i] . "'";
+    }
+
+
 //------------------------------------------------------------------------------------------------------
 //CHOOSE AVERAGE SCORE QUERY:
 //if no attributes selected
@@ -613,7 +623,7 @@ $mysqli->close();
                 chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
-                        .text(histotitle + " Histogram of Students");   
+                        .text("Distribution of Scores for " + histotitle);   
                 
                 
 //                //THIS IS TEXT IN THE BARS... Doesnt work atm  
