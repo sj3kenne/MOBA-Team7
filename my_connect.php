@@ -6,7 +6,7 @@ function get_mysqli_conn()
 $local_username = "root";
 $local_password = "root";
 
-$local_databaseName = "samk";
+$local_databaseName = "upload";
 
 
 // Production Database Connection Details:
