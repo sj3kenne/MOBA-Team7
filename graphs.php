@@ -4,7 +4,10 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
+<header>
+	M-OBA
+	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
+</header>
 <body>
 
 	<div id="sidebar">
