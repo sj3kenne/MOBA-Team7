@@ -1,1 +1,1 @@
-<?php include_once("sidebar.html"); ?>
+<?php include_once("filter-for-graphs.php"); ?>
