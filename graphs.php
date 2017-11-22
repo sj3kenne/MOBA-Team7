@@ -517,7 +517,7 @@ $mysqli->close();
 
             <script>  
                 
-            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attrNum,  svg, chart, x, y, xAxis, yAxis){
+            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attrNum,  svg, chart){
                 //alert("function begins");  
 
                 //Split php strings into javascript arrays
@@ -551,10 +551,10 @@ $mysqli->close();
                 
                 
                 var barWidth = width / histogramarray.length;
-                x[attrNum] = d3.scale.ordinal()
+                var x = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
                     .rangeBands([0, width]);
-                y[attrNum] = d3.scale.linear()
+                var y = d3.scale.linear()
                     .domain([0, d3.max(histogramarray)])
                     .range([height, 0]);
                 xAxis[attrNum] = d3.svg.axis()
@@ -586,9 +586,9 @@ $mysqli->close();
                     .enter().append("rect")
                       .attr("class", "bar")
                       .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
-                      .attr("y", function(d) { return y[attrNum](d); })
-                      .attr("height", function(d) { return height - y[attrNum](d); })
-                      .attr("width", x[attrNum].rangeBand() - barPadding)
+                      .attr("y", function(d) { return y(d); })
+                      .attr("height", function(d) { return height - y(d); })
+                      .attr("width", x.rangeBand() - barPadding)
                       .style({fill: randomColour});
                 alert(attrNum);
                 //Bar Text
