@@ -291,7 +291,7 @@ $mysqli->close();
 ?>         
 
     <head>
-       <title>Graph Page</title>
+       <title>Analytics</title>
     </head>
 
         
@@ -738,15 +738,17 @@ $mysqli->close();
                 //alert("function is working!");
             }
                 
-            graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
-                
+            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
+            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
+            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);    
             
             var numofattr =  "<?php echo $numofattr?>"; 
             
             
             
             for (i=0; i < numofattr; i++){
-                //graphs(
+                //graphs("<
+
             }
                 
         </script>   
