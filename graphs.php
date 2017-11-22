@@ -13,7 +13,6 @@
 	<div id="sidebar">
 		
 			<ul>
-				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
 				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
 				<li><a href="filter-for-tables.php">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
