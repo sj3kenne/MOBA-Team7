@@ -1,23 +1,4 @@
 <html>
-
-<head>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-<body>
-
-	<div id="sidebar">
-		
-			<ul>
-				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
-				<li><a href="filter-for-tables.php">Raw Data</a></li>
-				<li><a href="uploading.html">Import</a></li>
-			</ul>
-		</div>
-	</body>
-
 <?php
 // Start the session
 //used to pass variables from raw-data.php
@@ -276,62 +257,72 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
     
     
-    $numofattr = 0;
+    $numofattr = 10;
     
     
 $stmt3->close();
 $mysqli->close();
-?>         
+?>
+    
+<head>
+    <meta charset="utf-8">
+     <title>Graph Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>    
+    .bar {
+      fill: steelblue;
+    }
+    .axis text {
+      font: 10px sans-serif;
+    }
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    .x.axis path {
+      display: none;
+    }     
+    .chart rect {
+      fill: steelblue;
+    }
+    .bartext{
+      fill: red;
+      font: 10px sans-serif;
+      text-anchor: middle;
+      background-color: red;
+      text-align: right;
+      padding: 3px;
+      margin: 1px;
+      color: white;
+    }
+    .chart text2 {
+      fill: black;
+      font: 10px sans-serif;
+      text-anchor: middle;
+    }
+    .chart bartext{
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: middle;
+    }                
+    </style>
+</head>
 
-    <head>
-       <title>Graph Page</title>
-    </head>
+<body>
 
-        
-            <meta charset="utf-8">
-            <style>    
-            .bar {
-              fill: steelblue;
-            }
-            .axis text {
-              font: 10px sans-serif;
-            }
-            .axis path,
-            .axis line {
-              fill: none;
-              stroke: #000;
-              shape-rendering: crispEdges;
-            }
-            .x.axis path {
-              display: none;
-            }     
-            .chart rect {
-              fill: steelblue;
-            }
-            .bartext{
-              fill: red;
-              font: 10px sans-serif;
-              text-anchor: middle;
-              background-color: red;
-              text-align: right;
-              padding: 3px;
-              margin: 1px;
-              color: white;
-            }
-            .chart text2 {
-              fill: black;
-              font: 10px sans-serif;
-              text-anchor: middle;
-            }
-            .chart bartext{
-              fill: white;
-              font: 10px sans-serif;
-              text-anchor: middle;
-            }                
-                
-            </style>
-            
-            <div id="area1"></div>
+	<div id="sidebar">
+		
+			<ul>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
+				<li><a href="filter-for-tables.php">Raw Data</a></li>
+				<li><a href="uploading.html">Import</a></li>
+			</ul>
+		</div>
+     <div id="area1"></div>
             <div id="area2"></div>
             <div id="area3"></div>
             <div id="area4"></div>
@@ -481,7 +472,7 @@ $mysqli->close();
             <div id="area148"></div>
             <div id="area149"></div>
     
-            <svg class="chart"></svg>
+     <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
             <script>
@@ -524,8 +515,9 @@ $mysqli->close();
             })();
             </script>
 
-            <script>    
-            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attributeNum){
+            <script>  
+                
+            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attrNum,  svg, chart, x, y, xAxis, yAxis){
                 //alert("function begins");  
 
                 //Split php strings into javascript arrays
@@ -546,52 +538,61 @@ $mysqli->close();
                 
                 var barPadding = 3;
                 
-                var attr = attributeNum.toString();
+                
                 //For the First Chart
-                var svg = d3.select("#area"+attr)
+                svg[attrNum] = d3.select("#area"+attrNum)
                 .append("svg"),
                     margin = {top: 25, right: 30, bottom: 40, left: 40},
                     width = 400 - margin.left - margin.right, //330
                     height = 250 - margin.top - margin.bottom; //185
+                //alert(attrNum);
+                
+
+                
+                
                 var barWidth = width / histogramarray.length;
-                var x = d3.scale.ordinal()
+                x[attrNum] = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
                     .rangeBands([0, width]);
-                var y = d3.scale.linear()
+                y[attrNum] = d3.scale.linear()
                     .domain([0, d3.max(histogramarray)])
                     .range([height, 0]);
-                var xAxis = d3.svg.axis()
+                xAxis[attrNum] = d3.svg.axis()
                     .scale(x)
                     .orient("bottom");
-                var yAxis = d3.svg.axis()
+                yAxis[attrNum] = d3.svg.axis()
                     .scale(y)
-                    .orient("left");                
+                    .orient("left");       
+                alert(attrNum);
                 //Declare the first Chart
-                var chart = d3.select(".chart")
+                chart[attrNum] = d3.select(".chart")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                alert("yeah?");
                 //THIS IS THE AXES                
-                chart.append("g")
+                chart[attrNum].append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
-                      .call(xAxis);
-                chart.append("g")
+                      .call(xAxis[attrNum]);
+                chart[attrNum].append("g")
                       .attr("class", "y axis")
-                      .call(yAxis);
+                      .call(yAxis[attrNum]);
+                alert(attrNum);
                 //This is the bars themselves
-                chart.selectAll(".bar")
+                chart[attrNum].selectAll(".bar")
                       .data(histogramarray)
                     .enter().append("rect")
                       .attr("class", "bar")
                       .attr("x", function(d, i) { return i * barWidth; }) //{ return "translate(" + i * barWidth + ",0)"; });
-                      .attr("y", function(d) { return y(d); })
-                      .attr("height", function(d) { return height - y(d); })
-                      .attr("width", x.rangeBand() - barPadding)
+                      .attr("y", function(d) { return y[attrNum](d); })
+                      .attr("height", function(d) { return height - y[attrNum](d); })
+                      .attr("width", x[attrNum].rangeBand() - barPadding)
                       .style({fill: randomColour});
+                alert(attrNum);
                 //Bar Text
-                chart.selectAll("g")
+                chart[attrNum].selectAll("g")
                     .data(histogramarray)
                     //.enter()
                     .append("text")
@@ -607,36 +608,33 @@ $mysqli->close();
                         .text(function (d, i) { return d; })  
                         .style("font-size", "10px")
                         .style("fill", "black");
+                alert(attrNum);
                 //Y-axis
-                chart.append("text")
+                chart[attrNum].append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (-20) + ","+ (height/2) + ") rotate(-90)")
                         .text("Number of Students")
                         .style("font-size", "10px");
                 //X-axis
-                chart.append("text")
+                chart[attrNum].append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
                         .text("Attribute Proficiency")
                         .style("font-size", "10px");
                 //Title
-                chart.append("text")
+                chart[attrNum].append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
                         .text(histotitle + " Histogram of Students");   
+                alert(attrNum);
+
+                        //svg.exit()
+
+
                 
-                
-//                //THIS IS TEXT IN THE BARS... Doesnt work atm  
-//                chart.append("text")
-//                        .attr("text-anchor", "middle")
-//                        //.attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
-//                        .attr("x", x.rangeBand() / 2)
-//                        .attr("y", function(d) {return y(d) - 3;})
-//                        .attr("dy", ".75em")
-//                        .text(function (d) { return d; });      
 
                 //For the second chart
-                var svg2 = d3.select("#area"+attr)
+                var svg2 = d3.select("#area"+attrNum)
                 .append("svg"),
                     margin2 = {top: 25, right: 10, bottom: 40, left: 430},
                     width2 = 770 - margin2.left - margin2.right, //330
@@ -712,43 +710,43 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
+                        //svg2.exit()
                 
                 
+                //dict[attrNum] = svg;                
+                alert(svg[attrNum]);
                 
-                
-//Backup                
-//THIS IS THE WORKING BAR GRAPH COLUMNS                
-//                var bar = chart.selectAll("g")
-//                    .data(data)
-//                  .enter().append("g")
-//                    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-//
-//                bar.append("rect")
-//                    .attr("y", (function(d) { return y(d); }))
-//                    .attr("height", (function(d) {return ((height - y(d)));}))
-//                    .attr("width", x.rangeBand());                
-                
-//THIS IS TEXT IN THE BARS                
-//                bar.append("text")
-//                    .attr("x", x.rangeBand() / 2)
-//                    .attr("y", function(d) { return y(d) + 3; })
-//                    .attr("dy", ".75em")
-//                    .text(function (d) { return d; }); 
-                
-                //did it work?
-                //alert("function is working!");
             }
                 
-            graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
+                
+            //graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",0);
                 
             
-            var numofattr =  "<?php echo $numofattr?>"; 
+            var numofattr = parseInt( "<?php echo $numofattr?>"); 
+                alert (numofattr);
             
+
             
+            var svg = {};
+            var chart = {};
+            var x= {};
+            var y= {};
+            var xAxis= {};
+            var yAxis = {};
             
             for (i=0; i < numofattr; i++){
-                //graphs(
+                graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",i, svg, chart, x, y, xAxis, yAxis);
+                alert("hi");
+                //graphs(markers[1],markers[1],"Knowledge Base","2A",2, svg[i]);
             }
                 
+                
         </script>   
+    
+	</body>
+
+         
+           
+    
+           
 </html>
