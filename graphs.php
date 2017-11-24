@@ -21,12 +21,6 @@
 	</body>
 
 <?php
-// Start the session
-//used to pass variables from raw-data.php
-session_start();
-?>
-
-<?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
 // mysqli connection via user-defined function
@@ -35,6 +29,8 @@ $mysqli = get_mysqli_conn();
 $ID = $_GET['selectedattributes'];
 $ID2 = $_GET['selectedcohorts'];
 $ID3 = $_GET['selectedcourses'];
+$ID4 = $_GET['selectedclass'];
+
 //----------------------------------------------------------------------------------------------------
 //populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
@@ -51,52 +47,60 @@ $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
         $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
     }
+
+//populated grad year array 
+$inlist4 =  "'" . $ID4[0] . "'";
+    for ($i = 1; $i < count($ID4); ++$i) {
+        $inlist4 =  $inlist4 . ", '" . $ID4[$i] . "'";
+    }
+
+
 //------------------------------------------------------------------------------------------------------
 //CHOOSE AVERAGE SCORE QUERY:
 //if no attributes selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
 }
 //if no cohorts selected
 if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
 }
 //if no courses selected
 if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
 }
 //if no attributes and cohorts selected
 if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.courseName IN ($inlist3)";
 }
 //if no attributes and courses selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Cohort IN ($inlist2)";
 }
 //if no cohorts and courses selected
 if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist)";
 }
 //if no attributes and cohorts and courses selected
 if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
-  $message = "Please select a filter option.";
+  $message = "Please select attributes/indicators.";
   echo "<script type='text/javascript'>alert('$message');</script>";
 }
 //if all attributes and cohorts and courses selected
 if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql1 = "SELECT AVG(s.score) 
+	$sql1 = "SELECT ROUND(AVG(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
 }
@@ -110,8 +114,8 @@ $stmt1= $mysqli-> prepare ($sql1);
 $stmt1->execute (); 
 // $stmt->execute() function returns boolean indicating success 
 $stmt1->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Stats are as follows:'.'</p>';
-echo '<p>'.'Mean is:'.'</p>';    
+echo '<p>'.'Statistics for filtering are as follows:'.'</p>';
+echo '<p>'.'The mean is:'.'</p>';    
 while ($stmt1->fetch()) 
 {
 // printf is print format, <li> is list item
@@ -123,37 +127,37 @@ $stmt1->close();
 //CHOOSE AVERAGE SCORE QUERY:
 //if no attributes selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
 }
 //if no cohorts selected
 if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
 }
 //if no courses selected
 if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
 }
 //if no attributes and cohorts selected
 if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.courseName IN ($inlist3)";
 }
 //if no attributes and courses selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Cohort IN ($inlist2)";
 }
 //if no cohorts and courses selected
 if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist)";
 }
@@ -164,7 +168,7 @@ if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
 }
 //if all attributes and cohorts and courses selected
 if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql2 = "SELECT STDDEV(s.score) 
+	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
 	FROM ScoreUsedFor s
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
 }
@@ -177,7 +181,7 @@ $stmt2= $mysqli-> prepare ($sql2);
 $stmt2->execute (); 
 // $stmt->execute() function returns boolean indicating success 
 $stmt2->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Standard deviation is:'.'</p>';
+echo '<p>'.'The standard deviation is:'.'</p>';
 while ($stmt2->fetch()) 
 {
 // printf is print format, <li> is list item
@@ -286,7 +290,7 @@ $mysqli->close();
 ?>         
 
     <head>
-       <title>Graph Page</title>
+       <title>Analytics</title>
     </head>
 
         
@@ -487,23 +491,17 @@ $mysqli->close();
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
             <script>
-            // Adapted from http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
-<<<<<<< HEAD
             var randomColour = (function(){
               var golden_ratio_conjugate = 0.618033988749895;
               var h = Math.random();
               var hslToRgb = function (h, s, l){
                   var r, g, b;
-=======
-
             var randomColour = (function(){
               var golden_ratio_conjugate = 0.618033988749895;
               var h = Math.random();
 
               var hslToRgb = function (h, s, l){
                   var r, g, b;
-
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
                   if(s == 0){
                       r = g = b = l; // achromatic
                   }else{
@@ -515,25 +513,20 @@ $mysqli->close();
                           if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
                           return p;
                       }
-<<<<<<< HEAD
-=======
-
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
                       var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
                       var p = 2 * l - q;
                       r = hue2rgb(p, q, h + 1/3);
                       g = hue2rgb(p, q, h);
                       b = hue2rgb(p, q, h - 1/3);
                   }
-<<<<<<< HEAD
-                  return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
-              };
-=======
-
                   return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
               };
 
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
+                  return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
+              };
+
+                  return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
+              };
               return function(){
                 h += golden_ratio_conjugate;
                 h %= 1;
@@ -545,10 +538,6 @@ $mysqli->close();
             <script>    
             function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attributeNum){
                 //alert("function begins");  
-<<<<<<< HEAD
-=======
-
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
                 //Split php strings into javascript arrays
                 var histogramarray = stringtosplitA.split(" ");
                 for(var i=0;i<histogramarray.length;i++){histogramarray[i]= parseInt(histogramarray[i],10);}
@@ -645,7 +634,6 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
                         .text(histotitle + " Histogram of Students");   
-<<<<<<< HEAD
                 
                 
 //                //THIS IS TEXT IN THE BARS... Doesnt work atm  
@@ -733,10 +721,7 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
-=======
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
-                
-                
+                        .text("Distribution of Scores for " + histotitle);   
 //                //THIS IS TEXT IN THE BARS... Doesnt work atm  
 //                chart.append("text")
 //                        .attr("text-anchor", "middle")
@@ -823,13 +808,6 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
-                
-                
-<<<<<<< HEAD
-=======
-                
-                
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
 //Backup                
 //THIS IS THE WORKING BAR GRAPH COLUMNS                
 //                var bar = chart.selectAll("g")
@@ -853,15 +831,16 @@ $mysqli->close();
                 //alert("function is working!");
             }
                 
-            graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
-                
+            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
+            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
+            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);    
+
             
             var numofattr =  "<?php echo $numofattr?>"; 
             
             
             
             for (i=0; i < numofattr; i++){
-                //graphs(
             }
                 
         </script>   
