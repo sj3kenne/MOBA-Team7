@@ -59,7 +59,6 @@ $stmt4->bind_result($scoreusedfor_FirstName, $scoreusedfor_LastName);
 $stmt5->bind_result($students_GradYear, $students_GradYear); 
 /* fetch values */ 
 //------------------------------------------------------------------------------------------------------------
-
 //User selects class
 echo '<h3> Select a Class: </h3>';
 echo '<input type="radio" name="selectedclass[]" value="All Program"/>';

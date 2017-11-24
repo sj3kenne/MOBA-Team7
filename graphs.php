@@ -47,7 +47,6 @@ $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
-print $inlist2;
 /*//populated courses array 
 $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
@@ -56,7 +55,6 @@ $inlist3 =  "'" . $ID3[0] . "'";
 	*/
 //populated grad year array 
 $inlist4 =  "'" . $ID4[0] . "'";
-print $inlist4;
 //populated instructor array 
 $inlist5 =  "'" . $ID5[0] . "'";
     for ($i = 1; $i < count($ID5); ++$i) {
@@ -64,36 +62,37 @@ $inlist5 =  "'" . $ID5[0] . "'";
     } 
 //-------------------------------------------------------------------------------------------------------- 
 //THIS IS THE GRAPHING DATA: 
-for ($i = 1; $i < count($ID2); ++$i) {
+for ($i = 0; $i < count($ID); ++$i) {
 //if all cohorts selected
 if($inlist4=="'All Program'"){
-	$sql[$i] = "SELECT s.score  
+	${'sql'.$i} = "SELECT s.score  
 	FROM ScoreUsedFor s 
-	WHERE s.Attribute IN ($inlist[$i]) AND s.Cohort IN ($inlist2)";
+	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2)";
 }
 else
 {
 //if one cohort selected
-	$sql[$i] = "SELECT s.score  
+	${'sql'.$i} = "SELECT s.score  
 	FROM ScoreUsedFor s JOIN students s1 
-	WHERE s.Attribute IN ($inlist[$i]) AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
+	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
 }
+print ${'sql'.$i};
 //-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
-$stmt[$i]= $mysqli-> prepare ($sql3);
+${'stmt'.$i}= $mysqli-> prepare (${'sql'.$i});
 //$stmt3->bind_param('i', $ID); 
-$stmt3[$i]->execute (); 
+${'stmt'.$i}->execute (); 
 // $stmt3->execute() function returns boolean indicating success 
-$stmt3[$i]->bind_result($ScoreUsedFor_score);
+${'stmt'.$i}->bind_result($ScoreUsedFor_score);
     $bin1 = array();
     $bin2 = array();
     $bin3 = array();
     $bin4 = array();
     $bin5 = array();
     //echo ' <p>'.$ScoreUsedFor_score.'<br>'.'does this work'.'</p>';
-    while ($stmt3[$i]->fetch())
+    while (${'stmt'.$i}->fetch())
     {   
         //echo ' <p>'.$ScoreUsedFor_score.'<br>'.'yes'.'</p>';
         //echo gettype($ScoreUsedFor_score.'<br.';
@@ -118,7 +117,7 @@ $stmt3[$i]->bind_result($ScoreUsedFor_score);
     $count4 = count($bin4);
     $count5 = count($bin5);
     
-    $printstring[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+    ${'printstring'.$i}= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
    }
     
     $numofattr = 3;
