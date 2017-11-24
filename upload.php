@@ -75,21 +75,43 @@ if ($uploadOk == 0) {
 }
      $studentlist = $studentlist . ",";   
   for ($i = 0; $i < count($grad); ++$i) { 
+      $count =0;
       $studentPair = explode(',', $grad[$i]);
       
     //check if student in each row of csv file has a corresponding student id in the students table in db  //if id found in db, update graduation year
     if (strpos($studentlist,',' . $studentPair[0] . ',') !== false) {
-    $sql1 = "UPDATE Students SET GradYear = " . ($studentPair[1]). " WHERE StudentID = " . $studentPair[0];
   
-    $stmt1= $mysqli-> prepare ($sql1);
-    $stmt1->execute (); 
+    $sql1 = "UPDATE Students SET GradYear = " . ($studentPair[1]). " WHERE StudentID = " . $studentPair[0];
+          $stmt1= $mysqli-> prepare ($sql1);
+        
+    // wrong file format. exit code
+    if(!$stmt1){
+       echo('<h3> Error updating students after line ' . ($i + 1) . ' for student : "' . ($studentPair[0]). '" and year: "'  . ($studentPair[1]). '". Please check file format. </h3>');
+         echo('<h3>Instructions for expected file format can be found in the documentation files. </h3> ');
+        exit();
+    }
+ 
+    // if error encountered where student nt found in db            
    } else {
+        $count++;
+        if($count == 1){
+            echo('<h2> Error log: </h2> ');
+        }
         //if id not found in db, print error message to user
             echo('<h3> Student ID ' . $studentPair[0] . ' is not in current list of students.</h3>');
-    } 
     }
-        //success message for remaining students
-        echo(' <h3> Graduation year for other students in list updated successfully to this year </h3>' );
+
+    }
+         // if no error encountered in db  
+        if($count == 0){
+            echo('<h3> Graduation years for all students in file updated </h3> ');
+        }
+         // if errors printed and other rows ok
+        else if ($count >0 ){
+            echo('<h2> Sucess messages: </h2> ');
+            echo('<h3> Graduation years for remaining students in file updated </h3> ');
+        }
+
 }
 }
 ?>
