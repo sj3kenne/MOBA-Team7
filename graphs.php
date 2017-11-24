@@ -35,49 +35,42 @@ $ID2 = $_GET['selectedcohorts'];
 $ID3 = $_GET['selectedcourses'];
 $ID4 = $_GET['selectedclass'];
 $ID5 = $_GET['selectedinstructor'];
-
 //----------------------------------------------------------------------------------------------------
 //populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
+print $inlist;
 //populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
+print $inlist2;
 //populated courses array 
 $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
         $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
     }
-
 //populated grad year array 
 $inlist4 =  "'" . $ID4[0] . "'";
     for ($i = 1; $i < count($ID4); ++$i) {
         $inlist4 =  $inlist4 . ", '" . $ID4[$i] . "'";
     }
 	
-/*//populated instructor array 
+//populated instructor array 
 $inlist5 =  "'" . $ID5[0] . "'";
     for ($i = 1; $i < count($ID5); ++$i) {
         $inlist5 =  $inlist5 . ", '" . $ID5[$i] . "'";
     }
-	*/
-
 
 //------------------------------------------------------------------------------------------------------
 //GETTING MAX SCORE DEPENDING ON FILTERS
-    for ($i = 1; $i < count($inlist); ++$i) {
-        $maxscore[$i] = "SELECT MAX(s.score)
-						 FROM ScoreUsedFor s
-						 WHERE s.Attribute IN ($inlist[$i]) AND s.courseName IN ($inlist2)";;
-    }
-$maxscore = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
-
+//Attribute for entire program and specific term
+        $sql1 = "SELECT MAX(s.score)
+				 FROM ScoreUsedFor s
+				 WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
 /*//if no attributes selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0 && count($ID4)<>0&& count($ID5)<>0){
 	$sql1 = "SELECT ROUND(AVG(s.score),2) 

@@ -61,24 +61,21 @@ $stmt5->bind_result($students_GradYear, $students_GradYear);
 //------------------------------------------------------------------------------------------------------------
 
 //User selects class
-echo '<h3>Select Class: </h3>';
-echo '<select name="selectedclass[]">';
-  echo '<option value="selectedclass[]">All MGTE students</option>';
-  while ($stmt5->fetch()) 
-  {
-    echo '<option value="selectedclass[]">' . $students_GradYear . '</option>';
-  }
-echo '</select><br>'; 
-
+echo '<h3> Select a Class: </h3>';
+while ($stmt5->fetch()) 
+{
+    echo '<input type="radio" name="selectedclass[]" value="'. $students_GradYear .'"/>';
+    echo'<label for="selectedclass[]">' . $students_GradYear . '</label>';
+    echo '<br>'; 
+}
 //User selects Cohort
-echo '<h3>Select Cohort: </h3>';
-echo '<select name="selectedcohort[]">';
-	echo '<option value="selectedcohorts[]">All Cohorts</option>';
-	while ($stmt->fetch()) 
-	{
-		echo '<option value="selectedcohorts[]">' . $scoreusedfor_cohort . '</option>';
-	}
-echo '</select><br>'; 
+echo '<h3> Select a Cohort: </h3>';
+while ($stmt->fetch()) 
+{
+    echo '<input type="radio" name="selectedcohorts[]" value="'. $scoreusedfor_cohort .'"/>';
+    echo'<label for="selectedcohorts[]">' . $scoreusedfor_cohort . '</label>';
+    echo '<br>'; 
+}
 //-----------------------------------------------------------------------------------------------------------
 //User selects Attributes
 echo '<h3>Select Attribute(s) and/or Program Indicator(s): </h3>';
