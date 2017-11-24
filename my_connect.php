@@ -5,13 +5,7 @@ function get_mysqli_conn()
     $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
-<<<<<<< HEAD
 $local_databaseName = "g4lau-msci342-local-db";
-=======
-
-$local_databaseName = "smdumlao-msci342-local-db";
-
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
 
 // Production Database Connection Details:
 //$databaseConnectURL = "mysql://bec9224a3c2850:feb6f6a3@us-cdbr-iron-east-04.cleardb.net/heroku_81f997698bd0911?reconnect=true";

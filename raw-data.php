@@ -20,12 +20,8 @@ session_start();
 		<div id="sidebar">
 		
 			<ul>
-<<<<<<< HEAD
 				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
 				<li><a href="filter-for-graphs.php">Analytics</a></li>
-=======
-				<li><a href="graphs.php">Analytics</a></li>
->>>>>>> 445c1dcad6e2469e4e839621a05eb8ef9053fa19
 				<li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
