@@ -77,6 +77,7 @@ else
 	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
 }
 print ${'sql'.$i};
+echo '<br>'; 
 //-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
