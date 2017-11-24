@@ -15,7 +15,6 @@
 	<div id="sidebar">
 		
 			<ul>
-				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
 				<li><a href="filter-for-graphs.php">Analytics</a></li>
 				<li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
@@ -32,7 +31,6 @@ $mysqli = get_mysqli_conn();
 $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
 $mysqli4 = get_mysqli_conn();
-
  $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute "
     . "FROM scoreusedfor s";
  $sql3 = "SELECT DISTINCT s.Cohort,s.Cohort "
@@ -46,21 +44,17 @@ $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);
 $stmt3 = $mysqli3->prepare($sql3);
 $stmt4 = $mysqli4->prepare($sql4);
-
-
 // Prepared statement, stage 2: execute
 $stmt->execute();
 $stmt2->execute();
 $stmt3->execute();
 $stmt4->execute();
-
 // Bind result variables 
 $stmt->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
 $stmt2->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
 $stmt3->bind_result($students_GradYear, $students_GradYear); 
 $stmt4->bind_result($instructors_FirstName, $instructors_LastName); 
 /* fetch values */ 
-
 //User selects an Attribute
 echo '<h3>Select Attribute(s): </h3>';
 while ($stmt2->fetch()) 
@@ -71,7 +65,6 @@ while ($stmt2->fetch())
 }
     echo "</table><br>";
 echo '</select><br>';  
-
 //User selects a cohort
 echo '<h3>Select Cohort(s): </h3>';
 while ($stmt3->fetch()) 
@@ -82,7 +75,6 @@ while ($stmt3->fetch())
 }
     echo "</table><br>";
 echo '</select><br>';  
-
 //User selects a Course
 echo '<h3> Pick a Course: </h3>';
 while ($stmt->fetch()) 
@@ -102,7 +94,6 @@ while ($stmt4->fetch())
 }
     echo "</table><br>";
 echo '</select><br>'; 
-
 $stmt->close(); 
 $mysqli->close();
 ?>
