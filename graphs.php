@@ -13,7 +13,6 @@
 	<div id="sidebar">
 		
 			<ul>
-				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
 				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
 				<li><a href="filter-for-tables.php">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
@@ -492,12 +491,14 @@ $mysqli->close();
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
             <script>
-            // Adapted from http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+            // Adapted from http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically
             var randomColour = (function(){
               var golden_ratio_conjugate = 0.618033988749895;
               var h = Math.random();
+
               var hslToRgb = function (h, s, l){
                   var r, g, b;
+
                   if(s == 0){
                       r = g = b = l; // achromatic
                   }else{
@@ -509,6 +510,7 @@ $mysqli->close();
                           if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
                           return p;
                       }
+
                       var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
                       var p = 2 * l - q;
                       r = hue2rgb(p, q, h + 1/3);
@@ -528,6 +530,7 @@ $mysqli->close();
             <script>    
             function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attributeNum){
                 //alert("function begins");  
+
                 //Split php strings into javascript arrays
                 var histogramarray = stringtosplitA.split(" ");
                 for(var i=0;i<histogramarray.length;i++){histogramarray[i]= parseInt(histogramarray[i],10);}
@@ -624,6 +627,7 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
                         .text("Distribution of Scores for " + histotitle);   
+
                 
                 
 //                //THIS IS TEXT IN THE BARS... Doesnt work atm  
@@ -634,6 +638,7 @@ $mysqli->close();
 //                        .attr("y", function(d) {return y(d) - 3;})
 //                        .attr("dy", ".75em")
 //                        .text(function (d) { return d; });      
+
                 //For the second chart
                 var svg2 = d3.select("#area"+attr)
                 .append("svg"),
@@ -741,14 +746,13 @@ $mysqli->close();
             graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
             graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
             graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);    
+
             
             var numofattr =  "<?php echo $numofattr?>"; 
             
             
             
             for (i=0; i < numofattr; i++){
-                //graphs("<
-
             }
                 
         </script>   

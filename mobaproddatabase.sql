@@ -86,7 +86,6 @@ CREATE TABLE `ScoreUsedFor` (
 --
 
 INSERT INTO `ScoreUsedFor` (`courseName`, `StudentID`, `Attribute`, `Indicator`, `ProgIndicator`, `score`, `DeptCode`, `CourseNumber`, `LastName`, `FirstName`, `courseTerm`, `courseYear`, `Cohort`, `courseType`) VALUES
-('\" . $toInsert[7] . \"', 0, '\" . $toInsert[2] . \"', '\" . $toInsert[3] . \"', '\" . $toInsert[4] . \"', 0, '\" . $', 0, '\" . $toInsert[8] . \"', '\" . $toInsert[9] . \"', '\" . $t', 0, '\" ', '\" . $toInsert[13] . '),
 ('TestCourse', 0, 'Recognize the key elements of ', '', '0.18', 0, '261x', 0, 'Pirnia', 'Mehrdad', 'Spring', 2016, '2A', 'Option'),
 ('TestCourse', 0, 'Recognize the key elements of ', '', '0.2', 0, '261x', 0, 'Attieh', 'Juana', 'Spring', 2016, '2A', 'Option'),
 ('TestCourse', 0, 'Recognize the key elements of ', '', '0.35', 0, '261x', 0, 'Pirnia', 'Mehrdad', 'Spring', 2016, '2A', 'Option'),
