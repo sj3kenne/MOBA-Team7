@@ -42,6 +42,7 @@ $inlist =  "'" . $ID[0] . "'";
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
 print $inlist;
+echo '<br>'; 
 //populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
