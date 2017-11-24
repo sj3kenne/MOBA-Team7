@@ -1,24 +1,28 @@
 <html>
-
-<head>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+    <head>
+       <title>Analytics</title>
+       <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
 <header>
-	M-OBA
-	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
+    M-OBA
+    <img src="waterlooLogo.png" style="height:100%;float:right;"/>
+
 </header>
 <body>
+<form action="raw-data.php" method="get">
 
-	<div id="sidebar">
-		
-			<ul>
-				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
-				<li><a href="filter-for-tables.php">Raw Data</a></li>
-				<li><a href="uploading.html">Import</a></li>
-			</ul>
-		</div>
-	</body>
+    <div id="sidebar">
+        
+            <ul>
+                <li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+                <li><a href="filter-for-graphs.php">Analytics</a></li>
+                <li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
+                <li><a href="uploading.html">Import</a></li>
+            </ul>
+        </div>
+
+
 
 <?php
 // Enable error logging: 
@@ -282,61 +286,75 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
     
     
-    $numofattr = 0;
+    $numofattr = 3;
     
     
 $stmt3->close();
 $mysqli->close();
-?>         
+?>
+    
+<head>
+    <meta charset="utf-8">
+     <title>Graph Page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>    
+    .bar {
+      fill: steelblue;
+    }
+    .axis text {
+      font: 10px sans-serif;
+    }
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    .x.axis path {
+      display: none;
+    }     
+    .chart rect {
+      fill: steelblue;
+    }
+    .bartext{
+      fill: red;
+      font: 10px sans-serif;
+      text-anchor: middle;
+      background-color: red;
+      text-align: right;
+      padding: 3px;
+      margin: 1px;
+      color: white;
+    }
+/*
+    .chart text2 {
+      fill: black;
+      font: 10px sans-serif;
+      text-anchor: middle;
+    }
+    .chart bartext{
+      fill: white;
+      font: 10px sans-serif;
+      text-anchor: middle;
+    }                
+*/
+    </style>
+</head>
 
-    <head>
-       <title>Analytics</title>
-    </head>
+<body>
 
-        
-            <meta charset="utf-8">
-            <style>    
-            .bar {
-              fill: steelblue;
-            }
-            .axis text {
-              font: 10px sans-serif;
-            }
-            .axis path,
-            .axis line {
-              fill: none;
-              stroke: #000;
-              shape-rendering: crispEdges;
-            }
-            .x.axis path {
-              display: none;
-            }     
-            .chart rect {
-              fill: steelblue;
-            }
-            .bartext{
-              fill: red;
-              font: 10px sans-serif;
-              text-anchor: middle;
-              background-color: red;
-              text-align: right;
-              padding: 3px;
-              margin: 1px;
-              color: white;
-            }
-            .chart text2 {
-              fill: black;
-              font: 10px sans-serif;
-              text-anchor: middle;
-            }
-            .chart bartext{
-              fill: white;
-              font: 10px sans-serif;
-              text-anchor: middle;
-            }                
-                
-            </style>
-            
+
+	<div id="sidebar">
+		
+			<ul>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
+				<li><a href="filter-for-tables.php">Raw Data</a></li>
+				<li><a href="uploading.html">Import</a></li>
+			</ul>
+		</div>
+            <div id="area0"></div>
             <div id="area1"></div>
             <div id="area2"></div>
             <div id="area3"></div>
@@ -487,7 +505,7 @@ $mysqli->close();
             <div id="area148"></div>
             <div id="area149"></div>
     
-            <svg class="chart"></svg>
+     <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
             <script>
@@ -527,8 +545,9 @@ $mysqli->close();
             })();
             </script>
 
-            <script>    
-            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attributeNum){
+            <script>  
+                
+            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attrNum){
                 //alert("function begins");  
 
                 //Split php strings into javascript arrays
@@ -549,13 +568,14 @@ $mysqli->close();
                 
                 var barPadding = 3;
                 
-                var attr = attributeNum.toString();
+                
                 //For the First Chart
-                var svg = d3.select("#area"+attr)
-                .append("svg"),
+                var svg = d3
+                .select("svg"),
                     margin = {top: 25, right: 30, bottom: 40, left: 40},
                     width = 400 - margin.left - margin.right, //330
                     height = 250 - margin.top - margin.bottom; //185
+
                 var barWidth = width / histogramarray.length;
                 var x = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
@@ -568,9 +588,10 @@ $mysqli->close();
                     .orient("bottom");
                 var yAxis = d3.svg.axis()
                     .scale(y)
-                    .orient("left");                
+                    .orient("left");       
                 //Declare the first Chart
-                var chart = d3.select(".chart")
+                var chart = d3.select("#area"+attrNum)
+                    .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
@@ -626,25 +647,16 @@ $mysqli->close();
                 chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
-                        .text("Distribution of Scores for " + histotitle);   
+                        .text(histotitle + " Histogram of Students");  
+
 
                 
-                
-//                //THIS IS TEXT IN THE BARS... Doesnt work atm  
-//                chart.append("text")
-//                        .attr("text-anchor", "middle")
-//                        //.attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
-//                        .attr("x", x.rangeBand() / 2)
-//                        .attr("y", function(d) {return y(d) - 3;})
-//                        .attr("dy", ".75em")
-//                        .text(function (d) { return d; });      
 
                 //For the second chart
-                var svg2 = d3.select("#area"+attr)
-                .append("svg"),
-                    margin2 = {top: 25, right: 10, bottom: 40, left: 430},
+                var svg2 = d3.select("svg"),
+                    margin2 = {top: 25, right: 420, bottom: 40, left: 40},
                     width2 = 770 - margin2.left - margin2.right, //330
-                    height2 = 250 - margin2.top - margin2.bottom; //
+                    height2 = 250 - margin2.top - margin2.bottom; //185
                 var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
                     .domain(progxaxis)
@@ -659,7 +671,8 @@ $mysqli->close();
                     .scale(y2)
                     .orient("left");                
                 //Declare the second Chart
-                var chart2 = d3.select(".chart")
+                var chart2 = d3.select("#area"+attrNum)
+                    .append("svg")
                     .attr("width", width2 + margin2.left + margin2.right)
                     .attr("height", height2 + margin2.top + margin2.bottom)
                   .append("g")
@@ -677,7 +690,7 @@ $mysqli->close();
                       .data(progressionarray)
                     .enter().append("rect") 
                     .attr("class", "bar")
-                      .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
+                      .attr("x", function(d, i) { return i * barWidth2; }) 
                       .attr("y", function(d) { return y2(d); })
                       .attr("height", function(d) { return height2 - y2(d); })
                       .attr("width", x2.rangeBand() - barPadding)
@@ -687,7 +700,7 @@ $mysqli->close();
                     .data(progressionarray)
                     //.enter()
                     .append("text")
-                        .attr("x", //barWidth-(barWidth/2))
+                        .attr("x", 
                             function(d, i) {
                             if(i!=0){
                                 return (barWidth2)-2*barPadding
@@ -717,43 +730,28 @@ $mysqli->close();
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
                 
-                
-                
-                
-//Backup                
-//THIS IS THE WORKING BAR GRAPH COLUMNS                
-//                var bar = chart.selectAll("g")
-//                    .data(data)
-//                  .enter().append("g")
-//                    .attr("transform", function(d, i) { return "translate(" + i * barWidth + ",0)"; });
-//
-//                bar.append("rect")
-//                    .attr("y", (function(d) { return y(d); }))
-//                    .attr("height", (function(d) {return ((height - y(d)));}))
-//                    .attr("width", x.rangeBand());                
-                
-//THIS IS TEXT IN THE BARS                
-//                bar.append("text")
-//                    .attr("x", x.rangeBand() / 2)
-//                    .attr("y", function(d) { return y(d) + 3; })
-//                    .attr("dy", ".75em")
-//                    .text(function (d) { return d; }); 
-                
-                //did it work?
-                //alert("function is working!");
             }
                 
-            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
-            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);
-            graphs("6 5 18 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",5);    
-
             
-            var numofattr =  "<?php echo $numofattr?>"; 
+            var numofattr = parseInt( "<?php echo $numofattr?>"); 
             
-            
+            var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
+            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
             
             for (i=0; i < numofattr; i++){
+
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
+
             }
                 
+            for (var key in graphs1){
+                
+            }
+                
+                
         </script>   
+
+	</body>
+  
 </html>
+
