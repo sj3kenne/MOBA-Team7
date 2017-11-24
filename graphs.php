@@ -1,9 +1,26 @@
 <html>
-<?php
-// Start the session
-//used to pass variables from raw-data.php
-session_start();
-?>
+    <head>
+       <title>Analytics</title>
+       <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+<header>
+    M-OBA
+    <img src="waterlooLogo.png" style="height:100%;float:right;"/>
+</header>
+<body>
+<form action="raw-data.php" method="get">
+
+    <div id="sidebar">
+        
+            <ul>
+                <li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+                <li><a href="filter-for-graphs.php">Analytics</a></li>
+                <li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
+                <li><a href="uploading.html">Import</a></li>
+            </ul>
+        </div>
+
 
 <?php
 // Enable error logging: 
@@ -709,14 +726,12 @@ $mysqli->close();
                 
             
             var numofattr = parseInt( "<?php echo $numofattr?>"); 
-                alert (numofattr);
             
             var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
             var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
             
             for (i=0; i < numofattr; i++){
                 graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
-                alert("hi");
             }
                 
             for (var key in graphs1){
