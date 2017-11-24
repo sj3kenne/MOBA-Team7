@@ -347,6 +347,13 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
      <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
+            <script type='text/javascript'>
+            <?php
+            $js_array = json_encode($printarray);
+            echo "var graphs1 = ". $js_array . ";\n";
+            ?>
+            </script>
+    
             <script>
             // Adapted from http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically
             var randomColour = (function(){
@@ -572,21 +579,23 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
             }
                 
             
-            var numofattr = parseInt( "<?php echo $numofattr?>"); 
+            alert("working?");
             
-            var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
+            //var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
             var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
             
+            alert(graphs1[1]);
+            
+            var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
+                
+            alert(numofattr);    
+                
             for (i=0; i < numofattr; i++){
-
+                alert (graphs1[i]);
                 graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
-
             }
                 
-            for (var key in graphs1){
-                
-            }
-                
+            alert("working?");                
                 
         </script>   
 
