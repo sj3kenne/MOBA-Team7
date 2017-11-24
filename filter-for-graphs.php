@@ -73,11 +73,17 @@ while ($stmt5->fetch())
 }
 //------------------------------------------------------------------------------------------------------------
 //User selects Cohort
-echo '<h3> Select a Cohort: </h3>';
+echo '<h3> Select a Cohort/Course: </h3>';
 while ($stmt->fetch()) 
 {
     echo '<input type="radio" name="selectedcohorts[]" value="'. $scoreusedfor_cohort .'"/>';
     echo'<label for="selectedcohorts[]">' . $scoreusedfor_cohort . '</label>';
+    echo '<br>'; 
+}
+while ($stmt3->fetch()) 
+{
+    echo '<input type="radio" name="selectedcohorts[]" value="'. $scoreusedfor_courseName .'"/>';
+    echo'<label for="selectedcohorts[]">' . $scoreusedfor_courseName . '</label>';
     echo '<br>'; 
 }
 //-----------------------------------------------------------------------------------------------------------
@@ -103,15 +109,6 @@ while ($stmt2->fetch())
 		echo'<label for="selectedattributes[]">' . $scoreusedfor_indicator . '</label>';
 		echo '<br>'; 
 		}
-}
-//-----------------------------------------------------------------------------------------------------------
-//User selects a Course
-echo '<h3> Pick a Course: </h3>';
-while ($stmt3->fetch()) 
-{
-    echo '<input type="checkbox" name="selectedcourses[]" value="'. $scoreusedfor_courseName .'"/>';
-    echo'<label for="selectedcourses[]">' . $scoreusedfor_courseName . '</label>';
-    echo '<br>'; 
 }
 //-----------------------------------------------------------------------------------------------------------
 //User select a Prof

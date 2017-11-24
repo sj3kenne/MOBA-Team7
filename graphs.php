@@ -32,7 +32,7 @@ include('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $ID = $_GET['selectedattributes'];
 $ID2 = $_GET['selectedcohorts'];
-$ID3 = $_GET['selectedcourses'];
+//$ID3 = $_GET['selectedcourses'];
 $ID4 = $_GET['selectedclass'];
 $ID5 = $_GET['selectedinstructor'];
 //----------------------------------------------------------------------------------------------------
@@ -48,11 +48,12 @@ $inlist2 =  "'" . $ID2[0] . "'";
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
 print $inlist2;
-//populated courses array 
+/*//populated courses array 
 $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
         $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
     }
+	*/
 //populated grad year array 
 $inlist4 =  "'" . $ID4[0] . "'";
 print $inlist4;
