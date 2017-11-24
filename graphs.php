@@ -55,9 +55,6 @@ $inlist3 =  "'" . $ID3[0] . "'";
     }
 //populated grad year array 
 $inlist4 =  "'" . $ID4[0] . "'";
-    for ($i = 1; $i < count($ID4); ++$i) {
-        $inlist4 =  $inlist4 . ", '" . $ID4[$i] . "'";
-    }
 print $inlist4;
 //populated instructor array 
 $inlist5 =  "'" . $ID5[0] . "'";
@@ -67,13 +64,18 @@ $inlist5 =  "'" . $ID5[0] . "'";
 //-------------------------------------------------------------------------------------------------------- 
 //THIS IS THE GRAPHING DATA: 
 //if all cohorts selected
+if($inlist4=="'All Program'"){
 	$sql3 = "SELECT s.score  
 	FROM ScoreUsedFor s 
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
+}
+else
+{
 //if one cohort selected
 	$sql3 = "SELECT s.score  
 	FROM ScoreUsedFor s JOIN students s1 
 	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
+}
 //-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
