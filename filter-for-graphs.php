@@ -62,12 +62,16 @@ $stmt5->bind_result($students_GradYear, $students_GradYear);
 
 //User selects class
 echo '<h3> Select a Class: </h3>';
+echo '<input type="radio" name="selectedclass[]" value="All Program"/>';
+echo'<label for="selectedclass[]">All Program</label>';
+echo '<br>'; 
 while ($stmt5->fetch()) 
 {
-    echo '<input type="radio" name="selectedclass[]" value="'. $students_GradYear .'"/>';
+	echo '<input type="radio" name="selectedclass[]" value="'. $students_GradYear .'"/>';
     echo'<label for="selectedclass[]">' . $students_GradYear . '</label>';
     echo '<br>'; 
 }
+//------------------------------------------------------------------------------------------------------------
 //User selects Cohort
 echo '<h3> Select a Cohort: </h3>';
 while ($stmt->fetch()) 
