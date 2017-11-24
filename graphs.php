@@ -520,7 +520,7 @@ $mysqli->close();
 
             <script>  
                 
-            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attrNum,  svg, chart){
+            function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attrNum){
                 //alert("function begins");  
 
                 //Split php strings into javascript arrays
@@ -543,12 +543,11 @@ $mysqli->close();
                 
                 
                 //For the First Chart
-                svg[attrNum] = d3//.select("#area"+attrNum)
+                var svg = d3//.select("#area"+attrNum)
                 .select("svg"),
                     margin = {top: 25, right: 30, bottom: 40, left: 40},
                     width = 400 - margin.left - margin.right, //330
                     height = 250 - margin.top - margin.bottom; //185
-                alert("1");
 
                 var barWidth = width / histogramarray.length;
                 var x = d3.scale.ordinal()
@@ -557,32 +556,29 @@ $mysqli->close();
                 var y = d3.scale.linear()
                     .domain([0, d3.max(histogramarray)])
                     .range([height, 0]);
-                xAxis[attrNum] = d3.svg.axis()
+                var xAxis = d3.svg.axis()
                     .scale(x)
                     .orient("bottom");
-                yAxis[attrNum] = d3.svg.axis()
+                var yAxis = d3.svg.axis()
                     .scale(y)
                     .orient("left");       
-                alert("2");
                 //Declare the first Chart
-                chart[attrNum] = d3.select("#area"+attrNum)
+                var chart = d3.select("#area"+attrNum)
                     .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
                     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-                alert("yeah?");
                 //THIS IS THE AXES                
-                chart[attrNum].append("g")
+                chart.append("g")
                       .attr("class", "x axis")
                       .attr("transform", "translate(0," + height + ")")
-                      .call(xAxis[attrNum]);
-                chart[attrNum].append("g")
+                      .call(xAxis);
+                chart.append("g")
                       .attr("class", "y axis")
-                      .call(yAxis[attrNum]);
-                alert(attrNum);
+                      .call(yAxis);
                 //This is the bars themselves
-                chart[attrNum].selectAll(".bar")
+                chart.selectAll(".bar")
                       .data(histogramarray)
                     .enter().append("rect")
                       .attr("class", "bar")
@@ -591,9 +587,8 @@ $mysqli->close();
                       .attr("height", function(d) { return height - y(d); })
                       .attr("width", x.rangeBand() - barPadding)
                       .style({fill: randomColour});
-                alert(attrNum);
                 //Bar Text
-                chart[attrNum].selectAll("g")
+                chart.selectAll("g")
                     .data(histogramarray)
                     //.enter()
                     .append("text")
@@ -609,28 +604,23 @@ $mysqli->close();
                         .text(function (d, i) { return d; })  
                         .style("font-size", "10px")
                         .style("fill", "black");
-                alert(attrNum);
                 //Y-axis
-                chart[attrNum].append("text")
+                chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (-20) + ","+ (height/2) + ") rotate(-90)")
                         .text("Number of Students")
                         .style("font-size", "10px");
                 //X-axis
-                chart[attrNum].append("text")
+                chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
                         .text("Attribute Proficiency")
                         .style("font-size", "10px");
                 //Title
-                chart[attrNum].append("text")
+                chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
-                        .text(histotitle + " Histogram of Students");   
-                alert(attrNum);
-
-                        //svg.exit()
-
+                        .text(histotitle + " Histogram of Students");  
 
                 
 
@@ -654,7 +644,8 @@ $mysqli->close();
                     .scale(y2)
                     .orient("left");                
                 //Declare the second Chart
-                var chart2 = d3.select(".chart")
+                var chart2 = d3.select("#area"+attrNum)
+                    .append("svg")
                     .attr("width", width2 + margin2.left + margin2.right)
                     .attr("height", height2 + margin2.top + margin2.bottom)
                   .append("g")
@@ -711,11 +702,6 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
-                        //svg2.exit()
-                
-                
-                //dict[attrNum] = svg;                
-                alert(svg[attrNum]);
                 
             }
                 
@@ -737,7 +723,7 @@ $mysqli->close();
             var yAxis = {};
             
             for (i=0; i < numofattr; i++){
-                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i, svg, chart);//, x, y, xAxis[i], yAxis[i]);
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
                 alert("hi");
             }
                 
