@@ -119,8 +119,8 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
     $count4 = count($bin4);
     $count5 = count($bin5);
     
-    ${'printstring'.$i}= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-	print ${'printstring'.$i};
+    $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+	print $printarray[$i];
 	echo '<br>'; 
    }
     
