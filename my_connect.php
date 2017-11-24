@@ -1,12 +1,13 @@
 <?php
 // Function to obtain mysqli connection.
-    $local_host = "localhost";
+function get_mysqli_conn()
+{
+$local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
 
-$local_databaseName = "upload";
-function get_mysqli_conn()
-{
+$local_databaseName = "upload1";
+
 // Production Database Connection Details:
 //$databaseConnectURL = "mysql://bec9224a3c2850:feb6f6a3@us-cdbr-iron-east-04.cleardb.net/heroku_81f997698bd0911?reconnect=true";
 // CLEARDB_DATABASE_URL needs to be set in Heroku.  
@@ -39,6 +40,4 @@ echo 'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->
 }
 return $mysqli;
 }
-
-
 ?>
