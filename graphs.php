@@ -257,7 +257,7 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
     
     
-    $numofattr = 10;
+    $numofattr = 3;
     
     
 $stmt3->close();
@@ -298,6 +298,7 @@ $mysqli->close();
       margin: 1px;
       color: white;
     }
+/*
     .chart text2 {
       fill: black;
       font: 10px sans-serif;
@@ -308,6 +309,7 @@ $mysqli->close();
       font: 10px sans-serif;
       text-anchor: middle;
     }                
+*/
     </style>
 </head>
 
@@ -322,7 +324,8 @@ $mysqli->close();
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
 		</div>
-     <div id="area1"></div>
+            <div id="area0"></div>
+            <div id="area1"></div>
             <div id="area2"></div>
             <div id="area3"></div>
             <div id="area4"></div>
@@ -540,16 +543,13 @@ $mysqli->close();
                 
                 
                 //For the First Chart
-                svg[attrNum] = d3.select("#area"+attrNum)
-                .append("svg"),
+                svg[attrNum] = d3//.select("#area"+attrNum)
+                .select("svg"),
                     margin = {top: 25, right: 30, bottom: 40, left: 40},
                     width = 400 - margin.left - margin.right, //330
                     height = 250 - margin.top - margin.bottom; //185
-                //alert(attrNum);
-                
+                alert("1");
 
-                
-                
                 var barWidth = width / histogramarray.length;
                 var x = d3.scale.ordinal()
                     .domain(["<60%","60-70%","70%-80%","80%-90%","90-100%"])
@@ -563,9 +563,10 @@ $mysqli->close();
                 yAxis[attrNum] = d3.svg.axis()
                     .scale(y)
                     .orient("left");       
-                alert(attrNum);
+                alert("2");
                 //Declare the first Chart
-                chart[attrNum] = d3.select(".chart")
+                chart[attrNum] = d3.select("#area"+attrNum)
+                    .append("svg")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                   .append("g")
@@ -671,7 +672,7 @@ $mysqli->close();
                       .data(progressionarray)
                     .enter().append("rect") 
                     .attr("class", "bar")
-                      .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
+                      .attr("x", function(d, i) { return i * barWidth2; }) 
                       .attr("y", function(d) { return y2(d); })
                       .attr("height", function(d) { return height2 - y2(d); })
                       .attr("width", x2.rangeBand() - barPadding)
@@ -681,7 +682,7 @@ $mysqli->close();
                     .data(progressionarray)
                     //.enter()
                     .append("text")
-                        .attr("x", //barWidth-(barWidth/2))
+                        .attr("x", 
                             function(d, i) {
                             if(i!=0){
                                 return (barWidth2)-2*barPadding
@@ -725,7 +726,8 @@ $mysqli->close();
             var numofattr = parseInt( "<?php echo $numofattr?>"); 
                 alert (numofattr);
             
-
+            var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
+            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
             
             var svg = {};
             var chart = {};
@@ -735,9 +737,12 @@ $mysqli->close();
             var yAxis = {};
             
             for (i=0; i < numofattr; i++){
-                graphs("6 5 5 6 7 ","4 8 15 16 23 ","Knowledge Base","2A",i, svg, chart, x, y, xAxis, yAxis);
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i, svg, chart);//, x, y, xAxis[i], yAxis[i]);
                 alert("hi");
-                //graphs(markers[1],markers[1],"Knowledge Base","2A",2, svg[i]);
+            }
+                
+            for (var key in graphs1){
+                
             }
                 
                 
