@@ -14,7 +14,7 @@ session_start();
 	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
 </header>
 <body>
-<form action="graphs.php" method="get">
+<form action="graphs.php">
 <h3> Search results are as follows: </h3>
 
 		<div id="sidebar">
@@ -25,6 +25,8 @@ session_start();
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
 		</div>
+<br><input type="submit" class="button" value="Export to Excel"/><br>
+<br>
 
 <?php
 // Enable error logging: 
@@ -94,15 +96,14 @@ echo '';
 
 $_SESSION['courses'] = $ID;
 $_SESSION['attributes'] = $ID2;
+$_SESSION['sql1'] = $sql1;
 //sessions used to pass variables to graphs.php
 
 $stmt1->close();
 $mysqli->close();
 ?>
 
-<br>
-<input type="submit" value="Generate Stats"/>
-</br>
+
 </form>
 <div class="tron">
 </div>

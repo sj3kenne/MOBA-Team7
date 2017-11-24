@@ -2,7 +2,7 @@
 // Function to obtain mysqli connection.
 function get_mysqli_conn()
 {
-$local_host = "localhost";
+    $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
 
