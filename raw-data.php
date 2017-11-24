@@ -14,7 +14,7 @@ session_start();
 	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
 </header>
 <body>
-<form action="graphs.php">
+<form action="export.php">
 <h3> Search results are as follows: </h3>
 
 		<div id="sidebar">
