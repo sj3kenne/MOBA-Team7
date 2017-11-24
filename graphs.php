@@ -491,17 +491,14 @@ $mysqli->close();
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
             <script>
-            var randomColour = (function(){
-              var golden_ratio_conjugate = 0.618033988749895;
-              var h = Math.random();
-              var hslToRgb = function (h, s, l){
-                  var r, g, b;
+            // Adapted from http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically
             var randomColour = (function(){
               var golden_ratio_conjugate = 0.618033988749895;
               var h = Math.random();
 
               var hslToRgb = function (h, s, l){
                   var r, g, b;
+
                   if(s == 0){
                       r = g = b = l; // achromatic
                   }else{
@@ -513,18 +510,13 @@ $mysqli->close();
                           if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
                           return p;
                       }
+
                       var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
                       var p = 2 * l - q;
                       r = hue2rgb(p, q, h + 1/3);
                       g = hue2rgb(p, q, h);
                       b = hue2rgb(p, q, h - 1/3);
                   }
-                  return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
-              };
-
-                  return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
-              };
-
                   return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
               };
               return function(){
@@ -538,6 +530,7 @@ $mysqli->close();
             <script>    
             function graphs(stringtosplitA, stringtosplitB, histotitle, progtitle, attributeNum){
                 //alert("function begins");  
+
                 //Split php strings into javascript arrays
                 var histogramarray = stringtosplitA.split(" ");
                 for(var i=0;i<histogramarray.length;i++){histogramarray[i]= parseInt(histogramarray[i],10);}
@@ -633,95 +626,10 @@ $mysqli->close();
                 chart.append("text")
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
-                        .text(histotitle + " Histogram of Students");   
-                
-                
-//                //THIS IS TEXT IN THE BARS... Doesnt work atm  
-//                chart.append("text")
-//                        .attr("text-anchor", "middle")
-//                        //.attr("transform", "translate("+ (width/2) + ","+ (height+30) + ")")
-//                        .attr("x", x.rangeBand() / 2)
-//                        .attr("y", function(d) {return y(d) - 3;})
-//                        .attr("dy", ".75em")
-//                        .text(function (d) { return d; });      
-                //For the second chart
-                var svg2 = d3.select("#area"+attr)
-                .append("svg"),
-                    margin2 = {top: 25, right: 10, bottom: 40, left: 430},
-                    width2 = 770 - margin2.left - margin2.right, //330
-                    height2 = 250 - margin2.top - margin2.bottom; //
-                var barWidth2 = width2 / progressionarray.length;
-                var x2 = d3.scale.ordinal()
-                    .domain(progxaxis)
-                    .rangeBands([0, width2]);
-                var y2 = d3.scale.linear()
-                    .domain([0, d3.max(progressionarray)])
-                    .range([height2, 0]);
-                var xAxis2 = d3.svg.axis()
-                    .scale(x2)
-                    .orient("bottom");
-                var yAxis2 = d3.svg.axis()
-                    .scale(y2)
-                    .orient("left");                
-                //Declare the second Chart
-                var chart2 = d3.select(".chart")
-                    .attr("width", width2 + margin2.left + margin2.right)
-                    .attr("height", height2 + margin2.top + margin2.bottom)
-                  .append("g")
-                    .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
-                //THIS IS THE AXES                
-                chart2.append("g")
-                      .attr("class", "x axis")
-                      .attr("transform", "translate(0," + height2 + ")")
-                      .call(xAxis2);
-                chart2.append("g")
-                      .attr("class", "y axis")
-                      .call(yAxis2);
-                //Split php strings into javascript arrays
-                chart2.selectAll(".bar")
-                      .data(progressionarray)
-                    .enter().append("rect") 
-                    .attr("class", "bar")
-                      .attr("x", function(d, i) { return i * barWidth2; }) //{ return "translate(" + i * barWidth + ",0)"; });
-                      .attr("y", function(d) { return y2(d); })
-                      .attr("height", function(d) { return height2 - y2(d); })
-                      .attr("width", x2.rangeBand() - barPadding)
-                    .style({fill: randomColour});
-                //Bar text
-                chart2.selectAll("g")
-                    .data(progressionarray)
-                    //.enter()
-                    .append("text")
-                        .attr("x", //barWidth-(barWidth/2))
-                            function(d, i) {
-                            if(i!=0){
-                                return (barWidth2)-2*barPadding
-                            } else { 
-                                return (barWidth2/2)-2*barPadding
-                            }}) 
-                        .attr("y", function(d) {return y2(d) - 200;})
-                        .attr("dy", "1.4em")
-                        .text(function (d, i) { return d; })  
-                        .style("font-size", "10px")
-                        .style("fill", "black");
-                //Title
-                chart2.append("text")
-                        .attr("text-anchor", "middle")
-                        .attr("transform", "translate("+ (-25) + ","+ (height2/2) + ") rotate(-90)")
-                        .text("Weighted Average Score")
-                        .style("font-size", "10px");
-                //X-axis
-                chart2.append("text")
-                        .attr("text-anchor", "middle")
-                        .attr("transform", "translate("+ (width2/2) + ","+ (height2+30) + ")")
-                        .text("Semester")
-                        .style("font-size", "10px");
-                //Title
-                chart2.append("text")
-                        .attr("text-anchor", "middle")
-                        .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
-                        .text(histotitle + " Progression of " + progtitle + " Cohort");  
                         .text("Distribution of Scores for " + histotitle);   
+
+                
+                
 //                //THIS IS TEXT IN THE BARS... Doesnt work atm  
 //                chart.append("text")
 //                        .attr("text-anchor", "middle")
@@ -808,6 +716,10 @@ $mysqli->close();
                         .attr("text-anchor", "middle")
                         .attr("transform", "translate("+ (width2/2) + ","+ (-13) + ")")
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
+                
+                
+                
+                
 //Backup                
 //THIS IS THE WORKING BAR GRAPH COLUMNS                
 //                var bar = chart.selectAll("g")
