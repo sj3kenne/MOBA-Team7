@@ -20,7 +20,8 @@ session_start();
 		<div id="sidebar">
 		
 			<ul>
-				<li><a href="graphs.php">Analytics</a></li>
+				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
+				<li><a href="filter-for-graphs.php">Analytics</a></li>
 				<li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
 				<li><a href="uploading.html">Import</a></li>
 			</ul>
@@ -61,7 +62,6 @@ if(count($ID2)==0){
 	WHERE s.courseName IN ($inlist) AND s.Attribute IN ($inlist2)";
 }
 }
-
 // Prepared statement, stage 1: prepare
 //$stmt1 = $mysqli->prepare($sql1);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
@@ -93,11 +93,9 @@ echo ' </tr>';
 }
 echo '</table>';
 echo '';
-
 $_SESSION['courses'] = $ID;
 $_SESSION['attributes'] = $ID2;
 //sessions used to pass variables to graphs.php
-
 $stmt1->close();
 $mysqli->close();
 ?>
