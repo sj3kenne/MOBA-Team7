@@ -35,7 +35,7 @@ $ID2 = $_GET['selectedcohorts'];
 $ID3 = $_GET['selectedcourses'];
 $ID4 = $_GET['selectedclass'];
 
-//----------------------------------------------------------------------------------------------------
+/*//----------------------------------------------------------------------------------------------------
 //populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
@@ -57,10 +57,10 @@ $inlist4 =  "'" . $ID4[0] . "'";
     for ($i = 1; $i < count($ID4); ++$i) {
         $inlist4 =  $inlist4 . ", '" . $ID4[$i] . "'";
     }
-
+*/
 
 //------------------------------------------------------------------------------------------------------
-//CHOOSE AVERAGE SCORE QUERY:
+//GETTING MAX SCORE 
 //if no attributes selected
 if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
 	$sql1 = "SELECT ROUND(AVG(s.score),2) 
