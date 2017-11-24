@@ -25,8 +25,6 @@ error_reporting(E_ALL ^ E_NOTICE);
 include('./my_connect.php');
 $mysqli = get_mysqli_conn();
 
-//$currentDir = getcwd();
-//$target_dir = $currentDir;
 $target_file =  basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $csvFileType = pathinfo($target_file,PATHINFO_EXTENSION);
@@ -36,7 +34,7 @@ if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
-// Allow certain file formats
+// Allow certain file formats (only csv)
 if($csvFileType != "csv") {
     echo "<h3> Please upload CSV files. Other file types are not allowed. </h3>";
     $uploadOk = 0;
@@ -72,19 +70,25 @@ if ($uploadOk == 0) {
     /* fetch values */ 
     while ($stmt->fetch()) 
     {
+        //concatenate all lists of students in db already into one long string
       $studentlist = $studentlist . "," . $Students_StudentID;
 }
      $studentlist = $studentlist . ",";   
   for ($i = 0; $i < count($grad); ++$i) { 
-      //echo($studentlist);
-    if (strpos($studentlist,',' . $grad[$i] . ',') !== false) {
-    $sql1 = "UPDATE Students SET GradYear = (SELECT EXTRACT(YEAR FROM CURRENT_DATE)) WHERE StudentID = " . $grad[$i];
+      $studentPair = explode(',', $grad[$i]);
+      
+    //check if student in each row of csv file has a corresponding student id in the students table in db  //if id found in db, update graduation year
+    if (strpos($studentlist,',' . $studentPair[0] . ',') !== false) {
+    $sql1 = "UPDATE Students SET GradYear = " . ($studentPair[1]). " WHERE StudentID = " . $studentPair[0];
+  
     $stmt1= $mysqli-> prepare ($sql1);
     $stmt1->execute (); 
    } else {
-            echo('<h3> Student ID ' . $grad[$i] . ' is not in current list of students.</h3>');
+        //if id not found in db, print error message to user
+            echo('<h3> Student ID ' . $studentPair[0] . ' is not in current list of students.</h3>');
     } 
     }
+        //success message for remaining students
         echo(' <h3> Graduation year for other students in list updated successfully to this year </h3>' );
 }
 }
