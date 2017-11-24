@@ -120,6 +120,8 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
     $count5 = count($bin5);
     
     ${'printstring'.$i}= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+	print ${'printstring'.$i};
+	echo '<br>'; 
    }
     
     $numofattr = 3;
