@@ -47,6 +47,14 @@ if ($uploadOk == 0) {
     
 // if everything is ok, update db
 } else {
+    $count = 0;
+    	$handle = fopen($_FILES['fileToUpload']['tmp_name'], "r");
+	//comment in html no special characters it will mess the query
+	while (($data = fgetcsv($handle, 1000)) !== FALSE){
+        $count++;
+        echo($count);
+        print_r($data);		
+	}
     
     $contents = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
     //echo($contents);
@@ -68,7 +76,6 @@ if ($uploadOk == 0) {
  
         
     // wrong file format. exit code
-        echo($stmt1);
     if(!$stmt1){
     echo('<h2> Error Log: </h2>');
        echo('<h3> Upload Incomplete! Error updating instructors information on line 1 for instructor pair : "' . $grad[0] . '". Please check file format. </h3>');
