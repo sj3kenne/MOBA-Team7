@@ -3,8 +3,8 @@
 //used to pass variables to graphs.php
 session_start();
 
+//get sql from raw data
 $sql = $_SESSION['sql1'];
-
 
 /*******YOU DO NOT NEED TO EDIT ANYTHING BELOW THIS LINE*******/    
 //create MySQL connection   
@@ -17,6 +17,7 @@ $stmt = $mysqli->prepare($sql);
 $stmt->execute();
 $stmt->bind_result($ScoreUsedFor_courseName,$ScoreUsedFor_AttributeName, $ScoreUsedFor_IndicatorName, $ScoreUsedFor_score);
 
+//initialize excel file
 $file_ending = "xls";
 //header info for browser
 header("Content-Type: application/xls");    
@@ -38,9 +39,9 @@ print("\n");
 //start while loop to get data
     while($stmt->fetch())
     {
-        
+        //print each line of the code and then go to the next line
         echo  $ScoreUsedFor_courseName;
-$schema_insert = $ScoreUsedFor_courseName . "\t" . $ScoreUsedFor_AttributeName. "\t" . $ScoreUsedFor_IndicatorName. "\t" . $ScoreUsedFor_score;
+        $schema_insert = $ScoreUsedFor_courseName . "\t" . $ScoreUsedFor_AttributeName. "\t" . $ScoreUsedFor_IndicatorName. "\t" . $ScoreUsedFor_score;
         
         $schema_insert = str_replace($sep."$", "", $schema_insert);
         $schema_insert = preg_replace("/\r\n|\n\r|\n|\r/", " ", $schema_insert);
