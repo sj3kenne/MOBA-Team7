@@ -100,9 +100,10 @@ if ($uploadOk == 0) {
       $sqls = "INSERT INTO Students (StudentID) Values (" . $toInsert[0] . ")";
       $stmts= $mysqli-> prepare ($sqls);
       $stmt3= $mysqli-> prepare ($sql3);
-    
+
         // if error encountered, print error message to tell the user what went wrong    
     if(!$stmt3 or !$sqls){
+        
     echo('<h2> Error Log: </h2>');
        echo('<h3> Upload Incomplete! Error adding score information on line  ' . $i . " for student: '" . $toInsert[0] . "' and program indicator '" . $toInsert[3] . "'. Please check file format. </h3>");
          echo('<h3>Instructions for expected file format can be found in the documentation files. </h3> ');
