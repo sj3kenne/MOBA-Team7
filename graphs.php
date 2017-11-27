@@ -11,13 +11,10 @@
 </header>
 <body>
 <form action="raw-data.php" method="get">
-
     <div id="sidebar">
-        
             <ul>
-                <li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-                <li><a href="filter-for-graphs.php">Analytics</a></li>
-                <li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
+                <li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
+                <li><a href="filter-for-tables.php">Raw Data</a></li>
                 <li><a href="uploading.html">Import</a></li>
             </ul>
         </div>
@@ -185,13 +182,12 @@ for ($i = 0; $i < count($ID); ++$i) {
 
 
 	<div id="sidebar">
-		
-			<ul>
-				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-				<li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
-				<li><a href="filter-for-tables.php">Raw Data</a></li>
-				<li><a href="uploading.html">Import</a></li>
-			</ul>
+            <ul>
+                <li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
+                <li><a href="filter-for-tables.php">Raw Data</a></li>
+                <li><a href="uploading.html">Import</a></li>
+            </ul>
+        </div>
 		</div>
             <div id="area0"></div>
             <div id="area1"></div>

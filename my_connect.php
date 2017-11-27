@@ -7,6 +7,7 @@ $local_username = "root";
 $local_password = "root";
 $local_databaseName = "g4lau-msci342-local-db";
 
+
 // Production Database Connection Details:
 //$databaseConnectURL = "mysql://bec9224a3c2850:feb6f6a3@us-cdbr-iron-east-04.cleardb.net/heroku_81f997698bd0911?reconnect=true";
 // CLEARDB_DATABASE_URL needs to be set in Heroku.  
