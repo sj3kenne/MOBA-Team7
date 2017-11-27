@@ -38,7 +38,7 @@ $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
-print $inlist;
+//print $inlist;
 echo '<br>'; 
 //populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
@@ -74,7 +74,7 @@ for ($i = 0; $i < count($ID); ++$i) {
         FROM ScoreUsedFor s JOIN students s1 
         WHERE (s.Attribute IN ('$ID[$i]') OR s.ProgIndicator IN ('$ID[$i]'))AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
     }
-    print ${'sql'.$i};
+    //print ${'sql'.$i};
     echo '<br>'; 
     //-------------------------------------------------------------------------------------------------------
     // Prepared statement, stage 1: prepare
@@ -118,12 +118,12 @@ for ($i = 0; $i < count($ID); ++$i) {
     $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
     //printarray2[$i] = ;
 	$printarray3[$i]=$ID[$i];
-	print $printarray[$i];
-	print $printarray3[$i];
+	//print $printarray[$i];
+	//print $printarray3[$i];
 	echo '<br>'; 
 }
 $printstring4=$ID2[0];
-print $printstring4;
+//print $printstring4;
     
     
 //$stmt3->close();
