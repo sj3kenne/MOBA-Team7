@@ -122,9 +122,9 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
     $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
 	print $printarray[$i];
 	echo '<br>'; 
-   }
     
-    $numofattr = 3;
+    echo count($printarray);
+   }
 
     
     
@@ -500,8 +500,8 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
 
                 //For the second chart
                 var svg2 = d3.select("svg"),
-                    margin2 = {top: 25, right: 420, bottom: 40, left: 40},
-                    width2 = 770 - margin2.left - margin2.right, //330
+                    margin2 = {top: 25, right: 30, bottom: 40, left: 40},
+                    width2 = 400 - margin2.left - margin2.right, //330
                     height2 = 250 - margin2.top - margin2.bottom; //185
                 var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
@@ -582,15 +582,15 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
             //alert("working?");
             
             //var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
-            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
+            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 ", 3: "3 4 ", 5: "29 3 0 ", 6: "34 43 42 " };
             
             //alert(graphs1[1]);
             
             var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
                 
-            //alert(numofattr);    
-                
-            for (i=0; i < numofattr; i++){
+            alert(numofattr);    
+            alert(graphs1.length);    
+            for (i=0; i < numofattr+1; i=i+1){
                 //alert (graphs1[i]);
                 graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
             }
