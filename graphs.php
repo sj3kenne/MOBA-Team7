@@ -122,7 +122,7 @@ for ($i = 0; $i < count($ID); ++$i) {
 	print $printarray3[$i];
 	echo '<br>'; 
 }
-$printstring4=$ID2;
+$printstring4=$ID2[0];
 print $printstring4;
     
     
@@ -588,13 +588,15 @@ print $printstring4;
             //alert(graphs1[1]);
             
             var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
-                
+ 
+            var cohort = "<?php echo $printstring4?>"
+            //alert(cohort);
             //alert(numofattr);    
             //alert(graphs1.length);
             //alert(graphs2.length);                
             for (i=0; i < numofattr; i=i+1){
                 //alert(i);
-                graphs(graphs1[i],graphs2[i],title[i],var cohort "<?php echo $printstring4?>",i);
+                graphs(graphs1[i],graphs2[i],title[i],cohort,i);
                 //alert (graphs1[i]);
             }
                 
