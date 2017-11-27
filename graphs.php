@@ -32,233 +32,69 @@ include('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $ID = $_GET['selectedattributes'];
 $ID2 = $_GET['selectedcohorts'];
-$ID3 = $_GET['selectedcourses'];
+//$ID3 = $_GET['selectedcourses'];
 $ID4 = $_GET['selectedclass'];
-
+$ID5 = $_GET['selectedinstructor'];
 //----------------------------------------------------------------------------------------------------
 //populated attributes array 
 $inlist =  "'" . $ID[0] . "'";
     for ($i = 1; $i < count($ID); ++$i) {
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
+print $inlist;
+echo '<br>'; 
 //populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
         $inlist2 =  $inlist2 . ", '" . $ID2[$i] . "'";
     }
-//populated courses array 
+/*//populated courses array 
 $inlist3 =  "'" . $ID3[0] . "'";
     for ($i = 1; $i < count($ID3); ++$i) {
         $inlist3 =  $inlist3 . ", '" . $ID3[$i] . "'";
     }
-
+	*/
 //populated grad year array 
 $inlist4 =  "'" . $ID4[0] . "'";
-    for ($i = 1; $i < count($ID4); ++$i) {
-        $inlist4 =  $inlist4 . ", '" . $ID4[$i] . "'";
-    }
-
-
-//------------------------------------------------------------------------------------------------------
-//CHOOSE AVERAGE SCORE QUERY:
-//if no attributes selected
-if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
-}
-//if no cohorts selected
-if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
-}
-//if no courses selected
-if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
-}
-//if no attributes and cohorts selected
-if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.courseName IN ($inlist3)";
-}
-//if no attributes and courses selected
-if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2)";
-}
-//if no cohorts and courses selected
-if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist)";
-}
-//if no attributes and cohorts and courses selected
-if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
-  $message = "Please select attributes/indicators.";
-  echo "<script type='text/javascript'>alert('$message');</script>";
-}
-//if all attributes and cohorts and courses selected
-if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql1 = "SELECT ROUND(AVG(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
-}
-//-----------------------------------------------------------------------------------------------------------
-//PRESENT AVERAGE SCORE
-// Prepared statement, stage 1: prepare
-//$stmt1 = $mysqli->prepare($sql1);
-// (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
-$stmt1= $mysqli-> prepare ($sql1);
-    //$stmt1->bind_param('i', $ID); 
-$stmt1->execute (); 
-// $stmt->execute() function returns boolean indicating success 
-$stmt1->bind_result($ScoreUsedFor_score);
-echo '<p>'.'Statistics for filtering are as follows:'.'</p>';
-echo '<p>'.'The mean is:'.'</p>';    
-while ($stmt1->fetch()) 
-{
-// printf is print format, <li> is list item
-//printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <td>'.$ScoreUsedFor_score.'</td>';
-}
-$stmt1->close();   
-//-------------------------------------------------------------------------------------------------------- 
-//CHOOSE AVERAGE SCORE QUERY:
-//if no attributes selected
-if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
-}
-//if no cohorts selected
-if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
-}
-//if no courses selected
-if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
-}
-//if no attributes and cohorts selected
-if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.courseName IN ($inlist3)";
-}
-//if no attributes and courses selected
-if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2)";
-}
-//if no cohorts and courses selected
-if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist)";
-}
-//if no attributes and cohorts and courses selected
-if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
-  $message = "Please select a filter option.";
-  echo "<script type='text/javascript'>alert('$message');</script>";
-}
-//if all attributes and cohorts and courses selected
-if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql2 = "SELECT ROUND(STDDEV(s.score),2) 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
-}
-//-------------------------------------------------------------------------------------------------------
-// Prepared statement, stage 1: prepare
-//$stmt1 = $mysqli->prepare($sql1);
-// (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
-$stmt2= $mysqli-> prepare ($sql2);
-    //$stmt1->bind_param('i', $ID); 
-$stmt2->execute (); 
-// $stmt->execute() function returns boolean indicating success 
-$stmt2->bind_result($ScoreUsedFor_score);
-echo '<p>'.'The standard deviation is:'.'</p>';
-while ($stmt2->fetch()) 
-{
-// printf is print format, <li> is list item
-//printf ('%s %s %s %s %s %s <br>',$Model_Year,$Model_Model,$Model_Type, $Model_Price, $Cars_Colour, $Discount_Discount_Type);
-echo ' <p>'.$ScoreUsedFor_score.'</p>';
-}
-$stmt2->close();        
-  
+//populated instructor array 
+$inlist5 =  "'" . $ID5[0] . "'";
+    for ($i = 1; $i < count($ID5); ++$i) {
+        $inlist5 =  $inlist5 . ", '" . $ID5[$i] . "'";
+    } 
 //-------------------------------------------------------------------------------------------------------- 
 //THIS IS THE GRAPHING DATA: 
-//if no attributes selected
-if(count($ID)==0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql3 = "SELECT s.score  
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
+for ($i = 0; $i < count($ID); ++$i) {
+//if all cohorts selected
+if($inlist4=="'All Program'"){
+	${'sql'.$i} = "SELECT s.score  
+	FROM ScoreUsedFor s 
+	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2)";
 }
-//if no cohorts selected
-if(count($ID)<>0 && count($ID2)==0 && count($ID3)<>0){
-	$sql3 = "SELECT s.score 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.courseName IN ($inlist3)";
+else
+{
+//if one cohort selected
+	${'sql'.$i} = "SELECT s.score  
+	FROM ScoreUsedFor s JOIN students s1 
+	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
 }
-//if no courses selected
-if(count($ID)<>0 && count($ID2)<>0 && count($ID3)==0){
-	$sql3 = "SELECT s.score 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2)";
-}
-//if no attributes and cohorts selected
-if(count($ID)==0 && count($ID2)==0 && count($ID3)<>0){
-	$sql3 = "SELECT s.score 
-	FROM ScoreUsedFor s
-	WHERE s.courseName IN ($inlist3)";
-}
-//if no attributes and courses selected
-if(count($ID)==0 && count($ID2)<>0 && count($ID3)==0){
-	$sql3 = "SELECT STDDEV(s.score) 
-	FROM ScoreUsedFor s
-	WHERE s.Cohort IN ($inlist2)";
-}
-//if no cohorts and courses selected
-if(count($ID)<>0 && count($ID2)==0 && count($ID3)==0){
-	$sql3 = "SELECT s.score  
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist)";
-}
-//if no attributes and cohorts and courses selected
-if(count($ID)==0 && count($ID2)==0 && count($ID3)==0){
-  $message = "Please select a filter option.";
-  echo "<script type='text/javascript'>alert('$message');</script>";
-}
-//if all attributes and cohorts and courses selected
-if(count($ID)<>0 && count($ID2)<>0 && count($ID3)<>0){
-	$sql3 = "SELECT s.score 
-	FROM ScoreUsedFor s
-	WHERE s.Attribute IN ($inlist) AND s.Cohort IN ($inlist2) AND s.courseName IN ($inlist3)";
-}
+print ${'sql'.$i};
+echo '<br>'; 
 //-------------------------------------------------------------------------------------------------------
 // Prepared statement, stage 1: prepare
 //$stmt3 = $mysqli->prepare($sql3);
 // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
-$stmt3= $mysqli-> prepare ($sql3);
+${'stmt'.$i}= $mysqli-> prepare (${'sql'.$i});
 //$stmt3->bind_param('i', $ID); 
-$stmt3->execute (); 
+${'stmt'.$i}->execute (); 
 // $stmt3->execute() function returns boolean indicating success 
-$stmt3->bind_result($ScoreUsedFor_score);
+${'stmt'.$i}->bind_result($ScoreUsedFor_score);
     $bin1 = array();
     $bin2 = array();
     $bin3 = array();
     $bin4 = array();
     $bin5 = array();
     //echo ' <p>'.$ScoreUsedFor_score.'<br>'.'does this work'.'</p>';
-    while ($stmt3->fetch())
+    while (${'stmt'.$i}->fetch())
     {   
         //echo ' <p>'.$ScoreUsedFor_score.'<br>'.'yes'.'</p>';
         //echo gettype($ScoreUsedFor_score.'<br.';
@@ -283,14 +119,17 @@ $stmt3->bind_result($ScoreUsedFor_score);
     $count4 = count($bin4);
     $count5 = count($bin5);
     
-    $printstring= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-    
+    $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+	print $printarray[$i];
+	echo '<br>'; 
+   }
     
     $numofattr = 3;
+
     
     
-$stmt3->close();
-$mysqli->close();
+//$stmt3->close();
+//$mysqli->close();
 ?>
     
 <head>
@@ -508,6 +347,13 @@ $mysqli->close();
      <svg class="chart"></svg>
             <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
     
+            <script type='text/javascript'>
+            <?php
+            $js_array = json_encode($printarray);
+            echo "var graphs1 = ". $js_array . ";\n";
+            ?>
+            </script>
+    
             <script>
             // Adapted from http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically
             var randomColour = (function(){
@@ -654,8 +500,8 @@ $mysqli->close();
 
                 //For the second chart
                 var svg2 = d3.select("svg"),
-                    margin2 = {top: 25, right: 420, bottom: 40, left: 40},
-                    width2 = 770 - margin2.left - margin2.right, //330
+                    margin2 = {top: 25, right: 30, bottom: 40, left: 40},
+                    width2 = 400 - margin2.left - margin2.right, //330
                     height2 = 250 - margin2.top - margin2.bottom; //185
                 var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
@@ -731,23 +577,23 @@ $mysqli->close();
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
                 
             }
-                
             
-            var numofattr = parseInt( "<?php echo $numofattr?>"); 
-            
+
             var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
-            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
+            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 " };
             
             for (i=0; i < numofattr; i++){
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
 
+            }
+                   
+                
+            for (i=0; i < numofattr; i++){
+                //alert (graphs1[i]);
                 graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
-
             }
                 
-            for (var key in graphs1){
-                
-            }
-                
+            //alert("working?");                
                 
         </script>   
 
