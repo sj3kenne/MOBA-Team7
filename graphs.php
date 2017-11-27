@@ -115,14 +115,15 @@ for ($i = 0; $i < count($ID); ++$i) {
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
-    
     $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+    //printarray2[$i] = ;
+	$printarray3[$i]=$ID[$i];
 	print $printarray[$i];
+	print $printarray3[$i];
 	echo '<br>'; 
-    
-    echo count($printarray);
 }
-
+$printstring4=$ID2[0];
+print $printstring4;
     
     
 //$stmt3->close();
@@ -347,6 +348,10 @@ for ($i = 0; $i < count($ID); ++$i) {
             <?php
             $js_array = json_encode($printarray);
             echo "var graphs1 = ". $js_array . ";\n";
+                
+                
+            $js_array3 = json_encode($printarray3);
+            echo "var title = ". $js_array3 . ";\n";
             ?>
             </script>
     
@@ -583,13 +588,15 @@ for ($i = 0; $i < count($ID); ++$i) {
             //alert(graphs1[1]);
             
             var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
-                
+ 
+            var cohort = "<?php echo $printstring4?>"
+            //alert(cohort);
             //alert(numofattr);    
             //alert(graphs1.length);
             //alert(graphs2.length);                
             for (i=0; i < numofattr; i=i+1){
                 //alert(i);
-                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
+                graphs(graphs1[i],graphs2[i],title[i],cohort,i);
                 //alert (graphs1[i]);
             }
                 
