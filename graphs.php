@@ -68,7 +68,7 @@ for ($i = 0; $i < count($ID); ++$i) {
     if($inlist4=="'All Program'"){
         ${'sql'.$i} = "SELECT s.score  
         FROM ScoreUsedFor s 
-        WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2)";
+        WHERE (s.Attribute IN ('$ID[$i]') OR s.ProgIndicator IN ('$ID[$i]'))AND s.Cohort IN ($inlist2)";
     }
     else
     {
