@@ -115,14 +115,14 @@ for ($i = 0; $i < count($ID); ++$i) {
     $count3 = count($bin3);              
     $count4 = count($bin4);
     $count5 = count($bin5);
-    
     $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
+	$printarray3[$i]=$ID[$i];
 	print $printarray[$i];
+	print $printarray3[$i];
 	echo '<br>'; 
-    
-    echo count($printarray);
 }
-
+$printarray4[0]=$ID2[0];
+print $printarray4[0];
     
     
 //$stmt3->close();
