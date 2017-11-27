@@ -495,10 +495,13 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
                         .text(histotitle + " Histogram of Students");  
 
+
+                
+
                 //For the second chart
                 var svg2 = d3.select("svg"),
-                    margin2 = {top: 25, right: 30, bottom: 40, left: 40},
-                    width2 = 400 - margin2.left - margin2.right, //330
+                    margin2 = {top: 25, right: 420, bottom: 40, left: 40},
+                    width2 = 770 - margin2.left - margin2.right, //330
                     height2 = 250 - margin2.top - margin2.bottom; //185
                 var barWidth2 = width2 / progressionarray.length;
                 var x2 = d3.scale.ordinal()
@@ -574,19 +577,25 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
                 
             }
-
-            var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
-            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 " };
+                
             
-            for (i=0; i < numofattr; i++){
-                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
-
-            }       
+            alert("working?");
+            
+            //var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
+            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
+            
+            alert(graphs1[1]);
+            
+            var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
+                
+            alert(numofattr);    
                 
             for (i=0; i < numofattr; i++){
-
-                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
-            }              
+                alert (graphs1[i]);
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
+            }
+                
+            alert("working?");                
                 
         </script>   
 
