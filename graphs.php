@@ -495,9 +495,6 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
                         .attr("transform", "translate("+ (width/2) + ","+ (-13) + ")")
                         .text(histotitle + " Histogram of Students");  
 
-
-                
-
                 //For the second chart
                 var svg2 = d3.select("svg"),
                     margin2 = {top: 25, right: 30, bottom: 40, left: 40},
@@ -577,7 +574,6 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
                         .text(histotitle + " Progression of " + progtitle + " Cohort");  
                 
             }
-            
 
             var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
             var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 " };
@@ -585,15 +581,12 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
             for (i=0; i < numofattr; i++){
                 graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
 
-            }
-                   
+            }       
                 
             for (i=0; i < numofattr; i++){
-                //alert (graphs1[i]);
-                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
-            }
-                
-            //alert("working?");                
+
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
+            }              
                 
         </script>   
 
