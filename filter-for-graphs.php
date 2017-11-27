@@ -1,6 +1,6 @@
 <html>
     <head>
-       <title>Graph Filters</title>
+       <title>Filter for Graphs</title>
         <link rel="stylesheet" type="text/css" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -27,46 +27,84 @@ include ('./my_connect.php');
 $mysqli = get_mysqli_conn();
 $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
- $sql = "SELECT DISTINCT s.Attribute,s.Attribute "
-    . "FROM scoreusedfor s";
- $sql2 = "SELECT DISTINCT s.Cohort,s.Cohort "
-    . "FROM scoreusedfor s";
- $sql3 = "SELECT DISTINCT s.courseName,s.courseName "
-    . "FROM scoreusedfor s";
+$mysqli4 = get_mysqli_conn();
+$mysqli5 = get_mysqli_conn();
+ $sql = "SELECT DISTINCT s.Cohort,s.Cohort
+         FROM scoreusedfor s";
+ $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute
+         FROM scoreusedfor s";
+ $sql3 = "SELECT DISTINCT s.courseName,s.courseName
+          FROM scoreusedfor s";
+ $sql4 = "SELECT DISTINCT s.FirstName,s.LastName
+          FROM scoreusedfor s";
+ $sql5 = "SELECT DISTINCT st.GradYear,st.GradYear
+          FROM students st";
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);
 $stmt3 = $mysqli3->prepare($sql3);
+$stmt4 = $mysqli4->prepare($sql4);
+$stmt5 = $mysqli5->prepare($sql5);
 // Prepared statement, stage 2: execute
 $stmt->execute();
 $stmt2->execute();
 $stmt3->execute();
+$stmt4->execute();
+$stmt5->execute();
 // Bind result variables 
-$stmt->bind_result($scoreusedfor_AttributeName, $scoreusedfor_AttributeName); 
-$stmt2->bind_result($students_GradYear, $students_GradYear); 
-$stmt3->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName);
+$stmt->bind_result($scoreusedfor_cohort, $scoreusedfor_cohort); 
+$stmt2->bind_result($scoreusedfor_attribute, $scoreusedfor_attribute);
+$stmt3->bind_result($scoreusedfor_courseName, $scoreusedfor_courseName); 
+$stmt4->bind_result($scoreusedfor_FirstName, $scoreusedfor_LastName); 
+$stmt5->bind_result($students_GradYear, $students_GradYear); 
 /* fetch values */ 
+//------------------------------------------------------------------------------------------------------------
+
+//User selects class
+echo '<h3>Select Class: </h3>';
+echo '<select name="selectedclass[]">';
+  echo '<option value="selectedclass[]">All MGTE students</option>';
+  while ($stmt5->fetch()) 
+  {
+    echo '<option value="selectedclass[]">' . $students_GradYear . '</option>';
+  }
+echo '</select><br>'; 
+
+//User selects Cohort
+echo '<h3>Select Cohort: </h3>';
+echo '<select name="selectedcohort[]">';
+	echo '<option value="selectedcohorts[]">All Cohorts</option>';
+	while ($stmt->fetch()) 
+	{
+		echo '<option value="selectedcohorts[]">' . $scoreusedfor_cohort . '</option>';
+	}
+echo '</select><br>'; 
+//-----------------------------------------------------------------------------------------------------------
 //User selects Attributes
-echo '<h3>Select Attribute(s): </h3>';
-while ($stmt->fetch()) 
-{
-    echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_AttributeName .'"/>';
-    echo'<label for="selectedattributes[]">' . $scoreusedfor_AttributeName . '</label>';
-    echo '<br>'; 
-}
-    echo "</table><br>";
-echo '</select><br>';  
-//User selects Cohorts
-echo '<h3>Select Cohort(s): </h3>';
+echo '<h3>Select Attribute(s) and/or Program Indicator(s): </h3>';
 while ($stmt2->fetch()) 
 {
-    echo '<input type="checkbox" name="selectedcohorts[]" value="'. $students_GradYear .'"/>';
-    echo'<label for="selectedcohorts[]">' . $students_GradYear . '</label>';
-    echo '<br>'; 
+    echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_attribute .'"/>';
+    echo'<label for="selectedattributes[]">' . $scoreusedfor_attribute . '</label>';
+	echo '<br>'; 
+		//populate attribute's indicators
+		$mysqli5 = get_mysqli_conn();
+		$sql5 = "SELECT DISTINCT s.ProgIndicator, s.ProgIndicator
+			  FROM scoreusedfor s
+			  WHERE s.Attribute = '$scoreusedfor_attribute'";
+		$stmt5 = $mysqli5->prepare($sql5);
+		$stmt5->execute();
+		$stmt5->bind_result($scoreusedfor_indicator,$scoreusedfor_indicator); 
+		while ($stmt5->fetch()) 
+		{
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+		echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_indicator .'"/>';
+		echo'<label for="selectedattributes[]">' . $scoreusedfor_indicator . '</label>';
+		echo '<br>'; 
+		}
 }
-    echo "</table><br>";
-echo '</select><br>';  
-//User selects Courses
+//-----------------------------------------------------------------------------------------------------------
+//User selects a Course
 echo '<h3> Pick a Course: </h3>';
 while ($stmt3->fetch()) 
 {
@@ -74,16 +112,29 @@ while ($stmt3->fetch())
     echo'<label for="selectedcourses[]">' . $scoreusedfor_courseName . '</label>';
     echo '<br>'; 
 }
+//-----------------------------------------------------------------------------------------------------------
+//User select a Prof
+echo '<h3>Select an Instructor: </h3>';
+while ($stmt4->fetch()) 
+{
+    echo '<input type="checkbox" name="selectedinstructor[]" value="'. $scoreusedfor_FirstName, $scoreusedfor_LastName .'"/>';
+    echo'<label for="selectedinstructor[]">' . $scoreusedfor_FirstName, ' ', $scoreusedfor_LastName . '</label>';
+    echo '<br>'; 
+}
 $stmt->close(); 
 $stmt2->close(); 
 $stmt3->close(); 
+$stmt4->close(); 
+$stmt5->close(); 
 $mysqli->close();
 $mysqli2->close();
 $mysqli3->close();
+$mysqli4->close();
+$mysqli5->close();
 ?>
     
 <br>
-<input type="submit" value="Analyze Data"/>
+<input type="submit" value="Next"/>
 </br>
 </form>
 <div class="tron">
