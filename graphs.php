@@ -75,7 +75,7 @@ else
 //if one cohort selected
 	${'sql'.$i} = "SELECT s.score  
 	FROM ScoreUsedFor s JOIN students s1 
-	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
+	WHERE (s.Attribute IN ('$ID[$i]') OR s.ProgIndicator IN ('$ID[$i]'))AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
 }
 print ${'sql'.$i};
 echo '<br>'; 
