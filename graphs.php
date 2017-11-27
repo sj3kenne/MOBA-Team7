@@ -351,7 +351,7 @@ print $printstring4;
                 
                 
             $js_array3 = json_encode($printarray3);
-            echo "var title = ". $js_array . ";\n";
+            echo "var title = ". $js_array3 . ";\n";
             ?>
             </script>
     
