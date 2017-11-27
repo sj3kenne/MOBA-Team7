@@ -5,7 +5,7 @@ session_start();
 ?>
 <html>
     <head>
-       <title>View of Table</title>
+       <title>View Table</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
@@ -16,16 +16,13 @@ session_start();
 <body>
 <form action="export.php">
 <h3> Search results are as follows: </h3>
-
-		<div id="sidebar">
-		
-			<ul>
-				<li><a href="sidebar.html" class="fa fa-home" style="font-size:30px;color:#ccc;"></a></li>
-				<li><a href="filter-for-graphs.php">Analytics</a></li>
-				<li><a href="filter-for-tables.php" class="active">Raw Data</a></li>
-				<li><a href="uploading.html">Import</a></li>
-			</ul>
-		</div>
+    <div id="sidebar">
+            <ul>
+                <li><a href="filter-for-graphs.php" class="active">Analytics</a></li>
+                <li><a href="filter-for-tables.php">Raw Data</a></li>
+                <li><a href="uploading.html">Import</a></li>
+            </ul>
+        </div>
 <br><input type="submit" class="button" value="Export to Excel"/><br>
 <br>
 
