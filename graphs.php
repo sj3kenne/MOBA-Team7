@@ -65,29 +65,29 @@ $inlist5 =  "'" . $ID5[0] . "'";
 //THIS IS THE GRAPHING DATA: 
 for ($i = 0; $i < count($ID); ++$i) {
 //if all cohorts selected
-if($inlist4=="'All Program'"){
-	${'sql'.$i} = "SELECT s.score  
-	FROM ScoreUsedFor s 
-	WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2)";
-}
-else
-{
-//if one cohort selected
-	${'sql'.$i} = "SELECT s.score  
-	FROM ScoreUsedFor s JOIN students s1 
-	WHERE (s.Attribute IN ('$ID[$i]') OR s.ProgIndicator IN ('$ID[$i]'))AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
-}
-print ${'sql'.$i};
-echo '<br>'; 
-//-------------------------------------------------------------------------------------------------------
-// Prepared statement, stage 1: prepare
-//$stmt3 = $mysqli->prepare($sql3);
-// (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
-${'stmt'.$i}= $mysqli-> prepare (${'sql'.$i});
-//$stmt3->bind_param('i', $ID); 
-${'stmt'.$i}->execute (); 
-// $stmt3->execute() function returns boolean indicating success 
-${'stmt'.$i}->bind_result($ScoreUsedFor_score);
+    if($inlist4=="'All Program'"){
+        ${'sql'.$i} = "SELECT s.score  
+        FROM ScoreUsedFor s 
+        WHERE s.Attribute IN ('$ID[$i]') AND s.Cohort IN ($inlist2)";
+    }
+    else
+    {
+    //if one cohort selected
+        ${'sql'.$i} = "SELECT s.score  
+        FROM ScoreUsedFor s JOIN students s1 
+        WHERE (s.Attribute IN ('$ID[$i]') OR s.ProgIndicator IN ('$ID[$i]'))AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
+    }
+    print ${'sql'.$i};
+    echo '<br>'; 
+    //-------------------------------------------------------------------------------------------------------
+    // Prepared statement, stage 1: prepare
+    //$stmt3 = $mysqli->prepare($sql3);
+    // (2) Handle GET parameters; aid is the name of the hidden textbox in the previous page
+    ${'stmt'.$i}= $mysqli-> prepare (${'sql'.$i});
+    //$stmt3->bind_param('i', $ID); 
+    ${'stmt'.$i}->execute (); 
+    // $stmt3->execute() function returns boolean indicating success 
+    ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
     $bin1 = array();
     $bin2 = array();
     $bin3 = array();
@@ -124,7 +124,7 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
 	echo '<br>'; 
     
     echo count($printarray);
-   }
+}
 
     
     
@@ -582,17 +582,19 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
             //alert("working?");
             
             //var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
-            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 ", 3: "3 4 ", 5: "29 3 0 ", 6: "34 43 42 " };
+            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 ", 3: "3 4 ", 4: "29 3 0 ", 5: "29 3 0 ", 6: "34 43 42 ", 7: "4 8 15 16 23 ", 8: "4 8 15 16 23 "};
             
             //alert(graphs1[1]);
             
             var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
                 
-            alert(numofattr);    
-            alert(graphs1.length);    
-            for (i=0; i < numofattr+1; i=i+1){
+            //alert(numofattr);    
+            //alert(graphs1.length);
+            //alert(graphs2.length);                
+            for (i=0; i < numofattr; i=i+1){
+                //alert(i);
+                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);
                 //alert (graphs1[i]);
-                graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
             }
                 
             //alert("working?");                
