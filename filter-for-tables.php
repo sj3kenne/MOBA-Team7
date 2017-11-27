@@ -63,8 +63,6 @@ while ($stmt2->fetch())
     echo'<label for="selectedattributes[]">' . $scoreusedfor_AttributeName . '</label>';
     echo '<br>'; 
 }
-    echo "</table><br>";
-echo '</select><br>';  
 //User selects a cohort
 echo '<h3>Select Cohort(s): </h3>';
 while ($stmt3->fetch()) 
@@ -72,9 +70,7 @@ while ($stmt3->fetch())
     echo '<input type="checkbox" name="selectedattributes[]" value="'. $students_GradYear .'"/>';
     echo'<label for="selectedattributes[]">' . $students_GradYear . '</label>';
     echo '<br>'; 
-}
-    echo "</table><br>";
-echo '</select><br>';  
+} 
 //User selects a Course
 echo '<h3> Pick a Course: </h3>';
 while ($stmt->fetch()) 
@@ -92,8 +88,6 @@ while ($stmt4->fetch())
     echo'<label for="selectedattributes[]">' . $instructors_FirstName, ' ', $instructors_LastName . '</label>';
     echo '<br>'; 
 }
-    echo "</table><br>";
-echo '</select><br>'; 
 $stmt->close(); 
 $mysqli->close();
 ?>
