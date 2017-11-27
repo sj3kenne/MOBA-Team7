@@ -579,23 +579,23 @@ ${'stmt'.$i}->bind_result($ScoreUsedFor_score);
             }
                 
             
-            alert("working?");
+            //alert("working?");
             
             //var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
             var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:" 23 32 4 " };
             
-            alert(graphs1[1]);
+            //alert(graphs1[1]);
             
             var numofattr = graphs1.length; //parseInt( "?php echo $numofattr?"); 
                 
-            alert(numofattr);    
+            //alert(numofattr);    
                 
             for (i=0; i < numofattr; i++){
-                alert (graphs1[i]);
+                //alert (graphs1[i]);
                 graphs(graphs1[i],graphs2[i],"Knowledge Base","2A",i);//, x, y, xAxis[i], yAxis[i]);
             }
                 
-            alert("working?");                
+            //alert("working?");                
                 
         </script>   
 
