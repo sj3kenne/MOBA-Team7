@@ -91,6 +91,8 @@ if ($uploadOk == 0) {
         exit();
     }
  
+    $stmt1->execute (); 
+        
     // if error encountered where student nt found in db            
    } else {
         $count++;
