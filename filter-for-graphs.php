@@ -97,10 +97,12 @@ while ($stmt2->fetch())
 		$stmt5->bind_result($scoreusedfor_indicator,$scoreusedfor_indicator); 
 		while ($stmt5->fetch()) 
 		{
+        if($scoreusedfor_indicator != '' ){
 		echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		echo '<input type="checkbox" name="selectedattributes[]" value="'. $scoreusedfor_indicator .'"/>';
 		echo'<label for="selectedattributes[]">' . $scoreusedfor_indicator . '</label>';
 		echo '<br>'; 
+        }
 		}
 }
 //-----------------------------------------------------------------------------------------------------------
