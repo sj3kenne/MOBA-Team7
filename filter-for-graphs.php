@@ -29,13 +29,13 @@ $mysqli2 = get_mysqli_conn();
 $mysqli3 = get_mysqli_conn();
 $mysqli5 = get_mysqli_conn();
  $sql = "SELECT DISTINCT s.Cohort,s.Cohort
-         FROM scoreusedfor s";
+         FROM scoreusedfor s WHERE s.Cohort IS NOT NULL";
  $sql2 = "SELECT DISTINCT s.Attribute,s.Attribute
-         FROM scoreusedfor s";
+         FROM scoreusedfor s WHERE s.Attribute IS NOT NULL";
  $sql3 = "SELECT DISTINCT s.courseName,s.courseName
-          FROM scoreusedfor s";
+          FROM scoreusedfor s WHERE s.courseName IS NOT NULL";
  $sql5 = "SELECT DISTINCT st.GradYear,st.GradYear
-          FROM students st";
+          FROM students st WHERE st.GradYear IS NOT NULL";
 // Prepared statement, stage 1: prepare
 $stmt = $mysqli->prepare($sql);
 $stmt2 = $mysqli2->prepare($sql2);
