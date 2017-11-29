@@ -73,7 +73,7 @@ if ($uploadOk == 0) {
       $studentlist = $studentlist . "," . $Students_StudentID;
 }
      $studentlist = $studentlist . ",";   
-  for ($i = 0; $i < count($grad); ++$i) { 
+  for ($i = 0; $i < count($grad)-1; ++$i) { 
       $count =0;
       $studentPair = explode(',', $grad[$i]);
       
@@ -90,6 +90,8 @@ if ($uploadOk == 0) {
         exit();
     }
  
+    $stmt1->execute (); 
+        
     // if error encountered where student nt found in db            
    } else {
         $count++;
