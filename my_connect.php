@@ -6,7 +6,7 @@ $local_host = "localhost";
 $local_username = "root";
 $local_password = "root";
 
-$local_databaseName = "smdumlao-msci342-local-db";
+$local_databaseName = "upload1";
 
 
 
