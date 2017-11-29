@@ -1,16 +1,16 @@
 <html>
     <head>
-       <title>Table Filters</title>
+       <title>Filter for Tables</title>
 	   <link rel="stylesheet" type="text/css" href="style.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <header>
-	M-OBA
+	MSCI OBA
 	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
 </header>
 <body>
 <form action="raw-data.php" method="get">
-<h2> Welcome to M-OBA! </h2>
+<h2> Select filters to generate a table: </h2>
 
 	<div id="sidebar">
 		
@@ -81,13 +81,13 @@ while ($stmt->fetch())
 }
     
 //User select a Prof
-echo '<h3>Select an Instructor: </h3>';
+/*echo '<h3>Select an Instructor: </h3>';
 while ($stmt4->fetch()) 
 {
     echo '<input type="checkbox" name="selectedattributes[]" value="'. $instructors_FirstName, $instructors_LastName .'"/>';
     echo'<label for="selectedattributes[]">' . $instructors_FirstName, ' ', $instructors_LastName . '</label>';
     echo '<br>'; 
-}
+}*/
 $stmt->close(); 
 $mysqli->close();
 ?>
@@ -96,7 +96,7 @@ $mysqli->close();
 
     
 <br>
-<input type="submit" value="View Tables"/>
+<input type="submit" value="View Table"/>
 </br>
 </form>
 <div class="tron">

@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <header>
-    M-OBA
+    MSCI OBA
     <img src="waterlooLogo.png" style="height:100%;float:right;"/>
 
 </header>
@@ -398,7 +398,7 @@ $printstring4=$ID2[0];
                 
                 //Split php strings into javascript arrays
                 var progressionarray = stringtosplitB.split(" ");
-                for(var i=0;i<progressionarray.length;i++){progressionarray[i]= parseInt(progressionarray[i],10);}
+                for(var i=0;i<progressionarray.length;i++){progressionarray[i]= parseFloat(progressionarray[i],10);}
                 progressionarray.pop();
                 
                 //Variable progression axis length
@@ -577,7 +577,7 @@ $printstring4=$ID2[0];
             //alert("working?");
             
             //var graphs1 = {0:"6 5 5 6 7 ", 1:"3 4 2 1 19 ", 2:"34 12 12 2 4 "};
-            var graphs2 = {0:"4 8 15 16 23 ", 1:"9 0 23 2 1 2 4 ", 2:"5 23 32 4 ", 3: "3 4 ", 4: "29 3 0 ", 5: "29 3 0 ", 6: "34 43 42 ", 7: "4 8 15 16 23 ", 8: "4 8 15 16 23 "};
+            var graphs2 = {0:"0.55 0.63 0.74 0.88 .89 ", 1:"0.56 0 0 0.77 0.81 0.86 0.92 ", 2:"0.5 0.57 0.88 0.76 ", 3: "0.60 0.83 ", 4: "0 0 0 0.77 0.71 0.88", 5: "0.73 0.79 0.85 ", 6: "0.55 0.63 0.74 0.88 .89 ", 7: "0.5 0.57 0.88 0.76 ", 8: "0 0 0 0.77 0.71 0.88 "};
             
             //alert(graphs1[1]);
             

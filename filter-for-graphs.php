@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 <header>
-	M-OBA
+	MSCI OBA
 	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
 </header>
 <body>
@@ -17,7 +17,7 @@
             </ul>
         </div>
 <form action="graphs.php" method="get">
-<h2> Welcome to M-OBA! </h2>
+<h2> Select filter options to generate graphs: </h2>
 <?php
 // Enable error logging: 
 error_reporting(E_ALL ^ E_NOTICE);
@@ -56,7 +56,7 @@ $stmt5->bind_result($students_GradYear, $students_GradYear);
 //User selects class
 echo '<h3> Select a Class: </h3>';
 echo '<input type="radio" name="selectedclass[]" value="All Program"/>';
-echo'<label for="selectedclass[]">All Program</label>';
+echo'<label for="selectedclass[]">All Students</label>';
 echo '<br>'; 
 while ($stmt5->fetch()) 
 {
@@ -66,7 +66,7 @@ while ($stmt5->fetch())
 }
 //------------------------------------------------------------------------------------------------------------
 //User selects Cohort
-echo '<h3> Select a Cohort/Course: </h3>';
+echo '<h3> Select a Term/Course: </h3>';
 while ($stmt->fetch()) 
 {
     echo '<input type="radio" name="selectedcohorts[]" value="'. $scoreusedfor_cohort .'"/>';
@@ -115,7 +115,7 @@ $mysqli5->close();
 ?>
     
 <br>
-<input type="submit" value="Next"/>
+<input type="submit" value="Generate Graphs"/>
 </br>
 </form>
 <div class="tron">
