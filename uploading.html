@@ -5,11 +5,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <header>
-	M-OBA
+	MSCI OBA
 	<img src="waterlooLogo.png" style="height:100%;float:right;"/>
 </header>
 <body>
-<h2>Import</h2>
+<h2>Import Files</h2>
 <div id="sidebar">
 	
 		<ul>
@@ -20,15 +20,15 @@
 	</div>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
-    Select file with list of student graduting this year: <br>
+    1. Select file with list of students and their graduating year: <br>
     <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" class="button" value="Upload List" name="submit">
+    <input type="submit" class="button" value="Import List" name="submit">
 </form>
 <form
    	action="uploadA13.php" method="post" enctype="multipart/form-data">
-    Select A13 File: <br>
+    2. Select A13 file to import: <br>
     <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" class="button" value="Upload A13" name="submit">
+    <input type="submit" class="button" value="Import A13 File" name="submit">
 </form>
 
 </body>
