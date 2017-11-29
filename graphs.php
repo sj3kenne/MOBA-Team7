@@ -38,7 +38,7 @@ $inlist =  "'" . $ID[0] . "'";
         $inlist =  $inlist . ", '" . $ID[$i] . "'";
     }
 //print $inlist;
-echo '<br>'; 
+//echo '<br>'; 
 //populated cohorts array 
 $inlist2 =  "'" . $ID2[0] . "'";
     for ($i = 1; $i < count($ID2); ++$i) {
@@ -69,7 +69,7 @@ for ($i = 0; $i < count($ID); ++$i) {
         WHERE (s.Attribute IN ('$ID[$i]') OR s.ProgIndicator IN ('$ID[$i]'))AND s.Cohort IN ($inlist2) AND s.StudentID=s1.StudentID AND s1.GradYear IN ($inlist4)";
     }
     //print ${'sql'.$i};
-    echo '<br>'; 
+    //echo '<br>'; 
     //-------------------------------------------------------------------------------------------------------
     // Prepared statement, stage 1: prepare
     //$stmt3 = $mysqli->prepare($sql3);
@@ -110,11 +110,9 @@ for ($i = 0; $i < count($ID); ++$i) {
     $count4 = count($bin4);
     $count5 = count($bin5);
     $printarray[$i]= $count5 . ' ' . $count4 . ' ' . $count3 . ' ' . $count2 . ' ' . $count1 . ' ';
-    //printarray2[$i] = ;
 	$printarray3[$i]=$ID[$i];
-	//print $printarray[$i];
-	//print $printarray3[$i];
-	echo '<br>'; 
+
+	//echo '<br>'; 
 }
 $printstring4=$ID2[0];
 //print $printstring4;
@@ -122,6 +120,8 @@ $printstring4=$ID2[0];
     
 //$stmt3->close();
 //$mysqli->close();
+
+echo '<br>'; 
 ?>
     
 <head>
